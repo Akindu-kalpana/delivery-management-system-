@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "track": "Track Delivery"
+  },
+  "hero": {
+    "title": "Fast & Reliable Delivery",
+    "subtitle": "Nopeiden Kuljetusten Ritarit AY - Your trusted delivery partner in Finland",
+    "cta": "Book a Delivery",
+    "track": "Track Your Package"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "submit": "Submit",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "booking": {
+    "title": "Book a Delivery",
+    "chatPlaceholder": "Type your message...",
+    "send": "Send",
+    "confirm": "Confirm Booking",
+    "success": "Delivery booked successfully!"
+  },
+  "tracking": {
+    "title": "Track Your Delivery",
+    "id": "Delivery ID",
+    "search": "Search",
+    "status": {
+      "pending": "Pending",
+      "picked_up": "Picked Up",
+      "in_transit": "In Transit",
+      "delivered": "Delivered"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "myDeliveries": "My Deliveries",
+    "assignedDeliveries": "Assigned Deliveries",
+    "allDeliveries": "All Deliveries"
+  }
+}

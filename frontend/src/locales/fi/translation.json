@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "home": "Etusivu",
+    "about": "Meistä",
+    "services": "Palvelut",
+    "contact": "Yhteystiedot",
+    "login": "Kirjaudu",
+    "register": "Rekisteröidy",
+    "logout": "Kirjaudu ulos",
+    "track": "Seuraa toimitusta"
+  },
+  "hero": {
+    "title": "Nopea ja luotettava toimitus",
+    "subtitle": "Nopeiden Kuljetusten Ritarit AY - Luotettava toimituskumppanisi Suomessa",
+    "cta": "Tilaa toimitus",
+    "track": "Seuraa pakettia"
+  },
+  "auth": {
+    "login": "Kirjaudu",
+    "register": "Rekisteröidy",
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "name": "Koko nimi",
+    "submit": "Lähetä",
+    "noAccount": "Eikö sinulla ole tiliä?",
+    "hasAccount": "Onko sinulla jo tili?"
+  },
+  "booking": {
+    "title": "Tilaa toimitus",
+    "chatPlaceholder": "Kirjoita viestisi...",
+    "send": "Lähetä",
+    "confirm": "Vahvista tilaus",
+    "success": "Toimitus tilattu onnistuneesti!"
+  },
+  "tracking": {
+    "title": "Seuraa toimitustasi",
+    "id": "Toimitus ID",
+    "search": "Hae",
+    "status": {
+      "pending": "Odottaa",
+      "picked_up": "Noudettu",
+      "in_transit": "Kuljetuksessa",
+      "delivered": "Toimitettu"
+    }
+  },
+  "dashboard": {
+    "welcome": "Tervetuloa",
+    "myDeliveries": "Omat toimitukset",
+    "assignedDeliveries": "Määrätyt toimitukset",
+    "allDeliveries": "Kaikki toimitukset"
+  }
+}

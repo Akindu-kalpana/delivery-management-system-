@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "home": "Главная",
+    "about": "О нас",
+    "services": "Услуги",
+    "contact": "Контакты",
+    "login": "Войти",
+    "register": "Регистрация",
+    "logout": "Выйти",
+    "track": "Отследить доставку"
+  },
+  "hero": {
+    "title": "Быстрая и надёжная доставка",
+    "subtitle": "Nopeiden Kuljetusten Ritarit AY - Ваш надёжный партнёр по доставке в Финляндии",
+    "cta": "Заказать доставку",
+    "track": "Отследить посылку"
+  },
+  "auth": {
+    "login": "Войти",
+    "register": "Регистрация",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "name": "Полное имя",
+    "submit": "Отправить",
+    "noAccount": "Нет аккаунта?",
+    "hasAccount": "Уже есть аккаунт?"
+  },
+  "booking": {
+    "title": "Заказать доставку",
+    "chatPlaceholder": "Введите сообщение...",
+    "send": "Отправить",
+    "confirm": "Подтвердить заказ",
+    "success": "Доставка успешно заказана!"
+  },
+  "tracking": {
+    "title": "Отследить доставку",
+    "id": "ID доставки",
+    "search": "Поиск",
+    "status": {
+      "pending": "Ожидает",
+      "picked_up": "Забрано",
+      "in_transit": "В пути",
+      "delivered": "Доставлено"
+    }
+  },
+  "dashboard": {
+    "welcome": "Добро пожаловать",
+    "myDeliveries": "Мои доставки",
+    "assignedDeliveries": "Назначенные доставки",
+    "allDeliveries": "Все доставки"
+  }
+}
