@@ -1,4 +1,113 @@
-  const Register = () => {
-  return <div>Register Page</div>;
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+
+const Register = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'user' });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      await axios.post('http://localhost:5000/api/auth/register', formData);
+      navigate('/login');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Registration failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={{minHeight: '100vh', background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)'}} className="flex items-center justify-center px-4">
+      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+        
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <div className="text-5xl mb-3">🚚</div>
+          <h1 className="text-2xl font-bold text-gray-800">NKR Delivery</h1>
+          <p className="text-gray-500 mt-1">{t('auth.register')}</p>
+        </div>
+
+        {/* Error */}
+        {error && (
+          <div style={{background: '#fee2e2', color: '#ef4444'}} className="px-4 py-3 rounded-lg mb-6 text-sm">
+            {error}
+          </div>
+        )}
+
+        {/* Form */}
+        <div className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.name')}</label>
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              style={{border: '1px solid #d1d5db', borderRadius: '8px', padding: '12px 16px', width: '100%'}}
+              placeholder="John Smith"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.email')}</label>
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              style={{border: '1px solid #d1d5db', borderRadius: '8px', padding: '12px 16px', width: '100%'}}
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.password')}</label>
+            <input
+              type="password"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              style={{border: '1px solid #d1d5db', borderRadius: '8px', padding: '12px 16px', width: '100%'}}
+              placeholder="••••••••"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+            <select
+              value={formData.role}
+              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+              style={{border: '1px solid #d1d5db', borderRadius: '8px', padding: '12px 16px', width: '100%'}}
+            >
+              <option value="user">User</option>
+              <option value="driver">Driver</option>
+            </select>
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            style={{background: '#2563eb', color: 'white', width: '100%', padding: '12px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', border: 'none'}}
+          >
+            {loading ? 'Loading...' : t('auth.register')}
+          </button>
+        </div>
+
+        <p className="text-center text-gray-500 mt-6 text-sm">
+          {t('auth.hasAccount')}{' '}
+          <Link to="/login" style={{color: '#2563eb', fontWeight: '500'}}>
+            {t('nav.login')}
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
 };
+
 export default Register;
