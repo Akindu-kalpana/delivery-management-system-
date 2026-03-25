@@ -1,0 +1,299 @@
+{
+  "nav": {
+    "home": "Hem",
+    "about": "Om oss",
+    "services": "Tjänster",
+    "contact": "Kontakt",
+    "login": "Logga in",
+    "register": "Registrera",
+    "logout": "Logga ut",
+    "track": "Spåra leverans"
+  },
+  "hero": {
+    "badge": "Finlands första AI-leveransplattform",
+    "title": "Snabb och pålitlig leverans",
+    "subtitle": "Nopeiden Kuljetusten Ritarit AY - Din pålitliga leveranspartner i Finland",
+    "cta": "Boka en leverans",
+    "track": "Spåra ditt paket"
+  },
+  "landing": {
+    "stats": {
+      "deliveries": "Genomförda leveranser",
+      "clients": "Nöjda kunder",
+      "languages": "Stödda språk",
+      "support": "Kundsupport"
+    },
+    "features": {
+      "title": "Varför välja NKR Delivery?",
+      "subtitle": "Vi gör leverans enkelt, snabbt och tillgängligt för alla",
+      "ai": { "title": "AI-driven bokning", "desc": "Boka din leverans genom att helt enkelt chatta med vår AI-assistent. Inga formulär, inget krångel. Bara naturligt samtal." },
+      "multilingual": { "title": "Flerspråkigt stöd", "desc": "Använd systemet på engelska, finska eller ryska. Chatboten svarar automatiskt på ditt språk." },
+      "tracking": { "title": "Realtidsspårning", "desc": "Spåra din leveransstatus i realtid från upphämtning till slutleverans med live-statusuppdateringar." },
+      "secure": { "title": "Säkert och pålitligt", "desc": "Dina data skyddas med JWT-autentisering och rollbaserad åtkomstkontroll för maximal säkerhet." },
+      "fast": { "title": "Snabb leverans", "desc": "Vi säkerställer att dina paket levereras snabbt och säkert över hela Finland med dedikerade förare." },
+      "everywhere": { "title": "Fungerar överallt", "desc": "Åtkomst till plattformen från vilken enhet som helst — dator, surfplatta eller mobil. Alltid tillgänglig när du behöver det." }
+    },
+    "howItWorks": {
+      "title": "Hur det fungerar",
+      "subtitle": "Boka en leverans i bara 4 enkla steg",
+      "register": { "title": "Registrera", "desc": "Skapa ditt gratis konto på sekunder" },
+      "chat": { "title": "Chatta med AI", "desc": "Berätta för vår chatbot vad du behöver leverera" },
+      "confirm": { "title": "Bekräfta", "desc": "Granska detaljerna och bekräfta din bokning" },
+      "trackStep": { "title": "Spåra", "desc": "Spåra din leverans från upphämtning till leverans" }
+    },
+    "testimonials": {
+      "title": "Vad våra kunder säger"
+    },
+    "cta": {
+      "title": "Redo att skicka?",
+      "subtitle": "Gå med hundratals nöjda kunder och börja boka leveranser idag.",
+      "button": "Kom igång gratis →"
+    },
+    "footer": {
+      "description": "Finlands första AI-drivna leveransbokningsplattform. Snabb, pålitlig, flerspråkig.",
+      "quickLinks": "Snabblänkar",
+      "contact": "Kontakt",
+      "languages": "Språk",
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Alla rättigheter förbehållna."
+    }
+  },
+  "about": {
+    "title": "Om oss",
+    "subtitle": "Vi är Nopeiden Kuljetusten Ritarit AY — ett finskt leveransföretag engagerat i snabb, pålitlig och tillgänglig logistik.",
+    "story": {
+      "title": "Vår historia",
+      "p1": "Nopeiden Kuljetusten Ritarit AY grundades med ett enkelt uppdrag — att göra leveranstjänster snabba, prisvärda och tillgängliga för alla i Finland.",
+      "p2": "Vi tror att boka en leverans bör vara lika enkelt som att ha ett samtal. Det är därför vi byggde Finlands första AI-drivna leveransbokningssystem som stöder engelska, finska och ryska.",
+      "p3": "Oavsett om du skickar ett litet paket tvärs över staden eller hanterar flera leveranser för ditt företag, har vi dig täckt."
+    },
+    "values": {
+      "title": "Våra värderingar",
+      "speed": { "title": "Hastighet", "desc": "Vi rör oss snabbt så att dina paket anländer i tid, varje gång." },
+      "reliability": { "title": "Pålitlighet", "desc": "Du kan räkna med oss för att hantera dina leveranser med omsorg och professionalism." },
+      "accessibility": { "title": "Tillgänglighet", "desc": "Vi servar alla — på engelska, finska och ryska." },
+      "security": { "title": "Säkerhet", "desc": "Dina data och paket är alltid säkra hos oss." }
+    },
+    "cta": {
+      "title": "Redo att skicka?",
+      "subtitle": "Gå med oss idag och upplev leverans på det moderna sättet.",
+      "button": "Kom igång"
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Alla rättigheter förbehållna."
+    }
+  },
+  "services": {
+    "title": "Våra tjänster",
+    "subtitle": "Allt du behöver för snabb och pålitlig leveranshantering i Finland",
+    "ai": { "title": "AI-driven bokning", "desc": "Boka din leverans genom att helt enkelt chatta med vår AI-assistent. Inga formulär, inga komplicerade steg. Berätta bara vad du behöver och vi tar hand om resten." },
+    "tracking": { "title": "Realtidsspårning", "desc": "Spåra din leverans från upphämtning till leverans i realtid. Vet alltid var ditt paket är med live-statusuppdateringar." },
+    "multilingual": { "title": "Flerspråkigt stöd", "desc": "Vårt system stöder engelska, finska och ryska. Byt språk när som helst och interagera med chatboten på ditt föredragna språk." },
+    "sameDay": { "title": "Leverans samma dag", "desc": "Behöver du det snabbt? Vi erbjuder leveransalternativ samma dag för brådskande paket inom staden." },
+    "management": { "title": "Pakethantering", "desc": "Hantera alla dina leveranser från ett ställe. Se historik, spåra status och hantera dina bokningar enkelt." },
+    "secure": { "title": "Säkert och pålitligt", "desc": "Dina data skyddas med branschstandardsäkerhet. Rollbaserad åtkomst säkerställer att bara rätt personer ser rätt information." },
+    "pricing": {
+      "title": "Enkla priser",
+      "subtitle": "Inga dolda avgifter. Betala bara för det du använder.",
+      "mostPopular": "Mest populär",
+      "getStarted": "Kom igång",
+      "basic": {
+        "title": "Bas",
+        "price": "€4,99",
+        "desc": "Per leverans",
+        "feature1": "Standardleverans",
+        "feature2": "Realtidsspårning",
+        "feature3": "E-postmeddelanden"
+      },
+      "business": {
+        "title": "Företag",
+        "price": "€49,99",
+        "desc": "Per månad",
+        "feature1": "Obegränsade leveranser",
+        "feature2": "Prioritetssupport",
+        "feature3": "Avancerad spårning",
+        "feature4": "Dedikerad förare"
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "Anpassad",
+        "desc": "Kontakta oss",
+        "feature1": "Anpassade lösningar",
+        "feature2": "API-åtkomst",
+        "feature3": "Dedikerad kontoansvarig",
+        "feature4": "SLA-garanti"
+      }
+    },
+    "cta": {
+      "title": "Börja leverera idag",
+      "subtitle": "Gå med hundratals nöjda kunder i hela Finland.",
+      "button": "Kom igång gratis"
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Alla rättigheter förbehållna."
+    }
+  },
+  "contact": {
+    "title": "Kontakta oss",
+    "subtitle": "Har du en fråga eller behöver hjälp? Vi finns här för dig.",
+    "getInTouch": "Ta kontakt",
+    "address": "Adress",
+    "phone": "Telefon",
+    "email": "E-post",
+    "workingHours": "Öppettider",
+    "form": {
+      "title": "Skicka ett meddelande",
+      "name": "Ditt namn",
+      "email": "E-postadress",
+      "subject": "Ämne",
+      "message": "Meddelande",
+      "subjectPlaceholder": "Hur kan vi hjälpa?",
+      "messagePlaceholder": "Skriv ditt meddelande här...",
+      "send": "Skicka meddelande",
+      "sent": "Meddelande skickat!",
+      "sentMessage": "Vi återkommer till dig så snart som möjligt."
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Alla rättigheter förbehållna."
+    }
+  },
+  "publicTracking": {
+    "title": "Spåra din leverans",
+    "subtitle": "Ange ditt leverans-ID för att spåra ditt paket i realtid",
+    "enterDeliveryId": "Ange leverans-ID",
+    "placeholder": "Ange ditt leverans-ID (t.ex. 1)",
+    "track": "Spåra",
+    "notFound": "Leveransen hittades inte. Kontrollera ID:t och försök igen.",
+    "delivery": "Leverans",
+    "sender": "Avsändare",
+    "receiver": "Mottagare",
+    "pickupAddress": "Upphämtningsadress",
+    "deliveryAddress": "Leveransadress",
+    "bookedOn": "Bokad den",
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Alla rättigheter förbehållna."
+    }
+  },
+  "auth": {
+    "login": "Logga in",
+    "register": "Registrera",
+    "email": "E-post",
+    "password": "Lösenord",
+    "name": "Fullt namn",
+    "submit": "Skicka",
+    "noAccount": "Har du inget konto?",
+    "hasAccount": "Har du redan ett konto?",
+    "loading": "Laddar...",
+    "role": "Roll",
+    "userRole": "Användare",
+    "driverRole": "Förare"
+  },
+  "booking": {
+    "title": "Boka en leverans",
+    "subtitle": "Chatta med vår AI-assistent för att boka din leverans",
+    "initialMessage": "Hej! Jag är din leveransbokningsassistent. Jag hjälper dig att boka en leverans. Ska vi börja?",
+    "chatPlaceholder": "Skriv ditt meddelande...",
+    "send": "Skicka",
+    "confirm": "Bekräfta bokning",
+    "success": "Leveransen bokades framgångsrikt!",
+    "summary": "Bokningssammanfattning",
+    "sender": "Avsändare",
+    "phone": "Telefon",
+    "pickup": "Upphämtning",
+    "receiver": "Mottagare",
+    "delivery": "Leverans",
+    "package": "Paket",
+    "confirmed": "Bokning bekräftad!",
+    "redirecting": "Omdirigerar till instrumentpanel...",
+    "error": "Tyvärr gick något fel. Försök igen.",
+    "you": "Du",
+    "assistant": "Assistent",
+    "typing": "Skriver..."
+  },
+  "tracking": {
+    "title": "Spåra din leverans",
+    "subtitle": "Ange ditt leverans-ID för att spåra ditt paket",
+    "id": "Leverans-ID",
+    "placeholder": "Ange leverans-ID (t.ex. 1)",
+    "search": "Sök",
+    "notFound": "Leveransen hittades inte. Kontrollera ID:t och försök igen.",
+    "delivery": "Leverans",
+    "sender": "Avsändare",
+    "receiver": "Mottagare",
+    "pickupAddress": "Upphämtningsadress",
+    "deliveryAddress": "Leveransadress",
+    "package": "Paket",
+    "bookedOn": "Bokad den",
+    "status": {
+      "pending": "Väntar",
+      "picked_up": "Hämtad",
+      "in_transit": "Under transport",
+      "delivered": "Levererad"
+    }
+  },
+  "dashboard": {
+    "welcome": "Välkommen",
+    "myDeliveries": "Mina leveranser",
+    "assignedDeliveries": "Tilldelade leveranser",
+    "allDeliveries": "Alla leveranser",
+    "manageDeliveries": "Hantera dina leveranser härifrån",
+    "bookDelivery": "Boka leverans",
+    "trackDelivery": "Spåra leverans",
+    "deliveryHistory": "Leveranshistorik",
+    "noDeliveries": "Inga leveranser ännu",
+    "bookFirst": "Boka din första leverans",
+    "noHistory": "Ingen leveranshistorik ännu",
+    "loading": "Laddar...",
+    "table": {
+      "id": "ID",
+      "receiver": "Mottagare",
+      "deliveryAddress": "Leveransadress",
+      "status": "Status",
+      "date": "Datum"
+    },
+    "history": {
+      "subtitle": "Visa alla dina tidigare och nuvarande leveranser",
+      "from": "Från",
+      "to": "Till",
+      "package": "Paket",
+      "date": "Datum"
+    },
+    "driver": {
+      "manageDeliveries": "Hantera dina tilldelade leveranser",
+      "stats": {
+        "totalAssigned": "Totalt tilldelade",
+        "pending": "Väntar",
+        "inTransit": "Under transport",
+        "delivered": "Levererade"
+      },
+      "noDeliveries": "Inga leveranser tilldelade ännu",
+      "pickup": "Upphämtning",
+      "delivery": "Leverans",
+      "receiver": "Mottagare",
+      "markPickedUp": "Markera som hämtad",
+      "markInTransit": "Markera som under transport",
+      "markDelivered": "Markera som levererad",
+      "updating": "Uppdaterar..."
+    },
+    "admin": {
+      "manageDeliveries": "Hantera alla leveranser härifrån",
+      "stats": {
+        "totalDeliveries": "Totala leveranser",
+        "pending": "Väntar",
+        "inTransit": "Under transport",
+        "delivered": "Levererade"
+      },
+      "table": {
+        "id": "ID",
+        "user": "Användare",
+        "receiver": "Mottagare",
+        "pickup": "Upphämtning",
+        "delivery": "Leverans",
+        "driver": "Förare",
+        "status": "Status",
+        "action": "Åtgärd"
+      },
+      "noDeliveries": "Inga leveranser ännu",
+      "notAssigned": "Ej tilldelad"
+    }
+  }
+}

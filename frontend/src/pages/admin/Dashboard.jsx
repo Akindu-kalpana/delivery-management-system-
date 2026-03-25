@@ -4,51 +4,157 @@ import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
 
+const API = 'http://localhost:5000/api';
+
+const getStatusColor = (status) => {
+  switch (status) {
+    case 'pending': return '#f59e0b';
+    case 'picked_up': return '#3b82f6';
+    case 'in_transit': return '#8b5cf6';
+    case 'delivered': return '#10b981';
+    default: return '#6b7280';
+  }
+};
+
+const StatusBadge = ({ status }) => (
+  <span style={{ background: getStatusColor(status), color: 'white', padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600', whiteSpace: 'nowrap' }}>
+    {status?.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+  </span>
+);
+
 const AdminDashboard = () => {
-  const { t } = useTranslation();
+  useTranslation();
   const { user, token } = useAuth();
+
+  const [activeTab, setActiveTab] = useState('overview');
+
+  // Data states
+  const [dashboardStats, setDashboardStats] = useState(null);
   const [deliveries, setDeliveries] = useState([]);
+  const [users, setUsers] = useState([]);
   const [drivers, setDrivers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [complaints, setComplaints] = useState([]);
+  const [damageClaims, setDamageClaims] = useState([]);
+  const [analytics, setAnalytics] = useState(null);
+
+  // Loading states
+  const [, setLoadingStats] = useState(false);
+  const [loadingDeliveries, setLoadingDeliveries] = useState(false);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [loadingDrivers, setLoadingDrivers] = useState(false);
+  const [loadingComplaints, setLoadingComplaints] = useState(false);
+  const [loadingClaims, setLoadingClaims] = useState(false);
+  const [loadingAnalytics, setLoadingAnalytics] = useState(false);
+
   const [updating, setUpdating] = useState(null);
 
+  // Search/filter
+  const [deliverySearch, setDeliverySearch] = useState('');
+  const [deliveryStatusFilter, setDeliveryStatusFilter] = useState('all');
+
+  const authHeader = { Authorization: `Bearer ${token}` };
+
   useEffect(() => {
+    fetchStats();
     fetchDeliveries();
-  }, [token]);
+  }, []);
 
-  const fetchDeliveries = async () => {
+  useEffect(() => {
+    if (activeTab === 'users' && users.length === 0) fetchUsers();
+    if (activeTab === 'drivers' && drivers.length === 0) fetchDrivers();
+    if (activeTab === 'complaints' && complaints.length === 0) fetchComplaints();
+    if (activeTab === 'damage' && damageClaims.length === 0) fetchDamageClaims();
+    if (activeTab === 'analytics' && !analytics) fetchAnalytics();
+  }, [activeTab]);
+
+  const fetchStats = async () => {
+    setLoadingStats(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/deliveries/all', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setDeliveries(res.data.deliveries);
-
-      // Extract unique drivers from deliveries
-      const uniqueDrivers = res.data.deliveries
-        .filter(d => d.driver_id)
-        .reduce((acc, d) => {
-          if (!acc.find(dr => dr.id === d.driver_id)) {
-            acc.push({ id: d.driver_id, name: d.driver_name });
-          }
-          return acc;
-        }, []);
-      setDrivers(uniqueDrivers);
-
+      const res = await axios.get(`${API}/admin/dashboard`, { headers: authHeader });
+      setDashboardStats(res.data);
     } catch (err) {
-      console.error(err);
+      console.error('fetchStats:', err);
     } finally {
-      setLoading(false);
+      setLoadingStats(false);
     }
   };
 
-  const updateStatus = async (id, status, driver_id) => {
-    setUpdating(id);
+  const fetchDeliveries = async () => {
+    setLoadingDeliveries(true);
     try {
-      await axios.put(
-        `http://localhost:5000/api/deliveries/${id}/status`,
-        { status, driver_id },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const res = await axios.get(`${API}/deliveries/all`, { headers: authHeader });
+      setDeliveries(res.data.deliveries || []);
+    } catch (err) {
+      console.error('fetchDeliveries:', err);
+    } finally {
+      setLoadingDeliveries(false);
+    }
+  };
+
+  const fetchUsers = async () => {
+    setLoadingUsers(true);
+    try {
+      const res = await axios.get(`${API}/admin/users`, { headers: authHeader });
+      setUsers(res.data.users || []);
+    } catch (err) {
+      console.error('fetchUsers:', err);
+    } finally {
+      setLoadingUsers(false);
+    }
+  };
+
+  const fetchDrivers = async () => {
+    setLoadingDrivers(true);
+    try {
+      const res = await axios.get(`${API}/admin/drivers`, { headers: authHeader });
+      setDrivers(res.data.drivers || []);
+    } catch (err) {
+      console.error('fetchDrivers:', err);
+    } finally {
+      setLoadingDrivers(false);
+    }
+  };
+
+  const fetchComplaints = async () => {
+    setLoadingComplaints(true);
+    try {
+      const res = await axios.get(`${API}/complaints/all`, { headers: authHeader });
+      setComplaints(res.data.complaints || []);
+    } catch (err) {
+      console.error('fetchComplaints:', err);
+    } finally {
+      setLoadingComplaints(false);
+    }
+  };
+
+  const fetchDamageClaims = async () => {
+    setLoadingClaims(true);
+    try {
+      const res = await axios.get(`${API}/damage-claims/all`, { headers: authHeader });
+      setDamageClaims(res.data.claims || []);
+    } catch (err) {
+      console.error('fetchDamageClaims:', err);
+    } finally {
+      setLoadingClaims(false);
+    }
+  };
+
+  const fetchAnalytics = async () => {
+    setLoadingAnalytics(true);
+    try {
+      const res = await axios.get(`${API}/admin/analytics`, { headers: authHeader });
+      setAnalytics(res.data);
+    } catch (err) {
+      console.error('fetchAnalytics:', err);
+    } finally {
+      setLoadingAnalytics(false);
+    }
+  };
+
+  const updateDeliveryStatus = async (id, status, driver_id) => {
+    setUpdating(id + '-status');
+    try {
+      await axios.put(`${API}/deliveries/${id}/status`, { status, driver_id }, { headers: authHeader });
       fetchDeliveries();
     } catch (err) {
       console.error(err);
@@ -57,102 +163,538 @@ const AdminDashboard = () => {
     }
   };
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'pending': return '#f59e0b';
-      case 'picked_up': return '#3b82f6';
-      case 'in_transit': return '#8b5cf6';
-      case 'delivered': return '#10b981';
-      default: return '#6b7280';
+  const updateComplaintStatus = async (id, status) => {
+    setUpdating('complaint-' + id);
+    try {
+      await axios.put(`${API}/complaints/${id}/status`, { status }, { headers: authHeader });
+      fetchComplaints();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUpdating(null);
     }
   };
 
+  const handleClaimDecision = async (id, decision) => {
+    setUpdating('claim-' + id);
+    try {
+      await axios.put(`${API}/damage-claims/${id}/decision`, { decision }, { headers: authHeader });
+      fetchDamageClaims();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const filteredDeliveries = deliveries.filter(d => {
+    const matchSearch = !deliverySearch ||
+      String(d.id).includes(deliverySearch) ||
+      (d.sender_name || '').toLowerCase().includes(deliverySearch.toLowerCase()) ||
+      (d.receiver_name || '').toLowerCase().includes(deliverySearch.toLowerCase()) ||
+      (d.pickup_address || '').toLowerCase().includes(deliverySearch.toLowerCase()) ||
+      (d.delivery_address || '').toLowerCase().includes(deliverySearch.toLowerCase());
+    const matchStatus = deliveryStatusFilter === 'all' || d.status === deliveryStatusFilter;
+    return matchSearch && matchStatus;
+  });
+
+  const stats = dashboardStats?.stats || dashboardStats || {};
+  const recentDeliveries = dashboardStats?.recent_deliveries || deliveries.slice(0, 5);
+
+  const TABS = [
+    { key: 'overview', label: '📊 Overview' },
+    { key: 'deliveries', label: '📦 Deliveries' },
+    { key: 'users', label: '👥 Users' },
+    { key: 'drivers', label: '🚗 Drivers' },
+    { key: 'complaints', label: '📣 Complaints' },
+    { key: 'damage', label: '📸 Damage Claims' },
+    { key: 'analytics', label: '📈 Analytics' },
+  ];
+
+  const cardStyle = { background: 'white', borderRadius: '14px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' };
+  const thStyle = { padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600', fontSize: '12px', borderBottom: '2px solid #f1f5f9' };
+  const tdStyle = { padding: '12px', fontSize: '13px', borderBottom: '1px solid #f8fafc', color: '#1e293b' };
+
   return (
-    <div style={{minHeight: '100vh', background: '#f8fafc'}}>
+    <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
       <Navbar />
 
-      <div style={{maxWidth: '1200px', margin: '0 auto', padding: '80px 20px 40px'}}>
+      <div style={{ maxWidth: '1300px', margin: '0 auto', padding: '80px 20px 40px' }}>
 
         {/* Header */}
-        <div style={{background: 'linear-gradient(135deg, #dc2626, #ef4444)', borderRadius: '16px', padding: '32px', marginBottom: '32px', color: 'white'}}>
-          <h1 style={{fontSize: '28px', fontWeight: 'bold', marginBottom: '8px'}}>
-            🛠 {t('dashboard.welcome')}, {user?.name}!
+        <div style={{ background: 'linear-gradient(135deg, #dc2626, #ef4444)', borderRadius: '16px', padding: '28px 32px', marginBottom: '28px', color: 'white' }}>
+          <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '6px' }}>
+            🛠 Admin Dashboard
           </h1>
-          <p style={{opacity: 0.8}}>Manage all deliveries from here</p>
+          <p style={{ opacity: 0.85, fontSize: '14px' }}>Welcome back, {user?.name}. Full control panel.</p>
         </div>
 
-        {/* Stats */}
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px', marginBottom: '32px'}}>
-          {[
-            { label: 'Total Deliveries', value: deliveries.length, color: '#dc2626' },
-            { label: 'Pending', value: deliveries.filter(d => d.status === 'pending').length, color: '#f59e0b' },
-            { label: 'In Transit', value: deliveries.filter(d => d.status === 'in_transit').length, color: '#3b82f6' },
-            { label: 'Delivered', value: deliveries.filter(d => d.status === 'delivered').length, color: '#10b981' },
-          ].map((stat, index) => (
-            <div key={index} style={{background: 'white', borderRadius: '12px', padding: '20px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)'}}>
-              <div style={{fontSize: '32px', fontWeight: 'bold', color: stat.color}}>{stat.value}</div>
-              <div style={{fontSize: '13px', color: '#64748b', marginTop: '4px'}}>{stat.label}</div>
-            </div>
+        {/* Tabs */}
+        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '24px', background: 'white', borderRadius: '12px', padding: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+          {TABS.map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              style={{
+                background: activeTab === tab.key ? '#dc2626' : 'transparent',
+                color: activeTab === tab.key ? 'white' : '#64748b',
+                border: 'none', borderRadius: '8px', padding: '9px 16px',
+                fontWeight: '600', fontSize: '13px', cursor: 'pointer',
+                transition: 'all 0.2s', whiteSpace: 'nowrap',
+              }}
+            >
+              {tab.label}
+            </button>
           ))}
         </div>
 
-        {/* All deliveries */}
-        <div style={{background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)'}}>
-          <h2 style={{fontSize: '20px', fontWeight: 'bold', marginBottom: '20px', color: '#1e293b'}}>
-            📦 {t('dashboard.allDeliveries')}
-          </h2>
+        {/* ── OVERVIEW TAB ── */}
+        {activeTab === 'overview' && (
+          <div>
+            {/* Stats grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', marginBottom: '28px' }}>
+              {[
+                { label: 'Total Deliveries', value: stats.total_deliveries ?? deliveries.length, color: '#dc2626', icon: '📦' },
+                { label: 'Pending', value: stats.pending ?? deliveries.filter(d => d.status === 'pending').length, color: '#f59e0b', icon: '⏳' },
+                { label: 'In Transit', value: stats.in_transit ?? deliveries.filter(d => d.status === 'in_transit').length, color: '#8b5cf6', icon: '🚚' },
+                { label: 'Delivered', value: stats.delivered ?? deliveries.filter(d => d.status === 'delivered').length, color: '#10b981', icon: '✅' },
+                { label: 'Total Users', value: stats.total_users ?? users.length, color: '#2563eb', icon: '👥' },
+                { label: 'Drivers', value: stats.total_drivers ?? drivers.length, color: '#0891b2', icon: '🚗' },
+                { label: 'Revenue', value: stats.total_revenue ? `€${Number(stats.total_revenue).toFixed(0)}` : '—', color: '#16a34a', icon: '💰' },
+                { label: 'Open Complaints', value: stats.open_complaints ?? complaints.filter(c => c.status === 'open').length, color: '#ef4444', icon: '📣' },
+              ].map((s, i) => (
+                <div key={i} style={{ ...cardStyle, textAlign: 'center' }}>
+                  <div style={{ fontSize: '28px', marginBottom: '6px' }}>{s.icon}</div>
+                  <div style={{ fontSize: '26px', fontWeight: 'bold', color: s.color }}>{s.value ?? 0}</div>
+                  <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
 
-          {loading ? (
-            <div style={{textAlign: 'center', padding: '40px', color: '#94a3b8'}}>Loading...</div>
-          ) : deliveries.length === 0 ? (
-            <div style={{textAlign: 'center', padding: '40px'}}>
-              <div style={{fontSize: '48px', marginBottom: '16px'}}>📭</div>
-              <p style={{color: '#94a3b8'}}>No deliveries yet</p>
+            {/* Recent deliveries */}
+            <div style={cardStyle}>
+              <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', marginBottom: '16px' }}>
+                📋 Recent Deliveries
+              </h2>
+              {loadingDeliveries ? (
+                <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading...</div>
+              ) : (
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                      <tr>
+                        {['#', 'Sender', 'Receiver', 'Status', 'Date'].map(h => (
+                          <th key={h} style={thStyle}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {recentDeliveries.slice(0, 8).map(d => (
+                        <tr key={d.id}>
+                          <td style={tdStyle}><strong>#{d.id}</strong></td>
+                          <td style={tdStyle}>{d.sender_name || d.user_name}</td>
+                          <td style={tdStyle}>{d.receiver_name}</td>
+                          <td style={tdStyle}><StatusBadge status={d.status} /></td>
+                          <td style={tdStyle}>{new Date(d.created_at).toLocaleDateString()}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
-          ) : (
-            <div style={{overflowX: 'auto'}}>
-              <table style={{width: '100%', borderCollapse: 'collapse'}}>
-                <thead>
-                  <tr style={{borderBottom: '2px solid #f1f5f9'}}>
-                    {['ID', 'User', 'Receiver', 'Pickup', 'Delivery', 'Driver', 'Status', 'Action'].map((h) => (
-                      <th key={h} style={{padding: '12px', textAlign: 'left', color: '#64748b', fontWeight: '600', fontSize: '13px'}}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {deliveries.map((delivery) => (
-                    <tr key={delivery.id} style={{borderBottom: '1px solid #f1f5f9'}}>
-                      <td style={{padding: '12px', color: '#1e293b', fontWeight: '600'}}>#{delivery.id}</td>
-                      <td style={{padding: '12px', color: '#1e293b', fontSize: '13px'}}>{delivery.user_name}</td>
-                      <td style={{padding: '12px', color: '#1e293b', fontSize: '13px'}}>{delivery.receiver_name}</td>
-                      <td style={{padding: '12px', color: '#64748b', fontSize: '12px'}}>{delivery.pickup_address}</td>
-                      <td style={{padding: '12px', color: '#64748b', fontSize: '12px'}}>{delivery.delivery_address}</td>
-                      <td style={{padding: '12px', color: '#1e293b', fontSize: '13px'}}>{delivery.driver_name || 'Not assigned'}</td>
-                      <td style={{padding: '12px'}}>
-                        <span style={{background: getStatusColor(delivery.status), color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600'}}>
-                          {delivery.status}
-                        </span>
-                      </td>
-                      <td style={{padding: '12px'}}>
-                        <select
-                          value={delivery.status}
-                          onChange={(e) => updateStatus(delivery.id, e.target.value, delivery.driver_id)}
-                          disabled={updating === delivery.id}
-                          style={{border: '1px solid #e2e8f0', borderRadius: '6px', padding: '6px 10px', fontSize: '12px', cursor: 'pointer'}}
-                        >
-                          <option value="pending">Pending</option>
-                          <option value="picked_up">Picked Up</option>
-                          <option value="in_transit">In Transit</option>
-                          <option value="delivered">Delivered</option>
-                        </select>
-                      </td>
+          </div>
+        )}
+
+        {/* ── DELIVERIES TAB ── */}
+        {activeTab === 'deliveries' && (
+          <div style={cardStyle}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+              <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
+                📦 All Deliveries ({filteredDeliveries.length})
+              </h2>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={deliverySearch}
+                  onChange={e => setDeliverySearch(e.target.value)}
+                  style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '8px 14px', fontSize: '13px', outline: 'none', width: '200px' }}
+                />
+                <select
+                  value={deliveryStatusFilter}
+                  onChange={e => setDeliveryStatusFilter(e.target.value)}
+                  style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', outline: 'none' }}
+                >
+                  <option value="all">All Statuses</option>
+                  <option value="pending">Pending</option>
+                  <option value="picked_up">Picked Up</option>
+                  <option value="in_transit">In Transit</option>
+                  <option value="delivered">Delivered</option>
+                </select>
+                <button
+                  onClick={fetchDeliveries}
+                  style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}
+                >
+                  🔄 Refresh
+                </button>
+              </div>
+            </div>
+
+            {loadingDeliveries ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading deliveries...</div>
+            ) : (
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                  <thead>
+                    <tr>
+                      {['#', 'User', 'Receiver', 'Pickup', 'Delivery', 'Driver', 'Status', 'Actions'].map(h => (
+                        <th key={h} style={thStyle}>{h}</th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {filteredDeliveries.map(d => (
+                      <tr key={d.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ ...tdStyle, fontWeight: '700' }}>#{d.id}</td>
+                        <td style={tdStyle}>{d.user_name || d.sender_name}</td>
+                        <td style={tdStyle}>{d.receiver_name}</td>
+                        <td style={{ ...tdStyle, maxWidth: '130px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#64748b' }}>{d.pickup_address}</td>
+                        <td style={{ ...tdStyle, maxWidth: '130px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#64748b' }}>{d.delivery_address}</td>
+                        <td style={tdStyle}>{d.driver_name || <span style={{ color: '#94a3b8' }}>Unassigned</span>}</td>
+                        <td style={tdStyle}><StatusBadge status={d.status} /></td>
+                        <td style={tdStyle}>
+                          <select
+                            value={d.status}
+                            onChange={e => updateDeliveryStatus(d.id, e.target.value, d.driver_id)}
+                            disabled={updating === d.id + '-status'}
+                            style={{ border: '1px solid #e2e8f0', borderRadius: '6px', padding: '5px 8px', fontSize: '12px', cursor: 'pointer' }}
+                          >
+                            <option value="pending">Pending</option>
+                            <option value="picked_up">Picked Up</option>
+                            <option value="in_transit">In Transit</option>
+                            <option value="delivered">Delivered</option>
+                          </select>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── USERS TAB ── */}
+        {activeTab === 'users' && (
+          <div style={cardStyle}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
+                👥 All Users ({users.length})
+              </h2>
+              <button onClick={fetchUsers} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+                🔄 Refresh
+              </button>
             </div>
-          )}
-        </div>
+            {loadingUsers ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading users...</div>
+            ) : (
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                  <thead>
+                    <tr>
+                      {['#', 'Name', 'Email', 'Role', 'Deliveries', 'Joined'].map(h => (
+                        <th key={h} style={thStyle}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map(u => (
+                      <tr key={u.id}>
+                        <td style={{ ...tdStyle, fontWeight: '700' }}>#{u.id}</td>
+                        <td style={tdStyle}>{u.name}</td>
+                        <td style={tdStyle}>{u.email}</td>
+                        <td style={tdStyle}>
+                          <span style={{
+                            background: u.role === 'admin' ? '#fee2e2' : u.role === 'driver' ? '#dbeafe' : '#dcfce7',
+                            color: u.role === 'admin' ? '#dc2626' : u.role === 'driver' ? '#2563eb' : '#16a34a',
+                            padding: '3px 10px', borderRadius: '12px', fontSize: '11px', fontWeight: '600'
+                          }}>
+                            {u.role}
+                          </span>
+                        </td>
+                        <td style={tdStyle}>{u.delivery_count ?? '—'}</td>
+                        <td style={tdStyle}>{u.created_at ? new Date(u.created_at).toLocaleDateString() : '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── DRIVERS TAB ── */}
+        {activeTab === 'drivers' && (
+          <div style={cardStyle}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
+                🚗 Driver Performance ({drivers.length})
+              </h2>
+              <button onClick={fetchDrivers} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+                🔄 Refresh
+              </button>
+            </div>
+            {loadingDrivers ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading drivers...</div>
+            ) : drivers.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No drivers found.</div>
+            ) : (
+              <div style={{ display: 'grid', gap: '16px' }}>
+                {drivers.map(d => (
+                  <div key={d.id} style={{ background: '#f8fafc', borderRadius: '12px', padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                    <div>
+                      <div style={{ fontWeight: '700', color: '#1e293b', fontSize: '16px' }}>🚗 {d.name}</div>
+                      <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>{d.email}</div>
+                    </div>
+                    <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                      {[
+                        { label: 'Assigned', value: d.assigned_count ?? d.deliveries_assigned ?? '—', color: '#2563eb' },
+                        { label: 'Delivered', value: d.delivered_count ?? d.deliveries_delivered ?? '—', color: '#16a34a' },
+                        { label: 'In Transit', value: d.in_transit_count ?? '—', color: '#8b5cf6' },
+                        { label: 'Rating', value: d.rating ? `${d.rating}⭐` : '—', color: '#f59e0b' },
+                      ].map((s, i) => (
+                        <div key={i} style={{ textAlign: 'center' }}>
+                          <div style={{ fontWeight: 'bold', color: s.color, fontSize: '20px' }}>{s.value}</div>
+                          <div style={{ fontSize: '11px', color: '#94a3b8' }}>{s.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── COMPLAINTS TAB ── */}
+        {activeTab === 'complaints' && (
+          <div style={cardStyle}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
+                📣 All Complaints ({complaints.length})
+              </h2>
+              <button onClick={fetchComplaints} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+                🔄 Refresh
+              </button>
+            </div>
+            {loadingComplaints ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading complaints...</div>
+            ) : complaints.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No complaints found.</div>
+            ) : (
+              <div style={{ display: 'grid', gap: '16px' }}>
+                {complaints.map(c => (
+                  <div key={c.id} style={{ background: '#f8fafc', borderRadius: '12px', padding: '20px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+                      <div>
+                        <div style={{ fontWeight: '700', color: '#1e293b', fontSize: '15px' }}>
+                          Complaint #{c.id} — {c.type?.replace(/_/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase())}
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
+                          By: {c.user_name || c.user_id} {c.delivery_id ? `· Delivery #${c.delivery_id}` : ''} · {new Date(c.created_at).toLocaleDateString()}
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                        <select
+                          value={c.status}
+                          onChange={e => updateComplaintStatus(c.id, e.target.value)}
+                          disabled={updating === 'complaint-' + c.id}
+                          style={{ border: '1px solid #e2e8f0', borderRadius: '6px', padding: '6px 10px', fontSize: '12px', cursor: 'pointer' }}
+                        >
+                          <option value="open">Open</option>
+                          <option value="in_review">In Review</option>
+                          <option value="resolved">Resolved</option>
+                          <option value="closed">Closed</option>
+                        </select>
+                      </div>
+                    </div>
+                    <p style={{ color: '#475569', fontSize: '13px', lineHeight: '1.6', margin: 0 }}>{c.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── DAMAGE CLAIMS TAB ── */}
+        {activeTab === 'damage' && (
+          <div style={cardStyle}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
+                📸 Damage Claims ({damageClaims.length})
+              </h2>
+              <button onClick={fetchDamageClaims} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+                🔄 Refresh
+              </button>
+            </div>
+            {loadingClaims ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading claims...</div>
+            ) : damageClaims.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No damage claims found.</div>
+            ) : (
+              <div style={{ display: 'grid', gap: '16px' }}>
+                {damageClaims.map(claim => {
+                  const verdictStyles = {
+                    delivery_fault: { bg: '#fee2e2', color: '#dc2626', label: 'Delivery Fault' },
+                    product_defect: { bg: '#fef3c7', color: '#d97706', label: 'Product Defect' },
+                    unclear: { bg: '#f1f5f9', color: '#64748b', label: 'Unclear' },
+                  };
+                  const vs = verdictStyles[claim.ai_verdict] || verdictStyles.unclear;
+                  return (
+                    <div key={claim.id} style={{ background: '#f8fafc', borderRadius: '12px', padding: '20px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+                        <div>
+                          <div style={{ fontWeight: '700', color: '#1e293b', fontSize: '15px' }}>
+                            Claim #{claim.id} · Delivery #{claim.delivery_id}
+                          </div>
+                          <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
+                            By: {claim.user_name || claim.user_id} · {new Date(claim.created_at).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                          {claim.ai_verdict && (
+                            <span style={{ background: vs.bg, color: vs.color, padding: '4px 10px', borderRadius: '12px', fontSize: '12px', fontWeight: '600' }}>
+                              🤖 {vs.label}
+                            </span>
+                          )}
+                          {claim.estimated_refund_percent !== undefined && (
+                            <span style={{ background: '#dcfce7', color: '#16a34a', padding: '4px 10px', borderRadius: '12px', fontSize: '12px', fontWeight: '600' }}>
+                              {claim.estimated_refund_percent}% refund
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <p style={{ color: '#475569', fontSize: '13px', lineHeight: '1.5', marginBottom: '12px' }}>{claim.description}</p>
+
+                      {claim.ai_analysis && (
+                        <div style={{ background: '#eff6ff', borderRadius: '8px', padding: '10px', marginBottom: '12px', fontSize: '13px', color: '#1d4ed8' }}>
+                          🤖 <strong>AI Analysis:</strong> {claim.ai_analysis}
+                        </div>
+                      )}
+
+                      {claim.status === 'pending' || claim.status === 'under_review' ? (
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                          <button
+                            onClick={() => handleClaimDecision(claim.id, 'approved')}
+                            disabled={updating === 'claim-' + claim.id}
+                            style={{ background: '#16a34a', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 20px', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}
+                          >
+                            ✅ Approve
+                          </button>
+                          <button
+                            onClick={() => handleClaimDecision(claim.id, 'declined')}
+                            disabled={updating === 'claim-' + claim.id}
+                            style={{ background: '#dc2626', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 20px', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}
+                          >
+                            ❌ Decline
+                          </button>
+                        </div>
+                      ) : (
+                        <div style={{ fontSize: '13px', fontWeight: '600', color: claim.status === 'approved' ? '#16a34a' : '#dc2626' }}>
+                          Decision: {claim.status?.replace(/\b\w/g, c => c.toUpperCase())}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── ANALYTICS TAB ── */}
+        {activeTab === 'analytics' && (
+          <div>
+            {loadingAnalytics ? (
+              <div style={{ ...cardStyle, textAlign: 'center', padding: '60px', color: '#94a3b8' }}>
+                Loading analytics...
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gap: '24px' }}>
+                {/* Monthly deliveries bar chart */}
+                <div style={cardStyle}>
+                  <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', marginBottom: '20px' }}>
+                    📈 Monthly Deliveries
+                  </h2>
+                  {analytics?.monthly_deliveries && analytics.monthly_deliveries.length > 0 ? (
+                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', height: '200px', padding: '0 10px' }}>
+                      {analytics.monthly_deliveries.map((item, i) => {
+                        const maxVal = Math.max(...analytics.monthly_deliveries.map(m => m.count || 0));
+                        const barHeight = maxVal > 0 ? Math.max(8, ((item.count || 0) / maxVal) * 170) : 8;
+                        return (
+                          <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                            <div style={{ fontSize: '12px', color: '#1e293b', fontWeight: '600' }}>{item.count || 0}</div>
+                            <div style={{ width: '100%', height: `${barHeight}px`, background: 'linear-gradient(180deg, #3b82f6, #1d4ed8)', borderRadius: '6px 6px 0 0', transition: 'height 0.3s' }} />
+                            <div style={{ fontSize: '11px', color: '#94a3b8', textAlign: 'center', lineHeight: '1.2' }}>
+                              {item.month || item.label || `M${i + 1}`}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No analytics data available.</div>
+                  )}
+                </div>
+
+                {/* Status distribution */}
+                {analytics?.status_distribution && (
+                  <div style={cardStyle}>
+                    <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', marginBottom: '16px' }}>
+                      📊 Delivery Status Distribution
+                    </h2>
+                    <div style={{ display: 'grid', gap: '12px' }}>
+                      {analytics.status_distribution.map((item, i) => {
+                        const total = analytics.status_distribution.reduce((s, d) => s + (d.count || 0), 0);
+                        const pct = total > 0 ? Math.round(((item.count || 0) / total) * 100) : 0;
+                        return (
+                          <div key={i}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', fontSize: '13px' }}>
+                              <span style={{ color: '#374151', fontWeight: '600' }}>{item.status?.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</span>
+                              <span style={{ color: '#64748b' }}>{item.count} ({pct}%)</span>
+                            </div>
+                            <div style={{ background: '#f1f5f9', borderRadius: '10px', height: '10px', overflow: 'hidden' }}>
+                              <div style={{ height: '100%', background: getStatusColor(item.status), width: `${pct}%`, borderRadius: '10px', transition: 'width 0.5s' }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Revenue stats */}
+                {analytics?.revenue && (
+                  <div style={cardStyle}>
+                    <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', marginBottom: '16px' }}>
+                      💰 Revenue Overview
+                    </h2>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px' }}>
+                      {Object.entries(analytics.revenue).map(([key, val], i) => (
+                        <div key={i} style={{ background: '#f8fafc', borderRadius: '10px', padding: '16px', textAlign: 'center' }}>
+                          <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#16a34a' }}>€{Number(val).toFixed(2)}</div>
+                          <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>{key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

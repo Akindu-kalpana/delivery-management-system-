@@ -26,7 +26,7 @@ const Login = () => {
       else navigate('/user/dashboard');
 
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || t('auth.login') + ' failed');
     } finally {
       setLoading(false);
     }
@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <div style={{minHeight: '100vh', background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)'}} className="flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
-        
+
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🚚</div>
@@ -79,7 +79,7 @@ const Login = () => {
             disabled={loading}
             style={{background: '#2563eb', color: 'white', width: '100%', padding: '12px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', border: 'none'}}
           >
-            {loading ? 'Loading...' : t('auth.login')}
+            {loading ? t('auth.loading') : t('auth.login')}
           </button>
         </div>
 

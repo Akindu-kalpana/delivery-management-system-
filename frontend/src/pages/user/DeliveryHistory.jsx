@@ -45,17 +45,17 @@ const DeliveryHistory = () => {
         {/* Header */}
         <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '24px', marginBottom: '24px', color: 'white'}}>
           <h1 style={{fontSize: '24px', fontWeight: 'bold'}}>📋 {t('dashboard.myDeliveries')}</h1>
-          <p style={{opacity: 0.8, fontSize: '14px', marginTop: '4px'}}>View all your past and current deliveries</p>
+          <p style={{opacity: 0.8, fontSize: '14px', marginTop: '4px'}}>{t('dashboard.history.subtitle')}</p>
         </div>
 
         {/* Deliveries */}
         <div style={{background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)'}}>
           {loading ? (
-            <div style={{textAlign: 'center', padding: '40px', color: '#94a3b8'}}>Loading...</div>
+            <div style={{textAlign: 'center', padding: '40px', color: '#94a3b8'}}>{t('dashboard.loading')}</div>
           ) : deliveries.length === 0 ? (
             <div style={{textAlign: 'center', padding: '40px'}}>
               <div style={{fontSize: '48px', marginBottom: '16px'}}>📭</div>
-              <p style={{color: '#94a3b8'}}>No delivery history yet</p>
+              <p style={{color: '#94a3b8'}}>{t('dashboard.noHistory')}</p>
             </div>
           ) : (
             <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
@@ -68,7 +68,7 @@ const DeliveryHistory = () => {
                 >
                   <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px'}}>
                     <div style={{fontWeight: 'bold', color: '#1e293b', fontSize: '16px'}}>
-                      Delivery #{delivery.id}
+                      {t('tracking.delivery')} #{delivery.id}
                     </div>
                     <span style={{background: getStatusColor(delivery.status), color: 'white', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
                       {t(`tracking.status.${delivery.status}`) || delivery.status}
@@ -77,23 +77,23 @@ const DeliveryHistory = () => {
 
                   <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', fontSize: '14px'}}>
                     <div>
-                      <div style={{color: '#64748b', marginBottom: '2px'}}>From</div>
+                      <div style={{color: '#64748b', marginBottom: '2px'}}>{t('dashboard.history.from')}</div>
                       <div style={{fontWeight: '600', color: '#1e293b'}}>{delivery.sender_name}</div>
                       <div style={{color: '#64748b', fontSize: '12px'}}>{delivery.pickup_address}</div>
                     </div>
                     <div>
-                      <div style={{color: '#64748b', marginBottom: '2px'}}>To</div>
+                      <div style={{color: '#64748b', marginBottom: '2px'}}>{t('dashboard.history.to')}</div>
                       <div style={{fontWeight: '600', color: '#1e293b'}}>{delivery.receiver_name}</div>
                       <div style={{color: '#64748b', fontSize: '12px'}}>{delivery.delivery_address}</div>
                     </div>
                     {delivery.package_description && (
                       <div>
-                        <div style={{color: '#64748b', marginBottom: '2px'}}>Package</div>
+                        <div style={{color: '#64748b', marginBottom: '2px'}}>{t('dashboard.history.package')}</div>
                         <div style={{fontWeight: '600', color: '#1e293b'}}>{delivery.package_description}</div>
                       </div>
                     )}
                     <div>
-                      <div style={{color: '#64748b', marginBottom: '2px'}}>Date</div>
+                      <div style={{color: '#64748b', marginBottom: '2px'}}>{t('dashboard.history.date')}</div>
                       <div style={{fontWeight: '600', color: '#1e293b'}}>{new Date(delivery.created_at).toLocaleDateString()}</div>
                     </div>
                   </div>

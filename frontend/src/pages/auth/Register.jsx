@@ -19,7 +19,7 @@ const Register = () => {
       await axios.post('http://localhost:5000/api/auth/register', formData);
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+      setError(err.response?.data?.message || t('auth.register') + ' failed');
     } finally {
       setLoading(false);
     }
@@ -28,7 +28,7 @@ const Register = () => {
   return (
     <div style={{minHeight: '100vh', background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)'}} className="flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
-        
+
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">🚚</div>
@@ -79,14 +79,14 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.role')}</label>
             <select
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
               style={{border: '1px solid #d1d5db', borderRadius: '8px', padding: '12px 16px', width: '100%'}}
             >
-              <option value="user">User</option>
-              <option value="driver">Driver</option>
+              <option value="user">{t('auth.userRole')}</option>
+              <option value="driver">{t('auth.driverRole')}</option>
             </select>
           </div>
 
@@ -95,7 +95,7 @@ const Register = () => {
             disabled={loading}
             style={{background: '#2563eb', color: 'white', width: '100%', padding: '12px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', border: 'none'}}
           >
-            {loading ? 'Loading...' : t('auth.register')}
+            {loading ? t('auth.loading') : t('auth.register')}
           </button>
         </div>
 

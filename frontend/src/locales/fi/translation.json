@@ -10,10 +10,168 @@
     "track": "Seuraa toimitusta"
   },
   "hero": {
+    "badge": "Suomen ensimmäinen tekoälypohjainen toimitusalusta",
     "title": "Nopea ja luotettava toimitus",
     "subtitle": "Nopeiden Kuljetusten Ritarit AY - Luotettava toimituskumppanisi Suomessa",
     "cta": "Tilaa toimitus",
     "track": "Seuraa pakettia"
+  },
+  "landing": {
+    "stats": {
+      "deliveries": "Toimitusta suoritettu",
+      "clients": "Tyytyväistä asiakasta",
+      "languages": "Tuettua kieltä",
+      "support": "Asiakastuki"
+    },
+    "features": {
+      "title": "Miksi valita NKR Delivery?",
+      "subtitle": "Teemme toimituksesta yksinkertaista, nopeaa ja kaikkien saavutettavissa",
+      "ai": { "title": "Tekoälypohjainen varaus", "desc": "Tilaa toimitus yksinkertaisesti juttelemalla tekoälyavustajamme kanssa. Ei lomakkeita, ei vaivaa. Vain luonnollista keskustelua." },
+      "multilingual": { "title": "Monikielinen tuki", "desc": "Käytä järjestelmää suomeksi, englanniksi tai venäjäksi. Chatbot vastaa automaattisesti kielelläsi." },
+      "tracking": { "title": "Reaaliaikainen seuranta", "desc": "Seuraa toimituksesi tilaa reaaliajassa noudosta lopulliseen toimitukseen live-tilajpäivityksillä." },
+      "secure": { "title": "Turvallinen ja luotettava", "desc": "Tietosi on suojattu JWT-todennuksella ja roolipohjaisella käytönhallinnalla maksimaalista tietoturvaa varten." },
+      "fast": { "title": "Nopea toimitus", "desc": "Varmistamme, että pakettisi toimitetaan nopeasti ja turvallisesti ympäri Suomea omistautuneiden kuljettajien toimesta." },
+      "everywhere": { "title": "Toimii kaikkialla", "desc": "Käytä alustaa millä tahansa laitteella — tietokone, tabletti tai mobiili. Aina saatavilla kun tarvitset." }
+    },
+    "howItWorks": {
+      "title": "Miten se toimii",
+      "subtitle": "Tilaa toimitus vain 4 yksinkertaisessa vaiheessa",
+      "register": { "title": "Rekisteröidy", "desc": "Luo ilmainen tili sekunneissa" },
+      "chat": { "title": "Juttele tekoälyn kanssa", "desc": "Kerro chatbotille mitä tarvitset toimittaa" },
+      "confirm": { "title": "Vahvista", "desc": "Tarkista tiedot ja vahvista varauksesi" },
+      "trackStep": { "title": "Seuraa", "desc": "Seuraa toimitustasi noudosta toimitukseen" }
+    },
+    "testimonials": {
+      "title": "Mitä asiakkaamme sanovat"
+    },
+    "cta": {
+      "title": "Valmis lähettämään?",
+      "subtitle": "Liity satojen tyytyväisten asiakkaiden joukkoon ja aloita toimitusten varaaminen tänään.",
+      "button": "Aloita ilmaiseksi →"
+    },
+    "footer": {
+      "description": "Suomen ensimmäinen tekoälypohjainen toimitusvarausjärjestelmä. Nopea, luotettava, monikielinen.",
+      "quickLinks": "Pikalinkit",
+      "contact": "Yhteystiedot",
+      "languages": "Kielet",
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Kaikki oikeudet pidätetään."
+    }
+  },
+  "about": {
+    "title": "Meistä",
+    "subtitle": "Olemme Nopeiden Kuljetusten Ritarit AY — suomalainen toimitusyritys, joka on sitoutunut nopeaan, luotettavaan ja kaikkien saavutettavissa olevaan logistiikkaan.",
+    "story": {
+      "title": "Tarinaamme",
+      "p1": "Nopeiden Kuljetusten Ritarit AY perustettiin yksinkertaisella missiolla — tehdä toimituspalveluista nopeita, edullisia ja kaikkien saatavilla Suomessa.",
+      "p2": "Uskomme, että toimituksen varaamisen pitäisi olla yhtä helppoa kuin tavallinen keskustelu. Siksi rakensimme Suomen ensimmäisen tekoälypohjaisen toimitusvarausjärjestelmän, joka tukee englantia, suomea ja venäjää.",
+      "p3": "Olitpa lähettämässä pientä pakettia kaupungin ympäri tai hallitsemassa useita toimituksia yrityksellesi, meillä on ratkaisu sinulle."
+    },
+    "values": {
+      "title": "Arvomme",
+      "speed": { "title": "Nopeus", "desc": "Liikumme nopeasti, jotta pakettisi saapuvat ajoissa, joka kerta." },
+      "reliability": { "title": "Luotettavuus", "desc": "Voit luottaa meihin hoitamaan toimituksesi huolellisesti ja ammattimaisesti." },
+      "accessibility": { "title": "Saavutettavuus", "desc": "Palvelemme kaikkia — englanniksi, suomeksi ja venäjäksi." },
+      "security": { "title": "Turvallisuus", "desc": "Tietosi ja pakettisi ovat aina turvassa meillä." }
+    },
+    "cta": {
+      "title": "Valmis lähettämään?",
+      "subtitle": "Liity mukaan tänään ja koe toimitus modernilla tavalla.",
+      "button": "Aloita"
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Kaikki oikeudet pidätetään."
+    }
+  },
+  "services": {
+    "title": "Palvelumme",
+    "subtitle": "Kaikki mitä tarvitset nopeaan ja luotettavaan toimituksenhallintaan Suomessa",
+    "ai": { "title": "Tekoälypohjainen varaus", "desc": "Tilaa toimitus yksinkertaisesti juttelemalla tekoälyavustajamme kanssa. Ei lomakkeita, ei monimutkaisia vaiheita. Kerro vain mitä tarvitset ja me hoidamme loput." },
+    "tracking": { "title": "Reaaliaikainen seuranta", "desc": "Seuraa toimitustasi noudosta toimitukseen reaaliajassa. Tiedä aina missä pakettisi on live-tilajpäivityksillä." },
+    "multilingual": { "title": "Monikielinen tuki", "desc": "Järjestelmämme tukee englantia, suomea ja venäjää. Vaihda kieltä milloin tahansa ja kommunikoi chatbotin kanssa haluamallasi kielellä." },
+    "sameDay": { "title": "Saman päivän toimitus", "desc": "Tarvitsetko nopeasti? Tarjoamme saman päivän toimitusvaihtoehtoja kiireellisille paketeille kaupungin sisällä." },
+    "management": { "title": "Pakettien hallinta", "desc": "Hallitse kaikkia toimituksiasi yhdestä paikasta. Katso historia, seuraa tilaa ja hallitse varauksiasi helposti." },
+    "secure": { "title": "Turvallinen ja luotettava", "desc": "Tietosi on suojattu alan standardien mukaisella tietoturvalla. Roolipohjainen käytönhallinta varmistaa, että vain oikeat ihmiset näkevät oikeat tiedot." },
+    "pricing": {
+      "title": "Yksinkertainen hinnoittelu",
+      "subtitle": "Ei piilomaksuja. Maksa vain siitä mitä käytät.",
+      "mostPopular": "Suosituin",
+      "getStarted": "Aloita",
+      "basic": {
+        "title": "Perus",
+        "price": "€4,99",
+        "desc": "Per toimitus",
+        "feature1": "Peristoimitus",
+        "feature2": "Reaaliaikainen seuranta",
+        "feature3": "Sähköposti-ilmoitukset"
+      },
+      "business": {
+        "title": "Yritys",
+        "price": "€49,99",
+        "desc": "Kuukaudessa",
+        "feature1": "Rajattomat toimitukset",
+        "feature2": "Prioriteettituki",
+        "feature3": "Edistynyt seuranta",
+        "feature4": "Oma kuljettaja"
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "Räätälöity",
+        "desc": "Ota yhteyttä",
+        "feature1": "Räätälöidyt ratkaisut",
+        "feature2": "API-pääsy",
+        "feature3": "Oma asiakkuuspäällikkö",
+        "feature4": "SLA-takuu"
+      }
+    },
+    "cta": {
+      "title": "Aloita toimittaminen tänään",
+      "subtitle": "Liity satojen tyytyväisten asiakkaiden joukkoon ympäri Suomea.",
+      "button": "Aloita ilmaiseksi"
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Kaikki oikeudet pidätetään."
+    }
+  },
+  "contact": {
+    "title": "Ota yhteyttä",
+    "subtitle": "Onko sinulla kysymys tai tarvitsetko apua? Olemme täällä sinulle.",
+    "getInTouch": "Ota yhteyttä",
+    "address": "Osoite",
+    "phone": "Puhelin",
+    "email": "Sähköposti",
+    "workingHours": "Aukioloajat",
+    "form": {
+      "title": "Lähetä viesti",
+      "name": "Nimesi",
+      "email": "Sähköpostiosoite",
+      "subject": "Aihe",
+      "message": "Viesti",
+      "subjectPlaceholder": "Miten voimme auttaa?",
+      "messagePlaceholder": "Kirjoita viestisi tähän...",
+      "send": "Lähetä viesti",
+      "sent": "Viesti lähetetty!",
+      "sentMessage": "Palaamme sinulle mahdollisimman pian."
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Kaikki oikeudet pidätetään."
+    }
+  },
+  "publicTracking": {
+    "title": "Seuraa toimitustasi",
+    "subtitle": "Syötä toimitus-ID seurataksesi pakettiasi reaaliajassa",
+    "enterDeliveryId": "Syötä toimitus-ID",
+    "placeholder": "Syötä toimitus-ID (esim. 1)",
+    "track": "Seuraa",
+    "notFound": "Toimitusta ei löydy. Tarkista ID ja yritä uudelleen.",
+    "delivery": "Toimitus",
+    "sender": "Lähettäjä",
+    "receiver": "Vastaanottaja",
+    "pickupAddress": "Noutoosoite",
+    "deliveryAddress": "Toimitusosoite",
+    "bookedOn": "Varattu",
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. Kaikki oikeudet pidätetään."
+    }
   },
   "auth": {
     "login": "Kirjaudu",
@@ -23,19 +181,48 @@
     "name": "Koko nimi",
     "submit": "Lähetä",
     "noAccount": "Eikö sinulla ole tiliä?",
-    "hasAccount": "Onko sinulla jo tili?"
+    "hasAccount": "Onko sinulla jo tili?",
+    "loading": "Ladataan...",
+    "role": "Rooli",
+    "userRole": "Käyttäjä",
+    "driverRole": "Kuljettaja"
   },
   "booking": {
     "title": "Tilaa toimitus",
+    "subtitle": "Juttele tekoälyavustajamme kanssa tilataksesi toimituksen",
+    "initialMessage": "Hei! Olen toimitusvarausavustajasi. Autan sinua varaamaan toimituksen. Aloitetaanko?",
     "chatPlaceholder": "Kirjoita viestisi...",
     "send": "Lähetä",
     "confirm": "Vahvista tilaus",
-    "success": "Toimitus tilattu onnistuneesti!"
+    "success": "Toimitus tilattu onnistuneesti!",
+    "summary": "Tilauskooste",
+    "sender": "Lähettäjä",
+    "phone": "Puhelin",
+    "pickup": "Nouto",
+    "receiver": "Vastaanottaja",
+    "delivery": "Toimitus",
+    "package": "Paketti",
+    "confirmed": "Tilaus vahvistettu!",
+    "redirecting": "Siirrytään kojelautaan...",
+    "error": "Pahoittelen, jokin meni vikaan. Yritä uudelleen.",
+    "you": "Sinä",
+    "assistant": "Avustaja",
+    "typing": "Kirjoittaa..."
   },
   "tracking": {
     "title": "Seuraa toimitustasi",
+    "subtitle": "Syötä toimitus-ID seurataksesi pakettiasi",
     "id": "Toimitus ID",
+    "placeholder": "Syötä toimitus-ID (esim. 1)",
     "search": "Hae",
+    "notFound": "Toimitusta ei löydy. Tarkista ID ja yritä uudelleen.",
+    "delivery": "Toimitus",
+    "sender": "Lähettäjä",
+    "receiver": "Vastaanottaja",
+    "pickupAddress": "Noutoosoite",
+    "deliveryAddress": "Toimitusosoite",
+    "package": "Paketti",
+    "bookedOn": "Varattu",
     "status": {
       "pending": "Odottaa",
       "picked_up": "Noudettu",
@@ -47,6 +234,66 @@
     "welcome": "Tervetuloa",
     "myDeliveries": "Omat toimitukset",
     "assignedDeliveries": "Määrätyt toimitukset",
-    "allDeliveries": "Kaikki toimitukset"
+    "allDeliveries": "Kaikki toimitukset",
+    "manageDeliveries": "Hallitse toimituksiasi täältä",
+    "bookDelivery": "Tilaa toimitus",
+    "trackDelivery": "Seuraa toimitusta",
+    "deliveryHistory": "Toimitushistoria",
+    "noDeliveries": "Ei toimituksia vielä",
+    "bookFirst": "Tilaa ensimmäinen toimituksesi",
+    "noHistory": "Ei toimitushistoriaa vielä",
+    "loading": "Ladataan...",
+    "table": {
+      "id": "ID",
+      "receiver": "Vastaanottaja",
+      "deliveryAddress": "Toimitusosoite",
+      "status": "Tila",
+      "date": "Päivämäärä"
+    },
+    "history": {
+      "subtitle": "Katso kaikki menneet ja nykyiset toimituksesi",
+      "from": "Lähettäjä",
+      "to": "Vastaanottaja",
+      "package": "Paketti",
+      "date": "Päivämäärä"
+    },
+    "driver": {
+      "manageDeliveries": "Hallitse määrättyjä toimituksiasi",
+      "stats": {
+        "totalAssigned": "Yhteensä määrätty",
+        "pending": "Odottaa",
+        "inTransit": "Kuljetuksessa",
+        "delivered": "Toimitettu"
+      },
+      "noDeliveries": "Ei toimituksia määrätty vielä",
+      "pickup": "Nouto",
+      "delivery": "Toimitus",
+      "receiver": "Vastaanottaja",
+      "markPickedUp": "Merkitse noudetuksi",
+      "markInTransit": "Merkitse kuljetuksessa olevaksi",
+      "markDelivered": "Merkitse toimitetuksi",
+      "updating": "Päivitetään..."
+    },
+    "admin": {
+      "manageDeliveries": "Hallitse kaikkia toimituksia täältä",
+      "stats": {
+        "totalDeliveries": "Toimituksia yhteensä",
+        "pending": "Odottaa",
+        "inTransit": "Kuljetuksessa",
+        "delivered": "Toimitettu"
+      },
+      "table": {
+        "id": "ID",
+        "user": "Käyttäjä",
+        "receiver": "Vastaanottaja",
+        "pickup": "Nouto",
+        "delivery": "Toimitus",
+        "driver": "Kuljettaja",
+        "status": "Tila",
+        "action": "Toiminto"
+      },
+      "noDeliveries": "Ei toimituksia vielä",
+      "notAssigned": "Ei määrätty"
+    }
   }
 }

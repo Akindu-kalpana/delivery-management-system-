@@ -4,6 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import enTranslation from './locales/en/translation.json';
 import fiTranslation from './locales/fi/translation.json';
 import ruTranslation from './locales/ru/translation.json';
+import svTranslation from './locales/sv/translation.json';
 
 i18n
   .use(initReactI18next)
@@ -11,7 +12,8 @@ i18n
     resources: {
       en: { translation: enTranslation },
       fi: { translation: fiTranslation },
-      ru: { translation: ruTranslation }
+      ru: { translation: ruTranslation },
+      sv: { translation: svTranslation }
     },
     lng: 'en',
     fallbackLng: 'en',

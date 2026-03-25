@@ -17,6 +17,13 @@ import UserDashboard from './pages/user/Dashboard';
 import BookDelivery from './pages/user/BookDelivery';
 import TrackDelivery from './pages/user/TrackDelivery';
 import DeliveryHistory from './pages/user/DeliveryHistory';
+import PriceEstimate from './pages/user/PriceEstimate';
+import SavedAddresses from './pages/user/SavedAddresses';
+import Complaints from './pages/user/Complaints';
+import DamageClaim from './pages/user/DamageClaim';
+import BulkOrders from './pages/user/BulkOrders';
+import Loyalty from './pages/user/Loyalty';
+import Invoice from './pages/user/Invoice';
 
 // Driver pages
 import DriverDashboard from './pages/driver/Dashboard';
@@ -51,6 +58,13 @@ const AppRoutes = () => {
       <Route path="/user/book" element={<ProtectedRoute role="user"><BookDelivery /></ProtectedRoute>} />
       <Route path="/user/track" element={<ProtectedRoute role="user"><TrackDelivery /></ProtectedRoute>} />
       <Route path="/user/history" element={<ProtectedRoute role="user"><DeliveryHistory /></ProtectedRoute>} />
+      <Route path="/user/price-estimate" element={<ProtectedRoute role="user"><PriceEstimate /></ProtectedRoute>} />
+      <Route path="/user/addresses" element={<ProtectedRoute role="user"><SavedAddresses /></ProtectedRoute>} />
+      <Route path="/user/complaints" element={<ProtectedRoute role="user"><Complaints /></ProtectedRoute>} />
+      <Route path="/user/damage-claim" element={<ProtectedRoute role="user"><DamageClaim /></ProtectedRoute>} />
+      <Route path="/user/bulk-orders" element={<ProtectedRoute role="user"><BulkOrders /></ProtectedRoute>} />
+      <Route path="/user/loyalty" element={<ProtectedRoute role="user"><Loyalty /></ProtectedRoute>} />
+      <Route path="/user/invoice/:id" element={<ProtectedRoute role="user"><Invoice /></ProtectedRoute>} />
 
       {/* Driver routes */}
       <Route path="/driver/dashboard" element={<ProtectedRoute role="driver"><DriverDashboard /></ProtectedRoute>} />

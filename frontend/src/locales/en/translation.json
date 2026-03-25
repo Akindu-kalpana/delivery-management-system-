@@ -10,10 +10,168 @@
     "track": "Track Delivery"
   },
   "hero": {
+    "badge": "Finland's First AI Delivery Platform",
     "title": "Fast & Reliable Delivery",
     "subtitle": "Nopeiden Kuljetusten Ritarit AY - Your trusted delivery partner in Finland",
     "cta": "Book a Delivery",
     "track": "Track Your Package"
+  },
+  "landing": {
+    "stats": {
+      "deliveries": "Deliveries Completed",
+      "clients": "Happy Clients",
+      "languages": "Languages Supported",
+      "support": "Customer Support"
+    },
+    "features": {
+      "title": "Why Choose NKR Delivery?",
+      "subtitle": "We make delivery simple, fast and accessible for everyone",
+      "ai": { "title": "AI-Powered Booking", "desc": "Book your delivery by simply chatting with our AI assistant. No forms, no hassle. Just natural conversation." },
+      "multilingual": { "title": "Multilingual Support", "desc": "Use the system in English, Finnish, or Russian. The chatbot responds in your language automatically." },
+      "tracking": { "title": "Real-Time Tracking", "desc": "Track your delivery status in real time from pickup to final delivery with live status updates." },
+      "secure": { "title": "Secure & Reliable", "desc": "Your data is protected with JWT authentication and role-based access control for maximum security." },
+      "fast": { "title": "Fast Delivery", "desc": "We ensure your packages are delivered quickly and safely across Finland with dedicated drivers." },
+      "everywhere": { "title": "Works Everywhere", "desc": "Access the platform from any device — desktop, tablet, or mobile. Always available when you need it." }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Book a delivery in just 4 simple steps",
+      "register": { "title": "Register", "desc": "Create your free account in seconds" },
+      "chat": { "title": "Chat with AI", "desc": "Tell our chatbot what you need to deliver" },
+      "confirm": { "title": "Confirm", "desc": "Review the details and confirm your booking" },
+      "trackStep": { "title": "Track", "desc": "Track your delivery from pickup to delivery" }
+    },
+    "testimonials": {
+      "title": "What Our Customers Say"
+    },
+    "cta": {
+      "title": "Ready to Ship?",
+      "subtitle": "Join hundreds of satisfied customers and start booking deliveries today.",
+      "button": "Get Started for Free →"
+    },
+    "footer": {
+      "description": "Finland's first AI-powered delivery booking platform. Fast, reliable, multilingual.",
+      "quickLinks": "Quick Links",
+      "contact": "Contact",
+      "languages": "Languages",
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. All rights reserved."
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "We are Nopeiden Kuljetusten Ritarit AY — a Finnish delivery company committed to fast, reliable, and accessible logistics.",
+    "story": {
+      "title": "Our Story",
+      "p1": "Nopeiden Kuljetusten Ritarit AY was founded with a simple mission — to make delivery services fast, affordable, and accessible to everyone in Finland.",
+      "p2": "We believe that booking a delivery should be as easy as having a conversation. That is why we built Finland's first AI-powered delivery booking system that supports English, Finnish, and Russian.",
+      "p3": "Whether you are sending a small package across the city or managing multiple deliveries for your business, we have got you covered."
+    },
+    "values": {
+      "title": "Our Values",
+      "speed": { "title": "Speed", "desc": "We move fast so your packages arrive on time, every time." },
+      "reliability": { "title": "Reliability", "desc": "You can count on us to handle your deliveries with care and professionalism." },
+      "accessibility": { "title": "Accessibility", "desc": "We serve everyone — in English, Finnish, and Russian." },
+      "security": { "title": "Security", "desc": "Your data and packages are always safe with us." }
+    },
+    "cta": {
+      "title": "Ready to Ship?",
+      "subtitle": "Join us today and experience delivery the modern way.",
+      "button": "Get Started"
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. All rights reserved."
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Everything you need for fast and reliable delivery management in Finland",
+    "ai": { "title": "AI-Powered Booking", "desc": "Book your delivery by simply chatting with our AI assistant. No forms, no complicated steps. Just tell us what you need and we handle the rest." },
+    "tracking": { "title": "Real-Time Tracking", "desc": "Track your delivery from pickup to delivery in real time. Always know where your package is with live status updates." },
+    "multilingual": { "title": "Multilingual Support", "desc": "Our system supports English, Finnish, and Russian. Switch languages anytime and interact with the chatbot in your preferred language." },
+    "sameDay": { "title": "Same Day Delivery", "desc": "Need it fast? We offer same day delivery options for urgent packages within the city." },
+    "management": { "title": "Package Management", "desc": "Manage all your deliveries from one place. View history, track status, and manage your bookings easily." },
+    "secure": { "title": "Secure & Reliable", "desc": "Your data is protected with industry standard security. Role-based access ensures only the right people see the right information." },
+    "pricing": {
+      "title": "Simple Pricing",
+      "subtitle": "No hidden fees. Pay only for what you use.",
+      "mostPopular": "Most Popular",
+      "getStarted": "Get Started",
+      "basic": {
+        "title": "Basic",
+        "price": "€4.99",
+        "desc": "Per delivery",
+        "feature1": "Standard delivery",
+        "feature2": "Real-time tracking",
+        "feature3": "Email notifications"
+      },
+      "business": {
+        "title": "Business",
+        "price": "€49.99",
+        "desc": "Per month",
+        "feature1": "Unlimited deliveries",
+        "feature2": "Priority support",
+        "feature3": "Advanced tracking",
+        "feature4": "Dedicated driver"
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "price": "Custom",
+        "desc": "Contact us",
+        "feature1": "Custom solutions",
+        "feature2": "API access",
+        "feature3": "Dedicated account manager",
+        "feature4": "SLA guarantee"
+      }
+    },
+    "cta": {
+      "title": "Start Delivering Today",
+      "subtitle": "Join hundreds of satisfied customers across Finland.",
+      "button": "Get Started for Free"
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. All rights reserved."
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have a question or need help? We are here for you.",
+    "getInTouch": "Get in Touch",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "workingHours": "Working Hours",
+    "form": {
+      "title": "Send a Message",
+      "name": "Your Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Message",
+      "subjectPlaceholder": "How can we help?",
+      "messagePlaceholder": "Write your message here...",
+      "send": "Send Message",
+      "sent": "Message Sent!",
+      "sentMessage": "We will get back to you as soon as possible."
+    },
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. All rights reserved."
+    }
+  },
+  "publicTracking": {
+    "title": "Track Your Delivery",
+    "subtitle": "Enter your delivery ID to track your package in real time",
+    "enterDeliveryId": "Enter Delivery ID",
+    "placeholder": "Enter your delivery ID (e.g. 1)",
+    "track": "Track",
+    "notFound": "Delivery not found. Please check the ID and try again.",
+    "delivery": "Delivery",
+    "sender": "Sender",
+    "receiver": "Receiver",
+    "pickupAddress": "Pickup Address",
+    "deliveryAddress": "Delivery Address",
+    "bookedOn": "Booked on",
+    "footer": {
+      "copyright": "© 2025 Nopeiden Kuljetusten Ritarit AY. All rights reserved."
+    }
   },
   "auth": {
     "login": "Login",
@@ -23,19 +181,48 @@
     "name": "Full Name",
     "submit": "Submit",
     "noAccount": "Don't have an account?",
-    "hasAccount": "Already have an account?"
+    "hasAccount": "Already have an account?",
+    "loading": "Loading...",
+    "role": "Role",
+    "userRole": "User",
+    "driverRole": "Driver"
   },
   "booking": {
     "title": "Book a Delivery",
+    "subtitle": "Chat with our AI assistant to book your delivery",
+    "initialMessage": "Hello! I am your delivery booking assistant. I will help you book a delivery. Shall we get started?",
     "chatPlaceholder": "Type your message...",
     "send": "Send",
     "confirm": "Confirm Booking",
-    "success": "Delivery booked successfully!"
+    "success": "Delivery booked successfully!",
+    "summary": "Booking Summary",
+    "sender": "Sender",
+    "phone": "Phone",
+    "pickup": "Pickup",
+    "receiver": "Receiver",
+    "delivery": "Delivery",
+    "package": "Package",
+    "confirmed": "Booking Confirmed!",
+    "redirecting": "Redirecting to dashboard...",
+    "error": "Sorry, something went wrong. Please try again.",
+    "you": "You",
+    "assistant": "Assistant",
+    "typing": "Typing..."
   },
   "tracking": {
     "title": "Track Your Delivery",
+    "subtitle": "Enter your delivery ID to track your package",
     "id": "Delivery ID",
+    "placeholder": "Enter delivery ID (e.g. 1)",
     "search": "Search",
+    "notFound": "Delivery not found. Please check the ID and try again.",
+    "delivery": "Delivery",
+    "sender": "Sender",
+    "receiver": "Receiver",
+    "pickupAddress": "Pickup Address",
+    "deliveryAddress": "Delivery Address",
+    "package": "Package",
+    "bookedOn": "Booked on",
     "status": {
       "pending": "Pending",
       "picked_up": "Picked Up",
@@ -47,6 +234,66 @@
     "welcome": "Welcome",
     "myDeliveries": "My Deliveries",
     "assignedDeliveries": "Assigned Deliveries",
-    "allDeliveries": "All Deliveries"
+    "allDeliveries": "All Deliveries",
+    "manageDeliveries": "Manage your deliveries from here",
+    "bookDelivery": "Book Delivery",
+    "trackDelivery": "Track Delivery",
+    "deliveryHistory": "Delivery History",
+    "noDeliveries": "No deliveries yet",
+    "bookFirst": "Book Your First Delivery",
+    "noHistory": "No delivery history yet",
+    "loading": "Loading...",
+    "table": {
+      "id": "ID",
+      "receiver": "Receiver",
+      "deliveryAddress": "Delivery Address",
+      "status": "Status",
+      "date": "Date"
+    },
+    "history": {
+      "subtitle": "View all your past and current deliveries",
+      "from": "From",
+      "to": "To",
+      "package": "Package",
+      "date": "Date"
+    },
+    "driver": {
+      "manageDeliveries": "Manage your assigned deliveries",
+      "stats": {
+        "totalAssigned": "Total Assigned",
+        "pending": "Pending",
+        "inTransit": "In Transit",
+        "delivered": "Delivered"
+      },
+      "noDeliveries": "No deliveries assigned yet",
+      "pickup": "Pickup",
+      "delivery": "Delivery",
+      "receiver": "Receiver",
+      "markPickedUp": "Mark as Picked Up",
+      "markInTransit": "Mark as In Transit",
+      "markDelivered": "Mark as Delivered",
+      "updating": "Updating..."
+    },
+    "admin": {
+      "manageDeliveries": "Manage all deliveries from here",
+      "stats": {
+        "totalDeliveries": "Total Deliveries",
+        "pending": "Pending",
+        "inTransit": "In Transit",
+        "delivered": "Delivered"
+      },
+      "table": {
+        "id": "ID",
+        "user": "User",
+        "receiver": "Receiver",
+        "pickup": "Pickup",
+        "delivery": "Delivery",
+        "driver": "Driver",
+        "status": "Status",
+        "action": "Action"
+      },
+      "noDeliveries": "No deliveries yet",
+      "notAssigned": "Not assigned"
+    }
   }
 }

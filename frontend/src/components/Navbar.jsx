@@ -18,11 +18,18 @@ const Navbar = () => {
     i18n.changeLanguage(lang);
   };
 
+  const languages = [
+    { code: 'en', label: 'EN', flag: '🇬🇧' },
+    { code: 'fi', label: 'FI', flag: '🇫🇮' },
+    { code: 'ru', label: 'RU', flag: '🇷🇺' },
+    { code: 'sv', label: 'SV', flag: '🇸🇪' },
+  ];
+
   return (
     <nav className="bg-white shadow-md fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          
+
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-2xl">🚚</span>
@@ -40,23 +47,34 @@ const Navbar = () => {
 
           {/* Right side */}
           <div className="hidden md:flex items-center space-x-4">
-            
+
             {/* Language switcher */}
             <div className="flex items-center space-x-1">
-              <button onClick={() => changeLanguage('en')} className={`text-sm px-2 py-1 rounded ${i18n.language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:text-blue-600'}`}>EN</button>
-              <button onClick={() => changeLanguage('fi')} className={`text-sm px-2 py-1 rounded ${i18n.language === 'fi' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:text-blue-600'}`}>FI</button>
-              <button onClick={() => changeLanguage('ru')} className={`text-sm px-2 py-1 rounded ${i18n.language === 'ru' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:text-blue-600'}`}>RU</button>
+              {languages.map(({ code, label, flag }) => (
+                <button
+                  key={code}
+                  onClick={() => changeLanguage(code)}
+                  title={flag}
+                  className={`text-sm px-2 py-1 rounded transition ${
+                    i18n.language === code
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-600 hover:text-blue-600'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
             {user ? (
               <div className="flex items-center space-x-3">
-                <Link 
-                  to={`/${user.role}/dashboard`} 
+                <Link
+                  to={`/${user.role}/dashboard`}
                   className="text-gray-600 hover:text-blue-600 transition"
                 >
                   {t('dashboard.welcome')}, {user.name}
                 </Link>
-                <button 
+                <button
                   onClick={handleLogout}
                   className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
                 >
@@ -72,7 +90,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <button 
+          <button
             className="md:hidden text-gray-600"
             onClick={() => setMenuOpen(!menuOpen)}
           >
@@ -89,9 +107,18 @@ const Navbar = () => {
             <Link to="/contact" className="block text-gray-600 hover:text-blue-600">{t('nav.contact')}</Link>
             <Link to="/track" className="block text-gray-600 hover:text-blue-600">{t('nav.track')}</Link>
             <div className="flex space-x-2 pt-2">
-              <button onClick={() => changeLanguage('en')} className="text-sm px-2 py-1 bg-gray-100 rounded">EN</button>
-              <button onClick={() => changeLanguage('fi')} className="text-sm px-2 py-1 bg-gray-100 rounded">FI</button>
-              <button onClick={() => changeLanguage('ru')} className="text-sm px-2 py-1 bg-gray-100 rounded">RU</button>
+              {languages.map(({ code, label, flag }) => (
+                <button
+                  key={code}
+                  onClick={() => changeLanguage(code)}
+                  title={flag}
+                  className={`text-sm px-2 py-1 rounded ${
+                    i18n.language === code ? 'bg-blue-600 text-white' : 'bg-gray-100'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
             {user ? (
               <button onClick={handleLogout} className="block text-red-500">{t('nav.logout')}</button>

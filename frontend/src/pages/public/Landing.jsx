@@ -33,7 +33,7 @@ const Landing = () => {
           setStatsAnimated(true);
           animateCounter('deliveries', 500, 2000);
           animateCounter('clients', 50, 2000);
-          animateCounter('languages', 3, 1000);
+          animateCounter('languages', 4, 1000);
         }
       },
       { threshold: 0.5 }
@@ -59,7 +59,7 @@ const Landing = () => {
 
       {/* Hero Section */}
       <section className="animated-bg" style={{minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden'}}>
-        
+
         {/* Particles */}
         {[...Array(8)].map((_, i) => (
           <div key={i} className="particle" style={{
@@ -77,10 +77,10 @@ const Landing = () => {
         <div style={{position: 'absolute', bottom: '10%', left: '5%', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(255,255,255,0.03)', animation: 'float 8s ease-in-out infinite reverse'}}></div>
 
         <div style={{position: 'relative', zIndex: 10, textAlign: 'center', padding: '0 20px', maxWidth: '900px', margin: '0 auto'}}>
-          
+
           {/* Badge */}
           <div className="glass hero-title" style={{display: 'inline-block', padding: '8px 20px', borderRadius: '50px', marginBottom: '32px', fontSize: '14px', color: 'rgba(255,255,255,0.9)'}}>
-            🇫🇮 Finland's First AI Delivery Platform
+            🇫🇮 {t('hero.badge')}
           </div>
 
           {/* Truck */}
@@ -120,10 +120,10 @@ const Landing = () => {
         <div style={{maxWidth: '900px', margin: '0 auto'}}>
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', textAlign: 'center'}}>
             {[
-              { value: counts.deliveries + '+', label: 'Deliveries Completed', icon: '📦', color: '#2563eb' },
-              { value: counts.clients + '+', label: 'Happy Clients', icon: '😊', color: '#7c3aed' },
-              { value: counts.languages, label: 'Languages Supported', icon: '🌍', color: '#059669' },
-              { value: '24/7', label: 'Customer Support', icon: '💬', color: '#dc2626' },
+              { value: counts.deliveries + '+', label: t('landing.stats.deliveries'), icon: '📦', color: '#2563eb' },
+              { value: counts.clients + '+', label: t('landing.stats.clients'), icon: '😊', color: '#7c3aed' },
+              { value: counts.languages, label: t('landing.stats.languages'), icon: '🌍', color: '#059669' },
+              { value: '24/7', label: t('landing.stats.support'), icon: '💬', color: '#dc2626' },
             ].map((stat, index) => (
               <div key={index} className={`reveal delay-${index + 1}`} style={{padding: '32px', borderRadius: '20px', background: '#f8fafc', border: '1px solid #f1f5f9'}}>
                 <div style={{fontSize: '40px', marginBottom: '12px'}}>{stat.icon}</div>
@@ -139,23 +139,23 @@ const Landing = () => {
       <section style={{background: '#f8fafc', padding: '80px 20px'}}>
         <div style={{maxWidth: '1100px', margin: '0 auto'}}>
           <div className="reveal" style={{textAlign: 'center', marginBottom: '60px'}}>
-            <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>Why Choose NKR Delivery?</h2>
-            <p style={{color: '#64748b', fontSize: '18px', maxWidth: '600px', margin: '0 auto'}}>We make delivery simple, fast and accessible for everyone</p>
+            <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>{t('landing.features.title')}</h2>
+            <p style={{color: '#64748b', fontSize: '18px', maxWidth: '600px', margin: '0 auto'}}>{t('landing.features.subtitle')}</p>
           </div>
 
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px'}}>
             {[
-              { icon: '🤖', title: 'AI-Powered Booking', desc: 'Book your delivery by simply chatting with our AI assistant. No forms, no hassle. Just natural conversation.', color: '#2563eb' },
-              { icon: '🌍', title: 'Multilingual Support', desc: 'Use the system in English, Finnish, or Russian. The chatbot responds in your language automatically.', color: '#7c3aed' },
-              { icon: '📍', title: 'Real-Time Tracking', desc: 'Track your delivery status in real time from pickup to final delivery with live status updates.', color: '#059669' },
-              { icon: '🔒', title: 'Secure & Reliable', desc: 'Your data is protected with JWT authentication and role-based access control for maximum security.', color: '#dc2626' },
-              { icon: '⚡', title: 'Fast Delivery', desc: 'We ensure your packages are delivered quickly and safely across Finland with dedicated drivers.', color: '#d97706' },
-              { icon: '📱', title: 'Works Everywhere', desc: 'Access the platform from any device — desktop, tablet, or mobile. Always available when you need it.', color: '#0891b2' },
+              { icon: '🤖', key: 'ai', color: '#2563eb' },
+              { icon: '🌍', key: 'multilingual', color: '#7c3aed' },
+              { icon: '📍', key: 'tracking', color: '#059669' },
+              { icon: '🔒', key: 'secure', color: '#dc2626' },
+              { icon: '⚡', key: 'fast', color: '#d97706' },
+              { icon: '📱', key: 'everywhere', color: '#0891b2' },
             ].map((feature, index) => (
               <div key={index} className={`reveal card-hover delay-${index + 1}`} style={{background: 'white', borderRadius: '20px', padding: '32px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', borderTop: `4px solid ${feature.color}`}}>
                 <div style={{fontSize: '48px', marginBottom: '16px'}}>{feature.icon}</div>
-                <h3 style={{fontSize: '20px', fontWeight: '700', color: '#1e293b', marginBottom: '12px'}}>{feature.title}</h3>
-                <p style={{color: '#64748b', lineHeight: '1.7'}}>{feature.desc}</p>
+                <h3 style={{fontSize: '20px', fontWeight: '700', color: '#1e293b', marginBottom: '12px'}}>{t(`landing.features.${feature.key}.title`)}</h3>
+                <p style={{color: '#64748b', lineHeight: '1.7'}}>{t(`landing.features.${feature.key}.desc`)}</p>
               </div>
             ))}
           </div>
@@ -166,24 +166,24 @@ const Landing = () => {
       <section style={{background: 'white', padding: '80px 20px'}}>
         <div style={{maxWidth: '1000px', margin: '0 auto'}}>
           <div className="reveal" style={{textAlign: 'center', marginBottom: '60px'}}>
-            <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>How It Works</h2>
-            <p style={{color: '#64748b', fontSize: '18px'}}>Book a delivery in just 4 simple steps</p>
+            <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>{t('landing.howItWorks.title')}</h2>
+            <p style={{color: '#64748b', fontSize: '18px'}}>{t('landing.howItWorks.subtitle')}</p>
           </div>
 
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '32px'}}>
             {[
-              { step: '01', icon: '📝', title: 'Register', desc: 'Create your free account in seconds', color: '#2563eb' },
-              { step: '02', icon: '💬', title: 'Chat with AI', desc: 'Tell our chatbot what you need to deliver', color: '#7c3aed' },
-              { step: '03', icon: '✅', title: 'Confirm', desc: 'Review the details and confirm your booking', color: '#059669' },
-              { step: '04', icon: '🚚', title: 'Track', desc: 'Track your delivery from pickup to delivery', color: '#dc2626' },
+              { step: '01', icon: '📝', key: 'register', color: '#2563eb' },
+              { step: '02', icon: '💬', key: 'chat', color: '#7c3aed' },
+              { step: '03', icon: '✅', key: 'confirm', color: '#059669' },
+              { step: '04', icon: '🚚', key: 'trackStep', color: '#dc2626' },
             ].map((item, index) => (
               <div key={index} className={`reveal delay-${index + 1}`} style={{textAlign: 'center', padding: '32px 20px'}}>
                 <div style={{width: '64px', height: '64px', borderRadius: '50%', background: item.color, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '800', margin: '0 auto 16px'}}>
                   {item.step}
                 </div>
                 <div style={{fontSize: '40px', marginBottom: '12px'}}>{item.icon}</div>
-                <h3 style={{fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '8px'}}>{item.title}</h3>
-                <p style={{color: '#64748b', fontSize: '14px', lineHeight: '1.6'}}>{item.desc}</p>
+                <h3 style={{fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '8px'}}>{t(`landing.howItWorks.${item.key}.title`)}</h3>
+                <p style={{color: '#64748b', fontSize: '14px', lineHeight: '1.6'}}>{t(`landing.howItWorks.${item.key}.desc`)}</p>
               </div>
             ))}
           </div>
@@ -194,7 +194,7 @@ const Landing = () => {
       <section style={{background: '#f8fafc', padding: '80px 20px'}}>
         <div style={{maxWidth: '1000px', margin: '0 auto'}}>
           <div className="reveal" style={{textAlign: 'center', marginBottom: '60px'}}>
-            <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>What Our Customers Say</h2>
+            <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>{t('landing.testimonials.title')}</h2>
           </div>
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px'}}>
             {[
@@ -223,12 +223,12 @@ const Landing = () => {
         <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '600px', height: '600px', borderRadius: '50%', background: 'rgba(255,255,255,0.03)'}}></div>
         <div style={{position: 'relative', zIndex: 1}}>
           <div className="reveal" style={{fontSize: '64px', marginBottom: '24px'}}>🚀</div>
-          <h2 className="reveal gradient-text" style={{fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: '900', marginBottom: '16px'}}>Ready to Ship?</h2>
+          <h2 className="reveal gradient-text" style={{fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: '900', marginBottom: '16px'}}>{t('landing.cta.title')}</h2>
           <p className="reveal" style={{color: 'rgba(255,255,255,0.8)', fontSize: '20px', marginBottom: '40px', maxWidth: '500px', margin: '0 auto 40px'}}>
-            Join hundreds of satisfied customers and start booking deliveries today.
+            {t('landing.cta.subtitle')}
           </p>
           <Link to="/register" className="btn-hover reveal" style={{background: 'white', color: '#1d4ed8', padding: '18px 48px', borderRadius: '50px', fontWeight: '800', fontSize: '18px', textDecoration: 'none', display: 'inline-block', boxShadow: '0 8px 30px rgba(0,0,0,0.2)'}}>
-            Get Started for Free →
+            {t('landing.cta.button')}
           </Link>
         </div>
       </section>
@@ -239,11 +239,16 @@ const Landing = () => {
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', marginBottom: '40px'}}>
             <div>
               <div style={{fontSize: '24px', fontWeight: '800', color: 'white', marginBottom: '12px'}}>🚚 NKR Delivery</div>
-              <p style={{lineHeight: '1.7', fontSize: '14px'}}>Finland's first AI-powered delivery booking platform. Fast, reliable, multilingual.</p>
+              <p style={{lineHeight: '1.7', fontSize: '14px'}}>{t('landing.footer.description')}</p>
             </div>
             <div>
-              <div style={{fontWeight: '700', color: 'white', marginBottom: '16px'}}>Quick Links</div>
-              {[['Home', '/'], ['About', '/about'], ['Services', '/services'], ['Contact', '/contact']].map(([label, path]) => (
+              <div style={{fontWeight: '700', color: 'white', marginBottom: '16px'}}>{t('landing.footer.quickLinks')}</div>
+              {[
+                [t('nav.home'), '/'],
+                [t('nav.about'), '/about'],
+                [t('nav.services'), '/services'],
+                [t('nav.contact'), '/contact']
+              ].map(([label, path]) => (
                 <div key={path} style={{marginBottom: '8px'}}>
                   <Link to={path} style={{color: '#94a3b8', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s'}}
                     onMouseEnter={e => e.target.style.color = 'white'}
@@ -253,7 +258,7 @@ const Landing = () => {
               ))}
             </div>
             <div>
-              <div style={{fontWeight: '700', color: 'white', marginBottom: '16px'}}>Contact</div>
+              <div style={{fontWeight: '700', color: 'white', marginBottom: '16px'}}>{t('landing.footer.contact')}</div>
               <div style={{fontSize: '14px', lineHeight: '2'}}>
                 <div>📍 Oulu, Finland</div>
                 <div>📞 +358 40 123 4567</div>
@@ -261,16 +266,17 @@ const Landing = () => {
               </div>
             </div>
             <div>
-              <div style={{fontWeight: '700', color: 'white', marginBottom: '16px'}}>Languages</div>
+              <div style={{fontWeight: '700', color: 'white', marginBottom: '16px'}}>{t('landing.footer.languages')}</div>
               <div style={{fontSize: '14px', lineHeight: '2'}}>
                 <div>🇬🇧 English</div>
                 <div>🇫🇮 Finnish</div>
                 <div>🇷🇺 Russian</div>
+                <div>🇸🇪 Swedish</div>
               </div>
             </div>
           </div>
           <div style={{borderTop: '1px solid #1e293b', paddingTop: '24px', textAlign: 'center', fontSize: '13px'}}>
-            © 2025 Nopeiden Kuljetusten Ritarit AY. All rights reserved.
+            {t('landing.footer.copyright')}
           </div>
         </div>
       </footer>
