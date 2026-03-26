@@ -35,6 +35,7 @@ const AdminDashboard = () => {
   const [drivers, setDrivers] = useState([]);
   const [complaints, setComplaints] = useState([]);
   const [damageClaims, setDamageClaims] = useState([]);
+  const [refundRequests, setRefundRequests] = useState([]);
   const [analytics, setAnalytics] = useState(null);
 
   // Loading states
@@ -63,7 +64,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (activeTab === 'users' && users.length === 0) fetchUsers();
     if (activeTab === 'drivers' && drivers.length === 0) fetchDrivers();
-    if (activeTab === 'complaints' && complaints.length === 0) fetchComplaints();
+    if (activeTab === 'complaints' && complaints.length === 0) { fetchComplaints(); fetchRefundRequests(); }
     if (activeTab === 'damage' && damageClaims.length === 0) fetchDamageClaims();
     if (activeTab === 'analytics' && !analytics) fetchAnalytics();
   }, [activeTab]);
@@ -125,6 +126,27 @@ const AdminDashboard = () => {
       console.error('fetchComplaints:', err);
     } finally {
       setLoadingComplaints(false);
+    }
+  };
+
+  const fetchRefundRequests = async () => {
+    try {
+      const res = await axios.get(`${API}/complaints/refund-requests`, { headers: authHeader });
+      setRefundRequests(res.data.refund_requests || []);
+    } catch (err) {
+      console.error('Failed to load refund requests');
+    }
+  };
+
+  const handleRefundDecision = async (id, status, notes = '') => {
+    try {
+      await axios.put(`${API}/complaints/refund-requests/${id}`,
+        { status, admin_notes: notes },
+        { headers: authHeader }
+      );
+      fetchRefundRequests();
+    } catch (err) {
+      alert('Failed to update refund request');
     }
   };
 
@@ -501,6 +523,78 @@ const AdminDashboard = () => {
                 🔄 Refresh
               </button>
             </div>
+            {/* Refund Invoices from Claude AI */}
+            {refundRequests.length > 0 && (
+              <div style={{ marginBottom: '32px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>
+                  💰 Refund Invoices — Pending Admin Approval ({refundRequests.filter(r => r.status === 'pending').length})
+                </h3>
+                <div style={{ display: 'grid', gap: '14px' }}>
+                  {refundRequests.map(rr => {
+                    let analysis = null;
+                    try { if (rr.claude_analysis) analysis = JSON.parse(rr.claude_analysis); } catch {}
+                    return (
+                      <div key={rr.id} style={{ background: 'white', borderRadius: '14px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', border: rr.status === 'pending' ? '2px solid #fde68a' : rr.status === 'approved' ? '2px solid #86efac' : '2px solid #fca5a5' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
+                          <div>
+                            <div style={{ fontWeight: '700', color: '#1e293b', fontSize: '15px' }}>
+                              Invoice #{rr.id} — {rr.user_name} ({rr.user_email})
+                            </div>
+                            <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
+                              Complaint #{rr.complaint_id} · {rr.complaint_type?.replace('_', ' ')} · {new Date(rr.created_at).toLocaleDateString()}
+                            </div>
+                          </div>
+                          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                            <span style={{ fontSize: '20px', fontWeight: '800', color: '#16a34a' }}>€{parseFloat(rr.amount).toFixed(2)}</span>
+                            <span style={{
+                              padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600',
+                              background: rr.status === 'pending' ? '#fef3c7' : rr.status === 'approved' ? '#dcfce7' : '#fee2e2',
+                              color: rr.status === 'pending' ? '#d97706' : rr.status === 'approved' ? '#16a34a' : '#dc2626'
+                            }}>
+                              {rr.status === 'pending' ? '⏳ Pending' : rr.status === 'approved' ? '✅ Approved' : '❌ Declined'}
+                            </span>
+                          </div>
+                        </div>
+
+                        {analysis?.summary && (
+                          <div style={{ background: '#f0f9ff', borderRadius: '8px', padding: '12px', marginBottom: '12px' }}>
+                            <div style={{ fontWeight: '600', color: '#0369a1', fontSize: '12px', marginBottom: '4px' }}>🤖 Claude AI Assessment</div>
+                            <p style={{ color: '#0c4a6e', fontSize: '13px', margin: 0, lineHeight: '1.5' }}>{analysis.summary}</p>
+                            {analysis.reason && <p style={{ color: '#0369a1', fontSize: '12px', margin: '6px 0 0', lineHeight: '1.4', fontStyle: 'italic' }}>{analysis.reason}</p>}
+                          </div>
+                        )}
+
+                        {rr.image_paths && (
+                          <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '10px' }}>
+                            📷 {JSON.parse(rr.image_paths).length} evidence photo(s) submitted by customer
+                          </div>
+                        )}
+
+                        {rr.status === 'pending' && (
+                          <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+                            <button
+                              onClick={() => handleRefundDecision(rr.id, 'approved', 'Refund approved by admin')}
+                              style={{ flex: 1, background: '#16a34a', color: 'white', border: 'none', borderRadius: '8px', padding: '10px', fontWeight: '600', fontSize: '14px', cursor: 'pointer' }}>
+                              ✅ Approve Refund €{parseFloat(rr.amount).toFixed(2)}
+                            </button>
+                            <button
+                              onClick={() => handleRefundDecision(rr.id, 'declined', 'Refund declined by admin')}
+                              style={{ flex: 1, background: '#dc2626', color: 'white', border: 'none', borderRadius: '8px', padding: '10px', fontWeight: '600', fontSize: '14px', cursor: 'pointer' }}>
+                              ❌ Decline Refund
+                            </button>
+                          </div>
+                        )}
+
+                        {rr.admin_notes && rr.status !== 'pending' && (
+                          <div style={{ fontSize: '13px', color: '#64748b', marginTop: '8px' }}>Admin note: {rr.admin_notes}</div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {loadingComplaints ? (
               <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading complaints...</div>
             ) : complaints.length === 0 ? (

@@ -99,3 +99,21 @@ CREATE TABLE IF NOT EXISTS loyalty_transactions (
   delivery_id INTEGER REFERENCES deliveries(id),
   created_at TIMESTAMP DEFAULT NOW()
 );
+
+-- Add image and Claude review columns to complaints
+ALTER TABLE complaints ADD COLUMN IF NOT EXISTS image_paths TEXT;
+ALTER TABLE complaints ADD COLUMN IF NOT EXISTS claude_review TEXT;
+ALTER TABLE complaints ADD COLUMN IF NOT EXISTS refund_recommended BOOLEAN DEFAULT FALSE;
+ALTER TABLE complaints ADD COLUMN IF NOT EXISTS refund_amount DECIMAL(10,2) DEFAULT 0;
+
+-- Refund requests table (invoice sent to admin)
+CREATE TABLE IF NOT EXISTS refund_requests (
+  id SERIAL PRIMARY KEY,
+  complaint_id INTEGER REFERENCES complaints(id),
+  user_id INTEGER REFERENCES users(id),
+  amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+  claude_analysis TEXT,
+  status VARCHAR(20) DEFAULT 'pending',
+  admin_notes TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);

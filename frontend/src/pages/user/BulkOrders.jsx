@@ -151,7 +151,7 @@ const BulkOrders = () => {
             {/* Example format */}
             <div style={{ background: '#f8fafc', borderRadius: '10px', padding: '16px', marginBottom: '20px', border: '1px solid #e2e8f0' }}>
               <div style={{ fontWeight: '600', color: '#374151', fontSize: '13px', marginBottom: '10px' }}>📋 {t('bulkOrders.exampleFormat')}</div>
-              <pre style={{ fontSize: '12px', color: '#475569', overflow: 'auto', margin: 0, whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>{EXAMPLE_CSV}</pre>
+              <pre style={{ fontSize: '13px', color: '#1e40af', overflow: 'auto', margin: 0, whiteSpace: 'pre-wrap', fontFamily: '"Fira Code", "Cascadia Code", "Consolas", monospace', lineHeight: '1.7', letterSpacing: '0.02em', background: '#eff6ff', borderRadius: '8px', padding: '14px', border: '1px solid #bfdbfe' }}>{EXAMPLE_CSV}</pre>
               <button
                 onClick={() => setRawContent(EXAMPLE_CSV)}
                 style={{ marginTop: '10px', background: '#eff6ff', color: '#2563eb', border: '1px solid #bfdbfe', borderRadius: '6px', padding: '6px 14px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}
