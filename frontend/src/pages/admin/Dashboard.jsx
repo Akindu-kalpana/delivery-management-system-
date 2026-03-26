@@ -57,6 +57,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     fetchStats();
     fetchDeliveries();
+    fetchDrivers();
   }, []);
 
   useEffect(() => {
@@ -361,7 +362,19 @@ const AdminDashboard = () => {
                         <td style={tdStyle}>{d.receiver_name}</td>
                         <td style={{ ...tdStyle, maxWidth: '130px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#64748b' }}>{d.pickup_address}</td>
                         <td style={{ ...tdStyle, maxWidth: '130px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#64748b' }}>{d.delivery_address}</td>
-                        <td style={tdStyle}>{d.driver_name || <span style={{ color: '#94a3b8' }}>Unassigned</span>}</td>
+                        <td style={tdStyle}>
+                          <select
+                            value={d.driver_id || ''}
+                            onChange={e => updateDeliveryStatus(d.id, d.status, e.target.value || null)}
+                            disabled={updating === d.id + '-status'}
+                            style={{ border: '1px solid #e2e8f0', borderRadius: '6px', padding: '5px 8px', fontSize: '12px', cursor: 'pointer', minWidth: '120px' }}
+                          >
+                            <option value="">Unassigned</option>
+                            {drivers.map(dr => (
+                              <option key={dr.id} value={dr.id}>{dr.name}</option>
+                            ))}
+                          </select>
+                        </td>
                         <td style={tdStyle}><StatusBadge status={d.status} /></td>
                         <td style={tdStyle}>
                           <select

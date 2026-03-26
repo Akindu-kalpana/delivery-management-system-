@@ -47,7 +47,7 @@ const DamageClaim = () => {
   const fetchClaims = async () => {
     setLoadingClaims(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/damage-claims/mine', {
+      const res = await axios.get('http://localhost:5000/api/damage-claims/my', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setClaims(res.data.claims || []);
@@ -78,7 +78,7 @@ const DamageClaim = () => {
 
   const handleSubmit = async () => {
     if (!selectedDelivery || !description) {
-      setError('Please select a delivery and describe the damage.');
+      setError(t('damage.selectDelivery') + ' ' + t('damage.describeFirst'));
       return;
     }
     setSubmitting(true);
@@ -110,19 +110,19 @@ const DamageClaim = () => {
 
   const getVerdictStyle = (verdict) => {
     const styles = {
-      delivery_fault: { bg: '#fee2e2', color: '#dc2626', label: 'Delivery Fault', icon: '🚚' },
-      product_defect: { bg: '#fef3c7', color: '#d97706', label: 'Product Defect', icon: '📦' },
-      unclear: { bg: '#f1f5f9', color: '#64748b', label: 'Unclear - Under Review', icon: '🔍' },
+      delivery_fault: { bg: '#fee2e2', color: '#dc2626', label: t('damage.verdicts.delivery_fault'), icon: '🚚' },
+      product_defect: { bg: '#fef3c7', color: '#d97706', label: t('damage.verdicts.product_defect'), icon: '📦' },
+      unclear: { bg: '#f1f5f9', color: '#64748b', label: t('damage.verdicts.unclear'), icon: '🔍' },
     };
     return styles[verdict] || styles.unclear;
   };
 
   const getClaimStatusBadge = (status) => {
     const styles = {
-      pending: { bg: '#fef3c7', color: '#d97706', label: 'Pending' },
-      approved: { bg: '#dcfce7', color: '#16a34a', label: 'Approved' },
-      declined: { bg: '#fee2e2', color: '#dc2626', label: 'Declined' },
-      under_review: { bg: '#dbeafe', color: '#2563eb', label: 'Under Review' },
+      pending: { bg: '#fef3c7', color: '#d97706', label: t('damage.claimStatus.pending') },
+      approved: { bg: '#dcfce7', color: '#16a34a', label: t('damage.claimStatus.approved') },
+      declined: { bg: '#fee2e2', color: '#dc2626', label: t('damage.claimStatus.declined') },
+      under_review: { bg: '#dbeafe', color: '#2563eb', label: t('damage.claimStatus.under_review') },
     };
     const s = styles[status] || styles.pending;
     return (
@@ -132,7 +132,7 @@ const DamageClaim = () => {
     );
   };
 
-  const stepLabels = ['Select Delivery', 'Describe Damage', 'Upload Photos', 'Result'];
+  const stepLabels = [t('damage.step1'), t('damage.step2'), t('damage.step3'), t('damage.step4')];
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
@@ -142,9 +142,9 @@ const DamageClaim = () => {
         {/* Header */}
         <div style={{ background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
           <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '6px' }}>
-            📸 Damage Claim
+            📸 {t('damage.title')}
           </h1>
-          <p style={{ opacity: 0.85, fontSize: '14px' }}>File a damage claim with AI-powered analysis</p>
+          <p style={{ opacity: 0.85, fontSize: '14px' }}>{t('damage.subtitle')}</p>
         </div>
 
         {/* Step indicator */}
@@ -183,10 +183,10 @@ const DamageClaim = () => {
         {step === 1 && (
           <div style={{ background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '20px' }}>
-              Step 1: Select a Delivery
+              {t('damage.step1title')}
             </h2>
             {deliveries.length === 0 ? (
-              <p style={{ color: '#94a3b8', fontSize: '14px' }}>No deliveries found. You need at least one delivery to file a damage claim.</p>
+              <p style={{ color: '#94a3b8', fontSize: '14px' }}>{t('damage.noDeliveries')}</p>
             ) : (
               <div style={{ display: 'grid', gap: '12px' }}>
                 {deliveries.map((d) => (
@@ -211,7 +211,7 @@ const DamageClaim = () => {
               </div>
             )}
             <button
-              onClick={() => { if (!selectedDelivery) { setError('Please select a delivery.'); return; } setError(''); setStep(2); }}
+              onClick={() => { if (!selectedDelivery) { setError(t('damage.selectDelivery')); return; } setError(''); setStep(2); }}
               disabled={!selectedDelivery}
               style={{ marginTop: '20px', width: '100%', background: selectedDelivery ? '#2563eb' : '#93c5fd', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: selectedDelivery ? 'pointer' : 'not-allowed' }}
             >
@@ -224,21 +224,21 @@ const DamageClaim = () => {
         {step === 2 && (
           <div style={{ background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '20px' }}>
-              Step 2: Describe the Damage
+              {t('damage.step2title')}
             </h2>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Describe what happened to the package or item. Be as specific as possible - this helps our AI analyze your claim accurately."
+              placeholder={t('damage.descPlaceholder')}
               rows={6}
               style={{ width: '100%', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px 14px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit' }}
             />
             <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
               <button onClick={() => setStep(1)} style={{ flex: 1, background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: 'pointer' }}>
-                ← Back
+                {t('damage.back')}
               </button>
               <button
-                onClick={() => { if (!description.trim()) { setError('Please describe the damage.'); return; } setError(''); setStep(3); }}
+                onClick={() => { if (!description.trim()) { setError(t('damage.describeFirst')); return; } setError(''); setStep(3); }}
                 style={{ flex: 2, background: '#2563eb', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: 'pointer' }}
               >
                 Next: Upload Photos →
@@ -251,13 +251,13 @@ const DamageClaim = () => {
         {step === 3 && (
           <div style={{ background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '20px' }}>
-              Step 3: Upload Photos
+              {t('damage.step3title')}
             </h2>
 
             {/* Damage Photos */}
             <div style={{ marginBottom: '24px' }}>
               <label style={{ display: 'block', fontWeight: '600', color: '#374151', marginBottom: '10px', fontSize: '14px' }}>
-                Damage Photos (multiple allowed)
+                {t('damage.damagePhotos')}
               </label>
               <div
                 onDrop={handleDrop}
@@ -273,10 +273,10 @@ const DamageClaim = () => {
               >
                 <div style={{ fontSize: '36px', marginBottom: '10px' }}>📷</div>
                 <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>
-                  Drag & drop photos here, or click to select
+                  {t('damage.dragDrop')}
                 </p>
                 <p style={{ color: '#94a3b8', fontSize: '12px', marginTop: '4px' }}>
-                  Supports JPG, PNG, WEBP
+                  {t('damage.photoFormats')}
                 </p>
                 <input
                   ref={damageInputRef}
@@ -312,7 +312,7 @@ const DamageClaim = () => {
             {/* Invoice Image */}
             <div style={{ marginBottom: '24px' }}>
               <label style={{ display: 'block', fontWeight: '600', color: '#374151', marginBottom: '10px', fontSize: '14px' }}>
-                Invoice / Receipt Image (optional)
+                {t('damage.invoice')}
               </label>
               <div
                 onClick={() => invoiceInputRef.current?.click()}
@@ -327,7 +327,7 @@ const DamageClaim = () => {
                 ) : (
                   <>
                     <div style={{ fontSize: '28px', marginBottom: '6px' }}>🧾</div>
-                    <p style={{ color: '#64748b', fontSize: '13px', margin: 0 }}>Click to upload invoice/receipt</p>
+                    <p style={{ color: '#64748b', fontSize: '13px', margin: 0 }}>{t('damage.clickInvoice')}</p>
                   </>
                 )}
                 <input
@@ -342,14 +342,14 @@ const DamageClaim = () => {
 
             <div style={{ display: 'flex', gap: '12px' }}>
               <button onClick={() => setStep(2)} style={{ flex: 1, background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: 'pointer' }}>
-                ← Back
+                {t('damage.back')}
               </button>
               <button
                 onClick={handleSubmit}
                 disabled={submitting}
                 style={{ flex: 2, background: submitting ? '#93c5fd' : '#2563eb', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: submitting ? 'not-allowed' : 'pointer' }}
               >
-                {submitting ? '🤖 AI is analyzing your claim...' : '🚀 Submit Claim'}
+                {submitting ? `🤖 ${t('damage.submitting')}` : `🚀 ${t('damage.submit')}`}
               </button>
             </div>
 
@@ -357,7 +357,7 @@ const DamageClaim = () => {
               <div style={{ textAlign: 'center', marginTop: '16px', color: '#64748b', fontSize: '14px' }}>
                 <div style={{ display: 'inline-flex', gap: '4px', alignItems: 'center' }}>
                   <span style={{ animation: 'pulse 1s infinite' }}>⚙️</span>
-                  AI is processing your images and analyzing damage patterns...
+                  {t('damage.analyzing')}
                 </div>
               </div>
             )}
@@ -368,7 +368,7 @@ const DamageClaim = () => {
         {step === 4 && result && (
           <div style={{ background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '20px', textAlign: 'center' }}>
-              🤖 AI Analysis Complete
+              🤖 {t('damage.aiComplete')}
             </h2>
 
             {result.ai_verdict && (() => {
@@ -390,22 +390,22 @@ const DamageClaim = () => {
 
             {result.estimated_refund_percent !== undefined && (
               <div style={{ background: '#f0fdf4', border: '1px solid #86efac', borderRadius: '10px', padding: '16px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ color: '#166534', fontWeight: '600' }}>Estimated Refund</span>
+                <span style={{ color: '#166534', fontWeight: '600' }}>{t('damage.estimatedRefund')}</span>
                 <span style={{ color: '#16a34a', fontSize: '24px', fontWeight: 'bold' }}>{result.estimated_refund_percent}%</span>
               </div>
             )}
 
             <div style={{ background: '#eff6ff', borderRadius: '10px', padding: '16px', textAlign: 'center', marginBottom: '20px' }}>
               <div style={{ fontSize: '24px', marginBottom: '8px' }}>📋</div>
-              <p style={{ color: '#1d4ed8', fontWeight: '600', margin: 0 }}>Claim Submitted for Admin Review</p>
-              <p style={{ color: '#3b82f6', fontSize: '13px', margin: '4px 0 0' }}>Our team will review your claim and contact you within 2-3 business days.</p>
+              <p style={{ color: '#1d4ed8', fontWeight: '600', margin: 0 }}>{t('damage.claimSubmitted')}</p>
+              <p style={{ color: '#3b82f6', fontSize: '13px', margin: '4px 0 0' }}>{t('damage.claimHint')}</p>
             </div>
 
             <button
               onClick={() => { setStep(1); setSelectedDelivery(''); setDescription(''); setDamagePhotos([]); setDamagePhotoPreviews([]); setInvoiceImage(null); setInvoicePreview(null); setResult(null); setError(''); }}
               style={{ width: '100%', background: '#2563eb', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: 'pointer' }}
             >
-              File Another Claim
+              {t('damage.fileAnother')}
             </button>
           </div>
         )}
@@ -413,13 +413,13 @@ const DamageClaim = () => {
         {/* Existing Claims */}
         <div style={{ marginTop: '32px' }}>
           <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '16px' }}>
-            📋 My Previous Claims
+            📋 {t('damage.previousClaims')}
           </h2>
           {loadingClaims ? (
-            <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading claims...</div>
+            <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('damage.loading')}</div>
           ) : claims.length === 0 ? (
             <div style={{ background: 'white', borderRadius: '14px', padding: '32px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', color: '#94a3b8' }}>
-              No previous claims found.
+              {t('damage.noClaims')}
             </div>
           ) : (
             <div style={{ display: 'grid', gap: '14px' }}>
@@ -435,8 +435,8 @@ const DamageClaim = () => {
                   <p style={{ color: '#475569', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>{claim.description}</p>
                   {claim.ai_verdict && (
                     <div style={{ marginTop: '10px', fontSize: '12px', color: '#64748b' }}>
-                      AI Verdict: <strong>{getVerdictStyle(claim.ai_verdict).label}</strong>
-                      {claim.estimated_refund_percent !== undefined && ` · Refund: ${claim.estimated_refund_percent}%`}
+                      {t('damage.aiVerdict')}: <strong>{getVerdictStyle(claim.ai_verdict).label}</strong>
+                      {claim.estimated_refund_percent !== undefined && ` · ${t('damage.refund')}: ${claim.estimated_refund_percent}%`}
                     </div>
                   )}
                 </div>

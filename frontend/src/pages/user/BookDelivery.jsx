@@ -10,6 +10,18 @@ const BookDelivery = () => {
   const { token } = useAuth();
   const navigate = useNavigate();
 
+  const [mode, setMode] = useState('manual'); // 'manual' | 'bot'
+
+  // Manual form state
+  const [form, setForm] = useState({
+    sender_name: '', sender_phone: '',
+    pickup_address: '', receiver_name: '',
+    receiver_phone: '', delivery_address: '',
+    package_description: '', delivery_option: 'standard', package_size: 'medium',
+  });
+  const [formLoading, setFormLoading] = useState(false);
+  const [formError, setFormError] = useState('');
+
   const [messages, setMessages] = useState([
     { role: 'assistant', content: t('booking.initialMessage') }
   ]);
@@ -139,6 +151,23 @@ const BookDelivery = () => {
     }
   };
 
+  const submitManualForm = async (e) => {
+    e.preventDefault();
+    setFormLoading(true);
+    setFormError('');
+    try {
+      await axios.post('http://localhost:5000/api/deliveries', form, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setBookingConfirmed(true);
+      setTimeout(() => navigate('/user/dashboard'), 2000);
+    } catch (err) {
+      setFormError(err.response?.data?.message || 'Failed to book delivery. Please try again.');
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -183,17 +212,128 @@ const BookDelivery = () => {
     );
   }
 
+  const inputStyle = { width: '100%', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '10px 14px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' };
+  const labelStyle = { display: 'block', fontWeight: '600', color: '#374151', marginBottom: '6px', fontSize: '14px' };
+
   return (
     <div style={{minHeight: '100vh', background: '#f8fafc'}}>
       <Navbar />
 
-      <div style={{paddingTop: '80px', maxWidth: '800px', margin: '0 auto', padding: '80px 20px 40px'}}>
+      <div style={{maxWidth: '800px', margin: '0 auto', padding: '80px 20px 40px'}}>
 
         {/* Header */}
         <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '24px', marginBottom: '24px', color: 'white', textAlign: 'center'}}>
-          <h1 style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '4px'}}>🤖 {t('booking.title')}</h1>
+          <h1 style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '4px'}}>📦 {t('booking.title')}</h1>
           <p style={{opacity: 0.8, fontSize: '14px'}}>{t('booking.subtitle')}</p>
         </div>
+
+        {/* Mode Toggle */}
+        <div style={{display: 'flex', background: 'white', borderRadius: '12px', padding: '6px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', marginBottom: '24px'}}>
+          {[
+            { key: 'manual', icon: '📝', label: 'Manual Form' },
+            { key: 'bot',    icon: '🤖', label: 'AI Assistant' },
+          ].map(opt => (
+            <button
+              key={opt.key}
+              onClick={() => setMode(opt.key)}
+              style={{
+                flex: 1, border: 'none', borderRadius: '8px', padding: '14px',
+                background: mode === opt.key ? '#2563eb' : 'transparent',
+                color: mode === opt.key ? 'white' : '#64748b',
+                fontWeight: '600', fontSize: '15px', cursor: 'pointer', transition: 'all 0.2s',
+              }}
+            >
+              {opt.icon} {opt.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── MANUAL FORM ── */}
+        {mode === 'manual' && (
+          <div style={{background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)'}}>
+            <form onSubmit={submitManualForm}>
+              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px'}}>
+
+                <div style={{gridColumn: '1/-1'}}>
+                  <h3 style={{fontWeight: 'bold', color: '#1e293b', margin: '0 0 16px', fontSize: '15px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px'}}>Sender Details</h3>
+                </div>
+                <div>
+                  <label style={labelStyle}>Sender Name</label>
+                  <input required style={inputStyle} value={form.sender_name} onChange={e => setForm({...form, sender_name: e.target.value})} placeholder="Full name" />
+                </div>
+                <div>
+                  <label style={labelStyle}>Sender Phone</label>
+                  <input required style={inputStyle} value={form.sender_phone} onChange={e => setForm({...form, sender_phone: e.target.value})} placeholder="+358 ..." />
+                </div>
+                <div style={{gridColumn: '1/-1'}}>
+                  <label style={labelStyle}>Pickup Address</label>
+                  <input required style={inputStyle} value={form.pickup_address} onChange={e => setForm({...form, pickup_address: e.target.value})} placeholder="Street, City" />
+                </div>
+
+                <div style={{gridColumn: '1/-1', marginTop: '8px'}}>
+                  <h3 style={{fontWeight: 'bold', color: '#1e293b', margin: '0 0 16px', fontSize: '15px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px'}}>Receiver Details</h3>
+                </div>
+                <div>
+                  <label style={labelStyle}>Receiver Name</label>
+                  <input required style={inputStyle} value={form.receiver_name} onChange={e => setForm({...form, receiver_name: e.target.value})} placeholder="Full name" />
+                </div>
+                <div>
+                  <label style={labelStyle}>Receiver Phone</label>
+                  <input required style={inputStyle} value={form.receiver_phone} onChange={e => setForm({...form, receiver_phone: e.target.value})} placeholder="+358 ..." />
+                </div>
+                <div style={{gridColumn: '1/-1'}}>
+                  <label style={labelStyle}>Delivery Address</label>
+                  <input required style={inputStyle} value={form.delivery_address} onChange={e => setForm({...form, delivery_address: e.target.value})} placeholder="Street, City" />
+                </div>
+
+                <div style={{gridColumn: '1/-1', marginTop: '8px'}}>
+                  <h3 style={{fontWeight: 'bold', color: '#1e293b', margin: '0 0 16px', fontSize: '15px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px'}}>Package Details</h3>
+                </div>
+                <div>
+                  <label style={labelStyle}>Delivery Option</label>
+                  <select style={inputStyle} value={form.delivery_option} onChange={e => setForm({...form, delivery_option: e.target.value})}>
+                    <option value="standard">Standard (2-3 days) — from €4.99</option>
+                    <option value="express">Express (next day) — from €9.99</option>
+                    <option value="same_day">Same Day — from €19.99</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={labelStyle}>Package Size</label>
+                  <select style={inputStyle} value={form.package_size} onChange={e => setForm({...form, package_size: e.target.value})}>
+                    <option value="xs">XS — under 1 kg</option>
+                    <option value="small">Small — 1–5 kg</option>
+                    <option value="medium">Medium — 5–15 kg</option>
+                    <option value="large">Large — 15–30 kg</option>
+                    <option value="xl">XL — 30 kg+</option>
+                  </select>
+                </div>
+                <div style={{gridColumn: '1/-1'}}>
+                  <label style={labelStyle}>Package Description <span style={{color:'#94a3b8', fontWeight:'400'}}>(optional)</span></label>
+                  <textarea rows={3} style={{...inputStyle, resize: 'vertical'}} value={form.package_description} onChange={e => setForm({...form, package_description: e.target.value})} placeholder="e.g. Fragile electronics, documents..." />
+                </div>
+
+                {formError && (
+                  <div style={{gridColumn: '1/-1', background: '#fee2e2', color: '#dc2626', padding: '12px', borderRadius: '8px', fontSize: '14px'}}>
+                    {formError}
+                  </div>
+                )}
+
+                <div style={{gridColumn: '1/-1'}}>
+                  <button
+                    type="submit"
+                    disabled={formLoading}
+                    style={{width: '100%', background: formLoading ? '#93c5fd' : '#2563eb', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', fontSize: '15px', cursor: formLoading ? 'not-allowed' : 'pointer'}}
+                  >
+                    {formLoading ? '⏳ Booking...' : '📦 Confirm Booking'}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* ── BOT MODE ── */}
+        {mode === 'bot' && (<>
 
         {/* Voice Mode Controls */}
         <div style={{background: 'white', borderRadius: '12px', padding: '16px 20px', marginBottom: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px'}}>
@@ -349,6 +489,8 @@ const BookDelivery = () => {
             100% { opacity: 1; transform: scale(1); }
           }
         `}</style>
+        </>)}
+
       </div>
     </div>
   );

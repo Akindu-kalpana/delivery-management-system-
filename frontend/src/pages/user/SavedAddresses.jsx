@@ -78,7 +78,7 @@ const SavedAddresses = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this address?')) return;
+    if (!window.confirm(t('addresses.deleteConfirm'))) return;
     setError('');
     try {
       await axios.delete(`http://localhost:5000/api/addresses/${id}`, {
@@ -116,9 +116,9 @@ const SavedAddresses = () => {
         {/* Header */}
         <div style={{ background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
           <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '6px' }}>
-            📍 Saved Addresses
+            📍 {t('addresses.title')}
           </h1>
-          <p style={{ opacity: 0.85, fontSize: '14px' }}>Manage your frequently used addresses</p>
+          <p style={{ opacity: 0.85, fontSize: '14px' }}>{t('addresses.subtitle')}</p>
         </div>
 
         {/* Alerts */}
@@ -137,13 +137,13 @@ const SavedAddresses = () => {
         {showForm && (
           <div style={{ background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', marginBottom: '24px' }}>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '20px' }}>
-              {editingId ? '✏️ Edit Address' : '➕ Add New Address'}
+              {editingId ? `✏️ ${t('addresses.editTitle')}` : `➕ ${t('addresses.addNew')}`}
             </h2>
             <form onSubmit={handleSubmit}>
               <div style={{ display: 'grid', gap: '16px' }}>
                 <div>
                   <label style={{ display: 'block', fontWeight: '600', color: '#374151', marginBottom: '6px', fontSize: '14px' }}>
-                    Label (e.g. Home, Office)
+                    {t('addresses.label')}
                   </label>
                   <input
                     type="text"
@@ -156,7 +156,7 @@ const SavedAddresses = () => {
                 </div>
                 <div>
                   <label style={{ display: 'block', fontWeight: '600', color: '#374151', marginBottom: '6px', fontSize: '14px' }}>
-                    Address
+                    {t('addresses.address')}
                   </label>
                   <input
                     type="text"
@@ -174,7 +174,7 @@ const SavedAddresses = () => {
                     onChange={(e) => setForm({ ...form, is_default: e.target.checked })}
                     style={{ width: '18px', height: '18px' }}
                   />
-                  Set as default address
+                  {t('addresses.setDefault')}
                 </label>
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <button
@@ -182,14 +182,14 @@ const SavedAddresses = () => {
                     disabled={saving}
                     style={{ flex: 1, background: saving ? '#93c5fd' : '#2563eb', color: 'white', border: 'none', borderRadius: '8px', padding: '12px', fontWeight: '600', cursor: saving ? 'not-allowed' : 'pointer' }}
                   >
-                    {saving ? 'Saving...' : editingId ? 'Update Address' : 'Save Address'}
+                    {saving ? t('addresses.saving') : editingId ? t('addresses.update') : t('addresses.save')}
                   </button>
                   <button
                     type="button"
                     onClick={cancelForm}
                     style={{ background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '8px', padding: '12px 20px', fontWeight: '600', cursor: 'pointer' }}
                   >
-                    Cancel
+                    {t('addresses.cancel')}
                   </button>
                 </div>
               </div>
@@ -203,7 +203,7 @@ const SavedAddresses = () => {
             onClick={() => { setShowForm(true); setEditingId(null); setForm({ label: '', address: '', is_default: false }); }}
             style={{ width: '100%', background: '#2563eb', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', fontSize: '15px', cursor: 'pointer', marginBottom: '24px' }}
           >
-            ➕ Add New Address
+            ➕ {t('addresses.addNew')}
           </button>
         )}
 
@@ -212,13 +212,13 @@ const SavedAddresses = () => {
           {loading ? (
             <div style={{ textAlign: 'center', padding: '60px', color: '#94a3b8' }}>
               <div style={{ fontSize: '36px', marginBottom: '12px' }}>⏳</div>
-              Loading addresses...
+              {t('addresses.loading')}
             </div>
           ) : addresses.length === 0 ? (
             <div style={{ background: 'white', borderRadius: '16px', padding: '48px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
               <div style={{ fontSize: '48px', marginBottom: '16px' }}>📭</div>
-              <p style={{ color: '#94a3b8', fontSize: '16px' }}>No saved addresses yet.</p>
-              <p style={{ color: '#cbd5e1', fontSize: '14px' }}>Add your first address above.</p>
+              <p style={{ color: '#94a3b8', fontSize: '16px' }}>{t('addresses.empty')}</p>
+              <p style={{ color: '#cbd5e1', fontSize: '14px' }}>{t('addresses.emptyHint')}</p>
             </div>
           ) : (
             <div style={{ display: 'grid', gap: '16px' }}>
@@ -244,7 +244,7 @@ const SavedAddresses = () => {
                       </span>
                       {addr.is_default && (
                         <span style={{ background: '#2563eb', color: 'white', fontSize: '11px', fontWeight: '600', padding: '2px 8px', borderRadius: '10px' }}>
-                          DEFAULT
+                          {t('addresses.default')}
                         </span>
                       )}
                     </div>

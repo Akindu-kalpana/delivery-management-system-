@@ -97,7 +97,7 @@ const getDeliveryById = async (req, res) => {
 const getDriverDeliveries = async (req, res) => {
   try {
     const deliveries = await pool.query(
-      `SELECT d.*, u.name AS user_name, u.phone AS user_phone
+      `SELECT d.*, u.name AS user_name, u.email AS user_email
        FROM deliveries d
        LEFT JOIN users u ON d.user_id = u.id
        WHERE d.driver_id = $1

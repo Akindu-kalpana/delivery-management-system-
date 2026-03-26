@@ -79,7 +79,8 @@ const processBulkOrder = async (req, res) => {
 
 // POST confirm a bulk order (create all deliveries)
 const confirmBulkOrder = async (req, res) => {
-  const { bulk_order_id, deliveries } = req.body;
+  const bulk_order_id = req.params.id;
+  const { deliveries } = req.body;
 
   if (!bulk_order_id || !Array.isArray(deliveries) || deliveries.length === 0) {
     return res.status(400).json({ message: 'bulk_order_id and deliveries array are required' });

@@ -56,12 +56,12 @@ const BulkOrders = () => {
     setError('');
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/bulk-orders/process',
-        { content: rawContent },
+        'http://localhost:5000/api/bulk/process',
+        { raw_content: rawContent },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setRows(res.data.deliveries || []);
-      setBulkOrderId(res.data.bulk_order_id || null);
+      setRows(res.data.extracted_deliveries || []);
+      setBulkOrderId(res.data.bulk_order?.id || null);
       setStep(3);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to process data. Please check the format and try again.');
@@ -87,20 +87,11 @@ const BulkOrders = () => {
     setConfirming(true);
     setError('');
     try {
-      let res;
-      if (bulkOrderId) {
-        res = await axios.post(
-          `http://localhost:5000/api/bulk-orders/confirm/${bulkOrderId}`,
-          { deliveries: rows },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      } else {
-        res = await axios.post(
-          'http://localhost:5000/api/bulk-orders/confirm',
-          { deliveries: rows },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      }
+      const res = await axios.post(
+        `http://localhost:5000/api/bulk/confirm/${bulkOrderId}`,
+        { deliveries: rows },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       setConfirmed(res.data);
       setStep(4);
     } catch (err) {
@@ -110,7 +101,7 @@ const BulkOrders = () => {
     }
   };
 
-  const stepLabels = ['Upload Data', 'Process with AI', 'Review & Edit', 'Confirmed'];
+  const stepLabels = [t('bulkOrders.step1'), t('bulkOrders.step2'), t('bulkOrders.step3'), t('bulkOrders.step4')];
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
@@ -120,9 +111,9 @@ const BulkOrders = () => {
         {/* Header */}
         <div style={{ background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
           <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '6px' }}>
-            📦 Bulk Orders
+            📦 {t('bulkOrders.title')}
           </h1>
-          <p style={{ opacity: 0.85, fontSize: '14px' }}>Upload multiple delivery orders at once with AI-powered data extraction</p>
+          <p style={{ opacity: 0.85, fontSize: '14px' }}>{t('bulkOrders.subtitle')}</p>
         </div>
 
         {/* Steps */}
@@ -154,32 +145,32 @@ const BulkOrders = () => {
         {step === 1 && (
           <div style={{ background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '20px' }}>
-              Step 1: Provide Order Data
+              {t('bulkOrders.step1title')}
             </h2>
 
             {/* Example format */}
             <div style={{ background: '#f8fafc', borderRadius: '10px', padding: '16px', marginBottom: '20px', border: '1px solid #e2e8f0' }}>
-              <div style={{ fontWeight: '600', color: '#374151', fontSize: '13px', marginBottom: '10px' }}>📋 Example Format (CSV):</div>
+              <div style={{ fontWeight: '600', color: '#374151', fontSize: '13px', marginBottom: '10px' }}>📋 {t('bulkOrders.exampleFormat')}</div>
               <pre style={{ fontSize: '12px', color: '#475569', overflow: 'auto', margin: 0, whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>{EXAMPLE_CSV}</pre>
               <button
                 onClick={() => setRawContent(EXAMPLE_CSV)}
                 style={{ marginTop: '10px', background: '#eff6ff', color: '#2563eb', border: '1px solid #bfdbfe', borderRadius: '6px', padding: '6px 14px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}
               >
-                Use Example
+                {t('bulkOrders.useExample')}
               </button>
             </div>
 
             {/* File Upload */}
             <div style={{ marginBottom: '16px' }}>
               <label style={{ display: 'block', fontWeight: '600', color: '#374151', marginBottom: '8px', fontSize: '14px' }}>
-                Upload File (.csv, .txt)
+                {t('bulkOrders.uploadFile')}
               </label>
               <div
                 onClick={() => fileInputRef.current?.click()}
                 style={{ border: '2px dashed #cbd5e1', borderRadius: '10px', padding: '24px', textAlign: 'center', cursor: 'pointer', background: '#f8fafc' }}
               >
                 <div style={{ fontSize: '28px', marginBottom: '8px' }}>📂</div>
-                <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>Click to upload CSV or text file</p>
+                <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>{t('bulkOrders.clickUpload')}</p>
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -190,12 +181,12 @@ const BulkOrders = () => {
               </div>
             </div>
 
-            <div style={{ textAlign: 'center', color: '#94a3b8', marginBottom: '16px', fontSize: '14px' }}>OR</div>
+            <div style={{ textAlign: 'center', color: '#94a3b8', marginBottom: '16px', fontSize: '14px' }}>{t('bulkOrders.or')}</div>
 
             {/* Paste Area */}
             <div>
               <label style={{ display: 'block', fontWeight: '600', color: '#374151', marginBottom: '8px', fontSize: '14px' }}>
-                Paste Data
+                {t('bulkOrders.pasteData')}
               </label>
               <textarea
                 value={rawContent}
@@ -211,7 +202,7 @@ const BulkOrders = () => {
               disabled={!rawContent.trim()}
               style={{ marginTop: '20px', width: '100%', background: rawContent.trim() ? '#2563eb' : '#93c5fd', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: rawContent.trim() ? 'pointer' : 'not-allowed' }}
             >
-              Next: Process with AI →
+              {t('bulkOrders.next')}
             </button>
           </div>
         )}
@@ -220,7 +211,7 @@ const BulkOrders = () => {
         {step === 2 && (
           <div style={{ background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', textAlign: 'center' }}>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '20px' }}>
-              Step 2: AI Processing
+              {t('bulkOrders.step2title')}
             </h2>
             <div style={{ fontSize: '48px', marginBottom: '16px' }}>🤖</div>
             <p style={{ color: '#475569', fontSize: '15px', marginBottom: '28px' }}>
@@ -234,19 +225,19 @@ const BulkOrders = () => {
                     <div key={i} style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#2563eb', animation: `bounce${i} 0.8s infinite alternate`, animationDelay: `${i * 0.2}s`, opacity: 0.7 }} />
                   ))}
                 </div>
-                <p style={{ color: '#2563eb', fontWeight: '600' }}>AI is extracting delivery data...</p>
-                <p style={{ color: '#94a3b8', fontSize: '13px' }}>This may take a few seconds</p>
+                <p style={{ color: '#2563eb', fontWeight: '600' }}>{t('bulkOrders.processing')}</p>
+                <p style={{ color: '#94a3b8', fontSize: '13px' }}>{t('bulkOrders.processingHint')}</p>
               </div>
             ) : (
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
                 <button onClick={() => setStep(1)} style={{ background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '10px', padding: '14px 28px', fontWeight: '600', cursor: 'pointer' }}>
-                  ← Back
+                  {t('bulkOrders.back')}
                 </button>
                 <button
                   onClick={handleProcess}
                   style={{ background: '#2563eb', color: 'white', border: 'none', borderRadius: '10px', padding: '14px 36px', fontWeight: '600', cursor: 'pointer', fontSize: '15px' }}
                 >
-                  🤖 Process with AI
+                  🤖 {t('bulkOrders.processBtn')}
                 </button>
               </div>
             )}
@@ -259,13 +250,13 @@ const BulkOrders = () => {
             <div style={{ background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', marginBottom: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', margin: 0 }}>
-                  Step 3: Review & Edit ({rows.length} orders)
+                  {t('bulkOrders.step3title')} ({rows.length} orders)
                 </h2>
                 <button
                   onClick={handleAddRow}
                   style={{ background: '#eff6ff', color: '#2563eb', border: '1px solid #bfdbfe', borderRadius: '8px', padding: '8px 16px', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}
                 >
-                  + Add Row
+                  {t('bulkOrders.addRow')}
                 </button>
               </div>
 
@@ -335,14 +326,14 @@ const BulkOrders = () => {
 
             <div style={{ display: 'flex', gap: '12px' }}>
               <button onClick={() => setStep(2)} style={{ flex: 1, background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: 'pointer' }}>
-                ← Back
+                {t('bulkOrders.back')}
               </button>
               <button
                 onClick={handleConfirm}
                 disabled={confirming || rows.length === 0}
                 style={{ flex: 2, background: confirming || rows.length === 0 ? '#93c5fd' : '#16a34a', color: 'white', border: 'none', borderRadius: '10px', padding: '14px', fontWeight: '600', cursor: confirming || rows.length === 0 ? 'not-allowed' : 'pointer', fontSize: '15px' }}
               >
-                {confirming ? '⏳ Creating deliveries...' : `✅ Confirm All ${rows.length} Deliveries`}
+                {confirming ? `⏳ ${t('bulkOrders.confirming')}` : `✅ ${t('bulkOrders.confirmBtn')} (${rows.length})`}
               </button>
             </div>
           </div>
@@ -353,19 +344,19 @@ const BulkOrders = () => {
           <div style={{ background: 'white', borderRadius: '16px', padding: '48px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', textAlign: 'center' }}>
             <div style={{ fontSize: '64px', marginBottom: '20px' }}>🎉</div>
             <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1e293b', marginBottom: '10px' }}>
-              Bulk Order Confirmed!
+              {t('bulkOrders.successTitle')}
             </h2>
             <p style={{ color: '#64748b', fontSize: '16px', marginBottom: '8px' }}>
-              Successfully created <strong style={{ color: '#16a34a' }}>{confirmed.count || confirmed.deliveries_created || rows.length}</strong> deliveries.
+              <strong style={{ color: '#16a34a' }}>{confirmed.count || confirmed.deliveries_created || rows.length}</strong> {t('bulkOrders.successDesc')}
             </p>
             <p style={{ color: '#94a3b8', fontSize: '14px', marginBottom: '28px' }}>
-              All deliveries are now queued and drivers will be assigned shortly.
+              {t('bulkOrders.successHint')}
             </p>
             <button
               onClick={() => { setStep(1); setRawContent(''); setRows([]); setBulkOrderId(null); setConfirmed(null); setError(''); }}
               style={{ background: '#2563eb', color: 'white', border: 'none', borderRadius: '10px', padding: '14px 36px', fontWeight: '600', fontSize: '15px', cursor: 'pointer' }}
             >
-              Create Another Bulk Order
+              {t('bulkOrders.createAnother')}
             </button>
           </div>
         )}

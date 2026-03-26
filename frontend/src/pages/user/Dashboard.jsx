@@ -116,9 +116,15 @@ const UserDashboard = () => {
         {/* Quick actions */}
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '32px'}}>
           {[
-            { icon: '📦', label: t('dashboard.bookDelivery'), path: '/user/book', color: '#2563eb' },
-            { icon: '📍', label: t('dashboard.trackDelivery'), path: '/user/track', color: '#7c3aed' },
-            { icon: '📋', label: t('dashboard.deliveryHistory'), path: '/user/history', color: '#059669' },
+            { icon: '📦', label: t('dashboard.bookDelivery'),    path: '/user/book',           color: '#2563eb' },
+            { icon: '📍', label: t('dashboard.trackDelivery'),  path: '/user/track',          color: '#7c3aed' },
+            { icon: '📋', label: t('dashboard.deliveryHistory'),path: '/user/history',         color: '#059669' },
+            { icon: '📣', label: t('dashboard.complaints'),     path: '/user/complaints',      color: '#dc2626' },
+            { icon: '🔍', label: t('dashboard.damageClaim'),    path: '/user/damage-claim',    color: '#ea580c' },
+            { icon: '⭐', label: t('dashboard.loyaltyPoints'),  path: '/user/loyalty',         color: '#d97706' },
+            { icon: '🗂️', label: t('dashboard.savedAddresses'),path: '/user/addresses',       color: '#0891b2' },
+            { icon: '📂', label: t('dashboard.bulkOrders'),     path: '/user/bulk-orders',     color: '#7c3aed' },
+            { icon: '💶', label: t('dashboard.priceEstimate'),  path: '/user/price-estimate',  color: '#16a34a' },
           ].map((action, index) => (
             <Link
               key={index}

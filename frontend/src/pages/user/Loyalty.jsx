@@ -41,7 +41,15 @@ const Loyalty = () => {
       const res = await axios.get('http://localhost:5000/api/loyalty/info', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setInfo(res.data);
+      // backend returns { loyalty: { points, total_earned, level }, transactions }
+      const { loyalty, transactions } = res.data;
+      setInfo({
+        current_points: loyalty.points || 0,
+        total_earned: loyalty.total_earned || 0,
+        total_redeemed: 0,
+        level: loyalty.level || 'bronze',
+        transactions: transactions || [],
+      });
     } catch (err) {
       setError('Failed to load loyalty information.');
     } finally {
@@ -65,7 +73,7 @@ const Loyalty = () => {
     try {
       const res = await axios.post(
         'http://localhost:5000/api/loyalty/redeem',
-        { points },
+        { points_to_redeem: points },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setRedeemSuccess(`Successfully redeemed ${points} points for €${(points * 0.05).toFixed(2)} discount!`);
@@ -112,7 +120,7 @@ const Loyalty = () => {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '80vh', color: '#94a3b8' }}>
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '36px', marginBottom: '12px' }}>⏳</div>
-            Loading loyalty info...
+            {t('loyalty.loading')}
           </div>
         </div>
       </div>
@@ -144,17 +152,17 @@ const Loyalty = () => {
         <div style={{ background: `linear-gradient(135deg, ${currentTier.color}, ${currentTier.color}cc)`, borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
           <div style={{ fontSize: '48px', marginBottom: '8px' }}>{currentTier.icon}</div>
           <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '4px' }}>
-            {currentTier.name} Member
+            {currentTier.name} {t('loyalty.member')}
           </h1>
-          <p style={{ opacity: 0.9, fontSize: '14px' }}>Your Loyalty Rewards Program</p>
+          <p style={{ opacity: 0.9, fontSize: '14px' }}>{t('loyalty.subtitle')}</p>
         </div>
 
         {/* Points Overview */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '24px' }}>
           {[
-            { label: 'Current Points', value: points.toLocaleString(), icon: '⭐', color: currentTier.color },
-            { label: 'Total Earned', value: (info?.total_earned || 0).toLocaleString(), icon: '📈', color: '#2563eb' },
-            { label: 'Total Redeemed', value: (info?.total_redeemed || 0).toLocaleString(), icon: '💳', color: '#7c3aed' },
+            { label: t('loyalty.currentPoints'), value: points.toLocaleString(), icon: '⭐', color: currentTier.color },
+            { label: t('loyalty.totalEarned'), value: (info?.total_earned || 0).toLocaleString(), icon: '📈', color: '#2563eb' },
+            { label: t('loyalty.totalRedeemed'), value: (info?.total_redeemed || 0).toLocaleString(), icon: '💳', color: '#7c3aed' },
           ].map((stat, i) => (
             <div key={i} style={{ background: 'white', borderRadius: '14px', padding: '20px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
               <div style={{ fontSize: '28px', marginBottom: '6px' }}>{stat.icon}</div>
@@ -168,10 +176,10 @@ const Loyalty = () => {
         <div style={{ background: 'white', borderRadius: '14px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', marginBottom: '24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
             <div>
-              <div style={{ fontWeight: '600', color: '#1e293b', fontSize: '16px' }}>Progress to {nextTier ? nextTier.name : 'Max Tier'}</div>
+              <div style={{ fontWeight: '600', color: '#1e293b', fontSize: '16px' }}>{t('loyalty.progressTo')} {nextTier ? nextTier.name : t('loyalty.maxTier')}</div>
               {nextTier && (
                 <div style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>
-                  {nextTier.min - points} points needed
+                  {nextTier.min - points} {t('loyalty.pointsNeeded')}
                 </div>
               )}
             </div>
@@ -189,13 +197,13 @@ const Loyalty = () => {
         {/* Tier Benefits */}
         <div style={{ background: 'white', borderRadius: '14px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', marginBottom: '24px' }}>
           <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '16px' }}>
-            🎁 Tier Benefits
+            🎁 {t('loyalty.benefits')}
           </h2>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
               <thead>
                 <tr>
-                  <th style={{ padding: '10px', textAlign: 'left', color: '#64748b', fontWeight: '600', borderBottom: '2px solid #f1f5f9' }}>Benefit</th>
+                  <th style={{ padding: '10px', textAlign: 'left', color: '#64748b', fontWeight: '600', borderBottom: '2px solid #f1f5f9' }}>{t('loyalty.benefit')}</th>
                   {TIERS.map(tier => (
                     <th key={tier.name} style={{ padding: '10px', textAlign: 'center', color: tier.color, fontWeight: '700', borderBottom: '2px solid #f1f5f9' }}>
                       {tier.icon} {tier.name}
@@ -221,10 +229,10 @@ const Loyalty = () => {
         {/* Redeem Points */}
         <div style={{ background: 'white', borderRadius: '14px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', marginBottom: '24px' }}>
           <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '8px' }}>
-            💳 Redeem Points
+            💳 {t('loyalty.redeemTitle')}
           </h2>
           <p style={{ color: '#64748b', fontSize: '13px', marginBottom: '16px' }}>
-            1 point = €0.05 discount · You have <strong style={{ color: currentTier.color }}>{points} points</strong> (€{(points * 0.05).toFixed(2)} value)
+            {t('loyalty.redeemDesc')} <strong style={{ color: currentTier.color }}>{points} points</strong> (€{(points * 0.05).toFixed(2)} {t('loyalty.redeemValue')})
           </p>
 
           {redeemError && <div style={{ background: '#fee2e2', color: '#dc2626', padding: '10px 14px', borderRadius: '8px', marginBottom: '12px', fontSize: '13px' }}>{redeemError}</div>}
@@ -233,7 +241,7 @@ const Loyalty = () => {
           <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-end' }}>
             <div style={{ flex: 1 }}>
               <label style={{ display: 'block', fontWeight: '600', color: '#374151', marginBottom: '6px', fontSize: '14px' }}>
-                Points to Redeem
+                {t('loyalty.pointsLabel')}
               </label>
               <input
                 type="number"
@@ -255,7 +263,7 @@ const Loyalty = () => {
               disabled={redeeming || !redeemPoints || parseInt(redeemPoints) < 1}
               style={{ background: redeeming ? '#93c5fd' : '#2563eb', color: 'white', border: 'none', borderRadius: '10px', padding: '12px 24px', fontWeight: '600', cursor: redeeming ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap' }}
             >
-              {redeeming ? 'Redeeming...' : 'Redeem Now'}
+              {redeeming ? t('loyalty.redeeming') : t('loyalty.redeemBtn')}
             </button>
           </div>
         </div>
@@ -264,7 +272,7 @@ const Loyalty = () => {
         {info?.transactions && info.transactions.length > 0 && (
           <div style={{ background: 'white', borderRadius: '14px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: '#1e293b', marginBottom: '16px' }}>
-              📜 Transaction History
+              📜 {t('loyalty.history')}
             </h2>
             <div style={{ display: 'grid', gap: '10px' }}>
               {info.transactions.map((tx, i) => (

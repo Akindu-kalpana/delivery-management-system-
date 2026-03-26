@@ -10,18 +10,24 @@ const DriverDashboard = () => {
   const [deliveries, setDeliveries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(null);
+  const [fetchError, setFetchError] = useState('');
 
   useEffect(() => {
+    if (!token) return;
     fetchDeliveries();
   }, [token]);
 
   const fetchDeliveries = async () => {
+    setLoading(true);
+    setFetchError('');
     try {
       const res = await axios.get('http://localhost:5000/api/deliveries/driver', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setDeliveries(res.data.deliveries);
+      setDeliveries(res.data.deliveries || []);
     } catch (err) {
+      const msg = err.response?.data?.message || err.message || 'Failed to load deliveries';
+      setFetchError(msg);
       console.error(err);
     } finally {
       setLoading(false);
@@ -106,6 +112,12 @@ const DriverDashboard = () => {
           <h2 style={{fontSize: '20px', fontWeight: 'bold', marginBottom: '20px', color: '#1e293b'}}>
             📦 {t('dashboard.assignedDeliveries')}
           </h2>
+
+          {fetchError && (
+            <div style={{background: '#fee2e2', color: '#dc2626', padding: '12px 16px', borderRadius: '8px', marginBottom: '16px', fontSize: '14px'}}>
+              ⚠️ {fetchError}
+            </div>
+          )}
 
           {loading ? (
             <div style={{textAlign: 'center', padding: '40px', color: '#94a3b8'}}>{t('dashboard.loading')}</div>

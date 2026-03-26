@@ -94,10 +94,10 @@ const PriceEstimate = () => {
         {/* Header */}
         <div style={{ background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
           <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '6px' }}>
-            💰 Price Estimate
+            💰 {t('price.title')}
           </h1>
           <p style={{ opacity: 0.85, fontSize: '14px' }}>
-            Get an instant price quote before you book
+            {t('price.subtitle')}
           </p>
         </div>
 
@@ -108,7 +108,7 @@ const PriceEstimate = () => {
 
               {/* Pickup Address */}
               <div>
-                <label style={labelStyle}>Pickup Address</label>
+                <label style={labelStyle}>{t('price.pickupAddress')}</label>
                 {savedAddresses.length > 0 && (
                   <select
                     onChange={(e) => {
@@ -116,7 +116,7 @@ const PriceEstimate = () => {
                     }}
                     style={{ ...inputStyle, marginBottom: '6px', color: '#64748b' }}
                   >
-                    <option value="">-- Select from saved addresses --</option>
+                    <option value="">{t('price.savedAddressSelect')}</option>
                     {savedAddresses.map((addr) => (
                       <option key={addr.id} value={addr.address}>{addr.label}: {addr.address}</option>
                     ))}
@@ -135,7 +135,7 @@ const PriceEstimate = () => {
 
               {/* Delivery Address */}
               <div>
-                <label style={labelStyle}>Delivery Address</label>
+                <label style={labelStyle}>{t('price.deliveryAddress')}</label>
                 <input
                   type="text"
                   name="delivery_address"
@@ -150,28 +150,28 @@ const PriceEstimate = () => {
               {/* Delivery Option + Package Size */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
-                  <label style={labelStyle}>Delivery Option</label>
+                  <label style={labelStyle}>{t('price.deliveryOption')}</label>
                   <select name="delivery_option" value={form.delivery_option} onChange={handleChange} style={inputStyle}>
-                    <option value="standard">Standard</option>
-                    <option value="express">Express (+50%)</option>
-                    <option value="same_day">Same Day (+100%)</option>
+                    <option value="standard">{t('price.options.standard')}</option>
+                    <option value="express">{t('price.options.express')}</option>
+                    <option value="same_day">{t('price.options.same_day')}</option>
                   </select>
                 </div>
                 <div>
-                  <label style={labelStyle}>Package Size</label>
+                  <label style={labelStyle}>{t('price.packageSize')}</label>
                   <select name="package_size" value={form.package_size} onChange={handleChange} style={inputStyle}>
-                    <option value="xs">XS (envelope)</option>
-                    <option value="small">Small (shoebox)</option>
-                    <option value="medium">Medium (backpack)</option>
-                    <option value="large">Large (suitcase)</option>
-                    <option value="xl">XL (furniture)</option>
+                    <option value="xs">{t('price.sizes.xs')}</option>
+                    <option value="small">{t('price.sizes.small')}</option>
+                    <option value="medium">{t('price.sizes.medium')}</option>
+                    <option value="large">{t('price.sizes.large')}</option>
+                    <option value="xl">{t('price.sizes.xl')}</option>
                   </select>
                 </div>
               </div>
 
               {/* Package Weight */}
               <div>
-                <label style={labelStyle}>Package Weight (kg)</label>
+                <label style={labelStyle}>{t('price.packageWeight')}</label>
                 <input
                   type="number"
                   name="package_weight"
@@ -206,7 +206,7 @@ const PriceEstimate = () => {
                   transition: 'background 0.2s',
                 }}
               >
-                {loading ? '⏳ Calculating...' : '💰 Calculate Price'}
+                {loading ? `⏳ ${t('price.calculating')}` : `💰 ${t('price.calculate')}`}
               </button>
             </div>
           </form>
@@ -216,7 +216,7 @@ const PriceEstimate = () => {
         {result && (
           <div style={{ background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
             <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1e293b', marginBottom: '20px' }}>
-              📊 Price Breakdown
+              📊 {t('price.breakdown')}
             </h2>
 
             {/* Distance */}
@@ -224,7 +224,7 @@ const PriceEstimate = () => {
               <div style={{ background: '#eff6ff', borderRadius: '10px', padding: '14px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <span style={{ fontSize: '24px' }}>📍</span>
                 <div>
-                  <div style={{ fontWeight: '600', color: '#1d4ed8' }}>Estimated Distance</div>
+                  <div style={{ fontWeight: '600', color: '#1d4ed8' }}>{t('price.estimatedDistance')}</div>
                   <div style={{ color: '#3b82f6', fontSize: '22px', fontWeight: 'bold' }}>{result.distance_km} km</div>
                 </div>
               </div>
@@ -233,10 +233,10 @@ const PriceEstimate = () => {
             {/* Price rows */}
             <div style={{ border: '1px solid #e2e8f0', borderRadius: '10px', overflow: 'hidden' }}>
               {[
-                { label: 'Base Price', value: result.base_price, icon: '🏷️' },
-                { label: 'Size Surcharge', value: result.size_surcharge, icon: '📦' },
-                { label: 'Weight Surcharge', value: result.weight_surcharge, icon: '⚖️' },
-                { label: 'Delivery Option Surcharge', value: result.option_surcharge, icon: '🚀' },
+                { label: t('price.basePrice'), value: result.base_price, icon: '🏷️' },
+                { label: t('price.sizeSurcharge'), value: result.size_surcharge, icon: '📦' },
+                { label: t('price.weightSurcharge'), value: result.weight_surcharge, icon: '⚖️' },
+                { label: t('price.optionSurcharge'), value: result.option_surcharge, icon: '🚀' },
               ].filter(row => row.value !== undefined && row.value !== null).map((row, i) => (
                 <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderBottom: '1px solid #f1f5f9' }}>
                   <div style={{ color: '#64748b', fontSize: '14px' }}>{row.icon} {row.label}</div>
@@ -245,7 +245,7 @@ const PriceEstimate = () => {
               ))}
               {/* Total */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 18px', background: '#1d4ed8' }}>
-                <div style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>💳 Total Price</div>
+                <div style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>💳 {t('price.total')}</div>
                 <div style={{ fontWeight: 'bold', color: 'white', fontSize: '24px' }}>€{Number(result.total_price || result.total).toFixed(2)}</div>
               </div>
             </div>
@@ -266,7 +266,7 @@ const PriceEstimate = () => {
                 cursor: 'pointer',
               }}
             >
-              🚀 Book This Delivery
+              🚀 {t('price.bookThis')}
             </button>
           </div>
         )}
