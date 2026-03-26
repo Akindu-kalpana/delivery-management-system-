@@ -146,7 +146,7 @@ const Loyalty = () => {
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
       <Navbar />
-      <div style={{ maxWidth: '750px', margin: '0 auto', padding: '80px 20px 40px' }}>
+      <div style={{ maxWidth: '750px', margin: '0 auto', padding: '96px 20px 40px' }}>
 
         {/* Header */}
         <div style={{ background: `linear-gradient(135deg, ${currentTier.color}, ${currentTier.color}cc)`, borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
@@ -158,7 +158,7 @@ const Loyalty = () => {
         </div>
 
         {/* Points Overview */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '16px', marginBottom: '24px' }}>
           {[
             { label: t('loyalty.currentPoints'), value: points.toLocaleString(), icon: '⭐', color: currentTier.color },
             { label: t('loyalty.totalEarned'), value: (info?.total_earned || 0).toLocaleString(), icon: '📈', color: '#2563eb' },

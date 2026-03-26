@@ -103,7 +103,7 @@ const UserDashboard = () => {
     <div style={{minHeight: '100vh', background: '#f8fafc'}}>
       <Navbar />
 
-      <div style={{paddingTop: '80px', maxWidth: '1200px', margin: '0 auto', padding: '80px 20px 40px'}}>
+      <div style={{paddingTop: '80px', maxWidth: '1200px', margin: '0 auto', padding: '96px 20px 40px'}}>
 
         {/* Welcome header */}
         <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '32px', marginBottom: '32px', color: 'white'}}>

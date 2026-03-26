@@ -102,7 +102,7 @@ const Invoice = () => {
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
       <Navbar />
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '80px 20px 40px' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '96px 20px 40px' }}>
 
         {/* Action buttons */}
         <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', justifyContent: 'flex-end' }}>

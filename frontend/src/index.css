@@ -222,3 +222,33 @@ html {
   animation: fadeInUp 2s ease 1.5s forwards;
   opacity: 0;
 }
+
+/* ── Mobile responsive utilities ── */
+@media (max-width: 768px) {
+  /* Navbar: hide long subtitle, shrink logo */
+  .nkr-subtitle { display: none !important; }
+  .nkr-logo-text { font-size: 15px !important; }
+
+  /* Hero headings on public pages */
+  .hero-h1-responsive { font-size: 26px !important; }
+  .hero-p-responsive  { font-size: 14px !important; }
+
+  /* Fix SVG animation area on landing page */
+  .hero-truck svg { max-width: 340px !important; }
+}
+
+@media (max-width: 480px) {
+  /* Navbar logo even smaller on very small phones */
+  .nkr-logo-svg  { width: 40px !important; height: 40px !important; }
+  .nkr-logo-text { font-size: 14px !important; }
+  .nkr-logo-gap  { gap: 8px !important; }
+  .hero-h1-responsive { font-size: 22px !important; }
+
+  /* Tracking search bar: stack input + button vertically */
+  .track-search-wrap { flex-direction: column !important; }
+  .track-search-wrap button { width: 100% !important; padding: 14px !important; }
+  .track-search-wrap input  { width: 100% !important; }
+
+  /* Status steps: shrink text on very small screens */
+  .status-steps-label { font-size: 9px !important; }
+}

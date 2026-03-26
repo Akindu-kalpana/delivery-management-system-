@@ -219,7 +219,7 @@ const BookDelivery = () => {
     <div style={{minHeight: '100vh', background: '#f8fafc'}}>
       <Navbar />
 
-      <div style={{maxWidth: '800px', margin: '0 auto', padding: '80px 20px 40px'}}>
+      <div style={{maxWidth: '800px', margin: '0 auto', padding: '96px 20px 40px'}}>
 
         {/* Header */}
         <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '24px', marginBottom: '24px', color: 'white', textAlign: 'center'}}>
@@ -252,7 +252,7 @@ const BookDelivery = () => {
         {mode === 'manual' && (
           <div style={{background: 'white', borderRadius: '16px', padding: '28px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)'}}>
             <form onSubmit={submitManualForm}>
-              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px'}}>
+              <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px'}}>
 
                 <div style={{gridColumn: '1/-1'}}>
                   <h3 style={{fontWeight: 'bold', color: '#1e293b', margin: '0 0 16px', fontSize: '15px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px'}}>Sender Details</h3>
@@ -409,7 +409,7 @@ const BookDelivery = () => {
           {bookingData && (
             <div style={{background: '#f0fdf4', border: '1px solid #86efac', margin: '0 24px 16px', borderRadius: '12px', padding: '20px'}}>
               <h3 style={{fontWeight: 'bold', color: '#166534', marginBottom: '12px'}}>📋 {t('booking.summary')}</h3>
-              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', fontSize: '14px'}}>
+              <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '8px', fontSize: '14px'}}>
                 <div><span style={{color: '#64748b'}}>{t('booking.sender')}:</span> <strong>{bookingData.sender_name}</strong></div>
                 <div><span style={{color: '#64748b'}}>{t('booking.phone')}:</span> <strong>{bookingData.sender_phone}</strong></div>
                 <div><span style={{color: '#64748b'}}>{t('booking.pickup')}:</span> <strong>{bookingData.pickup_address}</strong></div>

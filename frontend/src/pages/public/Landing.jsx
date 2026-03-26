@@ -361,7 +361,7 @@ const Landing = () => {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsRef} style={{background: 'white', padding: '80px 20px'}}>
+      <section ref={statsRef} style={{background: 'white', padding: '96px 20px'}}>
         <div style={{maxWidth: '900px', margin: '0 auto'}}>
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', textAlign: 'center'}}>
             {[
@@ -381,7 +381,7 @@ const Landing = () => {
       </section>
 
       {/* Features Section */}
-      <section style={{background: '#f8fafc', padding: '80px 20px'}}>
+      <section style={{background: '#f8fafc', padding: '96px 20px'}}>
         <div style={{maxWidth: '1100px', margin: '0 auto'}}>
           <div className="reveal" style={{textAlign: 'center', marginBottom: '60px'}}>
             <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>{t('landing.features.title')}</h2>
@@ -408,7 +408,7 @@ const Landing = () => {
       </section>
 
       {/* How it works */}
-      <section style={{background: 'white', padding: '80px 20px'}}>
+      <section style={{background: 'white', padding: '96px 20px'}}>
         <div style={{maxWidth: '1000px', margin: '0 auto'}}>
           <div className="reveal" style={{textAlign: 'center', marginBottom: '60px'}}>
             <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>{t('landing.howItWorks.title')}</h2>
@@ -436,7 +436,7 @@ const Landing = () => {
       </section>
 
       {/* Testimonials */}
-      <section style={{background: '#f8fafc', padding: '80px 20px'}}>
+      <section style={{background: '#f8fafc', padding: '96px 20px'}}>
         <div style={{maxWidth: '1000px', margin: '0 auto'}}>
           <div className="reveal" style={{textAlign: 'center', marginBottom: '60px'}}>
             <h2 style={{fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '800', color: '#1e293b', marginBottom: '16px'}}>{t('landing.testimonials.title')}</h2>

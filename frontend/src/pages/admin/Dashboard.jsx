@@ -242,7 +242,7 @@ const AdminDashboard = () => {
     <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
       <Navbar />
 
-      <div style={{ maxWidth: '1300px', margin: '0 auto', padding: '80px 20px 40px' }}>
+      <div style={{ maxWidth: '1300px', margin: '0 auto', padding: '96px 20px 40px' }}>
 
         {/* Header */}
         <div style={{ background: 'linear-gradient(135deg, #dc2626, #ef4444)', borderRadius: '16px', padding: '28px 32px', marginBottom: '28px', color: 'white' }}>

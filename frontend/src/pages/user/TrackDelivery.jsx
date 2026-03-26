@@ -150,7 +150,7 @@ const TrackDelivery = () => {
     <div style={{minHeight: '100vh', background: '#f8fafc'}}>
       <Navbar />
 
-      <div style={{paddingTop: '80px', maxWidth: '700px', margin: '0 auto', padding: '80px 20px 40px'}}>
+      <div style={{paddingTop: '80px', maxWidth: '700px', margin: '0 auto', padding: '96px 20px 40px'}}>
 
         {/* Header */}
         <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '24px', marginBottom: '24px', color: 'white', textAlign: 'center'}}>
@@ -161,7 +161,7 @@ const TrackDelivery = () => {
         {/* Search */}
         <div style={{background: 'white', borderRadius: '16px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', marginBottom: '24px'}}>
           <label style={{display: 'block', fontWeight: '600', color: '#1e293b', marginBottom: '8px'}}>{t('tracking.id')}</label>
-          <div style={{display: 'flex', gap: '12px'}}>
+          <div className="track-search-wrap" style={{display: 'flex', gap: '12px'}}>
             <input
               type="number"
               value={deliveryId}
@@ -173,7 +173,7 @@ const TrackDelivery = () => {
             <button
               onClick={trackDelivery}
               disabled={loading}
-              style={{background: '#2563eb', color: 'white', border: 'none', borderRadius: '8px', padding: '12px 24px', fontWeight: '600', cursor: 'pointer'}}
+              style={{background: '#2563eb', color: 'white', border: 'none', borderRadius: '8px', padding: '12px 24px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap'}}
             >
               {loading ? '...' : t('tracking.search')}
             </button>
@@ -194,23 +194,25 @@ const TrackDelivery = () => {
               {/* Status steps */}
               <h3 style={{fontWeight: 'bold', color: '#1e293b', marginBottom: '24px'}}>{t('tracking.delivery')} #{delivery.id}</h3>
 
-              <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', position: 'relative'}}>
+              <div style={{overflowX: 'auto', marginBottom: '32px'}}>
+              <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', minWidth: '280px'}}>
                 <div style={{position: 'absolute', top: '20px', left: '10%', right: '10%', height: '2px', background: '#e2e8f0', zIndex: 0}}></div>
                 {steps.map((step) => (
                   <div key={step} style={{textAlign: 'center', zIndex: 1, flex: 1}}>
                     <div style={{width: '40px', height: '40px', borderRadius: '50%', background: getStepColor(step, delivery.status), display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: '18px'}}>
                       {getStepIcon(step)}
                     </div>
-                    <div style={{fontSize: '11px', color: getStepColor(step, delivery.status) === '#2563eb' ? '#2563eb' : '#94a3b8', fontWeight: '600'}}>
+                    <div className="status-steps-label" style={{fontSize: '11px', color: getStepColor(step, delivery.status) === '#2563eb' ? '#2563eb' : '#94a3b8', fontWeight: '600'}}>
                       {t(`tracking.status.${step}`)}
                     </div>
                   </div>
                 ))}
               </div>
+              </div>
 
               {/* Delivery info */}
               <div style={{background: '#f8fafc', borderRadius: '12px', padding: '20px'}}>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '14px'}}>
+                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', fontSize: '14px'}}>
                   <div>
                     <div style={{color: '#64748b', marginBottom: '4px'}}>{t('tracking.sender')}</div>
                     <div style={{fontWeight: '600', color: '#1e293b'}}>{delivery.sender_name}</div>

@@ -37,11 +37,11 @@ const Services = () => {
     <div style={{minHeight: '100vh', background: '#f8fafc'}}>
       <Navbar />
 
-      <div style={{paddingTop: '64px'}}>
+      <div style={{paddingTop: '80px'}}>
 
         {/* Hero */}
-        <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', padding: '80px 20px', textAlign: 'center', color: 'white'}}>
-          <h1 style={{fontSize: '42px', fontWeight: 'bold', marginBottom: '16px'}}>{t('services.title')}</h1>
+        <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', padding: '96px 20px', textAlign: 'center', color: 'white'}}>
+          <h1 className="hero-h1-responsive" style={{fontSize: '42px', fontWeight: 'bold', marginBottom: '16px'}}>{t('services.title')}</h1>
           <p style={{fontSize: '18px', opacity: 0.8, maxWidth: '600px', margin: '0 auto'}}>
             {t('services.subtitle')}
           </p>

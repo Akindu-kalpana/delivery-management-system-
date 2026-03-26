@@ -82,7 +82,7 @@ const DriverDashboard = () => {
     <div style={{minHeight: '100vh', background: '#f8fafc'}}>
       <Navbar />
 
-      <div style={{maxWidth: '1000px', margin: '0 auto', padding: '80px 20px 40px'}}>
+      <div style={{maxWidth: '1000px', margin: '0 auto', padding: '96px 20px 40px'}}>
 
         {/* Header */}
         <div style={{background: 'linear-gradient(135deg, #7c3aed, #a855f7)', borderRadius: '16px', padding: '32px', marginBottom: '32px', color: 'white'}}>
