@@ -171,7 +171,7 @@ const Navbar = () => {
 
           {/* ── Desktop nav links ── */}
           <div className="hidden md:flex" style={{ alignItems: 'center', gap: '28px' }}>
-            <Link to="/"        style={navLink}>{t('nav.home')}</Link>
+            <Link to={user ? (user.role === 'admin' ? '/admin/dashboard' : user.role === 'driver' ? '/driver/dashboard' : '/user/dashboard') : '/'} style={navLink}>{t('nav.home')}</Link>
             <Link to="/about"   style={navLink}>{t('nav.about')}</Link>
             <Link to="/services" style={navLink}>{t('nav.services')}</Link>
             <Link to="/contact" style={navLink}>{t('nav.contact')}</Link>
@@ -255,7 +255,7 @@ const Navbar = () => {
         {/* ── Mobile menu ── */}
         {menuOpen && (
           <div style={{ borderTop: '1px solid #f1f5f9', paddingBottom: '16px' }} className="md:hidden">
-            {['/', '/about', '/services', '/contact', '/track'].map((path, i) => {
+            {[user ? (user.role === 'admin' ? '/admin/dashboard' : user.role === 'driver' ? '/driver/dashboard' : '/user/dashboard') : '/', '/about', '/services', '/contact', '/track'].map((path, i) => {
               const labels = [t('nav.home'), t('nav.about'), t('nav.services'), t('nav.contact'), t('nav.track')];
               return (
                 <Link key={path} to={path} onClick={() => setMenuOpen(false)}
