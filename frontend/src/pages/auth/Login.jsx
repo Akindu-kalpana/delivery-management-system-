@@ -1,13 +1,20 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
+import BackButton from '../../components/BackButton';
 
 const Login = () => {
   const { t } = useTranslation();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
+
+  if (user) {
+    if (user.role === 'admin') return <Navigate to="/admin/dashboard" replace />;
+    if (user.role === 'driver') return <Navigate to="/driver/dashboard" replace />;
+    return <Navigate to="/user/dashboard" replace />;
+  }
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -33,7 +40,8 @@ const Login = () => {
   };
 
   return (
-    <div style={{minHeight: '100vh', background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)'}} className="flex items-center justify-center px-4">
+    <div style={{minHeight: '100vh', background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)'}} className="flex flex-col items-center justify-center px-4">
+      <div style={{width: '100%', maxWidth: '448px', marginBottom: '12px'}}><BackButton /></div>
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
 
         {/* Logo */}

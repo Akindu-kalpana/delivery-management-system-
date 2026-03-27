@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 
 const DriverInstructionsEditor = ({ delivery, token, onUpdated }) => {
+  const { t } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(delivery.driver_instructions || '');
   const [saving, setSaving] = useState(false);
@@ -32,33 +34,33 @@ const DriverInstructionsEditor = ({ delivery, token, onUpdated }) => {
   return (
     <div style={{ marginTop: '10px', paddingTop: '10px', borderTop: '1px solid #f1f5f9' }}>
       <div style={{ fontSize: '12px', color: '#64748b', fontWeight: '600', marginBottom: '6px' }}>
-        📝 Driver Instructions
+        📝 {t('dashboard.driverInstructions')}
       </div>
       {editing ? (
         <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
           <textarea
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="e.g. Leave at door, call before delivery..."
+            placeholder={t('dashboard.driverInstructionsPlaceholder')}
             rows={2}
             style={{ flex: 1, border: '1px solid #e2e8f0', borderRadius: '6px', padding: '8px', fontSize: '13px', resize: 'vertical', fontFamily: 'inherit', outline: 'none' }}
           />
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <button onClick={save} disabled={saving} style={{ background: '#2563eb', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 12px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}>
-              {saving ? '...' : 'Save'}
+              {saving ? '...' : t('dashboard.save')}
             </button>
             <button onClick={() => { setEditing(false); setValue(delivery.driver_instructions || ''); }} style={{ background: '#f1f5f9', color: '#64748b', border: 'none', borderRadius: '6px', padding: '6px 12px', fontSize: '12px', cursor: 'pointer' }}>
-              Cancel
+              {t('dashboard.cancel')}
             </button>
           </div>
         </div>
       ) : (
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
           <span style={{ fontSize: '13px', color: value ? '#1e293b' : '#94a3b8', fontStyle: value ? 'normal' : 'italic' }}>
-            {value || 'No special instructions'}
+            {value || t('dashboard.noInstructions')}
           </span>
           <button onClick={() => setEditing(true)} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '6px', padding: '4px 10px', fontSize: '12px', cursor: 'pointer', whiteSpace: 'nowrap' }}>
-            ✏️ Edit
+            ✏️ {t('dashboard.edit')}
           </button>
         </div>
       )}
@@ -107,6 +109,7 @@ const UserDashboard = () => {
 
         {/* Welcome header */}
         <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '32px', marginBottom: '32px', color: 'white'}}>
+          <BackButton />
           <h1 style={{fontSize: '28px', fontWeight: 'bold', marginBottom: '8px'}}>
             👋 {t('dashboard.welcome')}, {user?.name}!
           </h1>

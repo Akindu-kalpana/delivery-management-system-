@@ -161,7 +161,7 @@ const Navbar = () => {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px' }}>
 
           {/* ── Logo ── */}
-          <Link to="/" className="nkr-logo-gap" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+          <Link to={user ? (user.role === 'admin' ? '/admin/dashboard' : user.role === 'driver' ? '/driver/dashboard' : '/user/dashboard') : '/'} className="nkr-logo-gap" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
             <NKRLogo />
             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
               <span className="nkr-logo-text" style={{ fontWeight: '800', fontSize: '18px', color: '#1E3A8A', letterSpacing: '-0.3px' }}>NKR Delivery</span>

@@ -428,6 +428,12 @@
     "bookFirst": "Tilaa ensimmäinen toimituksesi",
     "noHistory": "Ei toimitushistoriaa vielä",
     "loading": "Ladataan...",
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "edit": "Muokkaa",
+    "driverInstructions": "Kuljettajan ohjeet",
+    "driverInstructionsPlaceholder": "esim. Jätä ovelle, soita ennen toimitusta...",
+    "noInstructions": "Ei erityisohjeita",
     "table": {
       "id": "ID",
       "receiver": "Vastaanottaja",
@@ -460,25 +466,102 @@
       "updating": "Päivitetään..."
     },
     "admin": {
+      "title": "Hallintapaneeli",
+      "subtitle": "Tervetuloa takaisin, {{name}}. Täysi hallintapaneeli.",
       "manageDeliveries": "Hallitse kaikkia toimituksia täältä",
+      "tabs": {
+        "overview": "Yleiskatsaus",
+        "deliveries": "Toimitukset",
+        "users": "Käyttäjät",
+        "drivers": "Kuljettajat",
+        "complaints": "Valitukset",
+        "damage": "Vahingonkorvaukset",
+        "analytics": "Analytiikka"
+      },
       "stats": {
         "totalDeliveries": "Toimituksia yhteensä",
         "pending": "Odottaa",
         "inTransit": "Kuljetuksessa",
-        "delivered": "Toimitettu"
+        "delivered": "Toimitettu",
+        "totalUsers": "Käyttäjiä yhteensä",
+        "drivers": "Kuljettajat",
+        "revenue": "Tulot",
+        "openComplaints": "Avoimet valitukset"
       },
+      "recentDeliveries": "Viimeisimmät toimitukset",
       "table": {
         "id": "ID",
+        "sender": "Lähettäjä",
         "user": "Käyttäjä",
         "receiver": "Vastaanottaja",
         "pickup": "Nouto",
         "delivery": "Toimitus",
         "driver": "Kuljettaja",
         "status": "Tila",
-        "action": "Toiminto"
+        "action": "Toiminto",
+        "actions": "Toiminnot",
+        "date": "Päivämäärä",
+        "name": "Nimi",
+        "email": "Sähköposti",
+        "role": "Rooli",
+        "deliveries": "Toimitukset",
+        "joined": "Liittynyt"
       },
+      "allDeliveries": "Kaikki toimitukset",
+      "allUsers": "Kaikki käyttäjät",
+      "driverPerformance": "Kuljettajien suorituskyky",
+      "allComplaints": "Kaikki valitukset",
+      "damageClaims": "Vahingonkorvaukset",
+      "monthlyDeliveries": "Kuukausittaiset toimitukset",
+      "search": "Haku...",
+      "allStatuses": "Kaikki tilat",
+      "unassigned": "Ei määrätty",
+      "refresh": "Päivitä",
+      "loading": "Ladataan...",
+      "loadingDeliveries": "Ladataan toimituksia...",
+      "loadingUsers": "Ladataan käyttäjiä...",
+      "loadingDrivers": "Ladataan kuljettajia...",
+      "loadingClaims": "Ladataan korvauksia...",
+      "loadingAnalytics": "Ladataan analytiikkaa...",
+      "loadingComplaints": "Ladataan valituksia...",
       "noDeliveries": "Ei toimituksia vielä",
-      "notAssigned": "Ei määrätty"
+      "notAssigned": "Ei määrätty",
+      "noUsers": "Käyttäjiä ei löydy.",
+      "noDrivers": "Kuljettajia ei löydy.",
+      "noComplaints": "Valituksia ei löydy.",
+      "noClaims": "Vahingonkorvauksia ei löydy.",
+      "statusOptions": {
+        "pending": "Odottaa",
+        "pickedUp": "Noudettu",
+        "inTransit": "Kuljetuksessa",
+        "delivered": "Toimitettu"
+      },
+      "complaintStatus": {
+        "open": "Auki",
+        "inReview": "Tarkistuksessa",
+        "resolved": "Ratkaistu",
+        "closed": "Suljettu"
+      },
+      "approve": "Hyväksy",
+      "decline": "Hylkää",
+      "approveRefund": "Hyväksy hyvitys",
+      "declineRefund": "Hylkää hyvitys",
+      "aiAssessment": "Claude AI -arviointi",
+      "aiAnalysis": "AI-analyysi",
+      "adminNote": "Ylläpitäjän huomio:",
+      "evidencePhotos": "todistusvalokuvaa asiakkaalta",
+      "refundInvoices": "Hyvityslaskut — Odottaa ylläpitäjän hyväksyntää",
+      "verdicts": {
+        "deliveryFault": "Toimitusvirhe",
+        "productDefect": "Tuotevika",
+        "unclear": "Epäselvä"
+      },
+      "decision": "Päätös:",
+      "assigned": "Määrätty",
+      "rating": "Arvosana",
+      "noAnalytics": "Analytiikkatietoja ei saatavilla.",
+      "statusDistribution": "Toimitusten tilajakauma",
+      "revenueOverview": "Tulojen yleiskatsaus"
     }
   }
 }

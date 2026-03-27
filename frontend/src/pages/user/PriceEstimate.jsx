@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 
 const PriceEstimate = () => {
   const { t } = useTranslation();
@@ -93,6 +94,7 @@ const PriceEstimate = () => {
 
         {/* Header */}
         <div style={{ background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
+          <div style={{textAlign: 'left'}}><BackButton /></div>
           <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '6px' }}>
             💰 {t('price.title')}
           </h1>

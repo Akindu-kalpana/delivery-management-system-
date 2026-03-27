@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 
 const DriverDashboard = () => {
   const { t } = useTranslation();
@@ -86,6 +87,7 @@ const DriverDashboard = () => {
 
         {/* Header */}
         <div style={{background: 'linear-gradient(135deg, #7c3aed, #a855f7)', borderRadius: '16px', padding: '32px', marginBottom: '32px', color: 'white'}}>
+          <BackButton />
           <h1 style={{fontSize: '28px', fontWeight: 'bold', marginBottom: '8px'}}>
             🚚 {t('dashboard.welcome')}, {user?.name}!
           </h1>

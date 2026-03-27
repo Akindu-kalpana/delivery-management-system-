@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 
 const TIERS = [
   { name: 'Bronze', min: 0, max: 99, color: '#CD7F32', bg: '#fdf6ee', icon: '🥉' },
@@ -150,6 +151,7 @@ const Loyalty = () => {
 
         {/* Header */}
         <div style={{ background: `linear-gradient(135deg, ${currentTier.color}, ${currentTier.color}cc)`, borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
+          <div style={{textAlign: 'left'}}><BackButton /></div>
           <div style={{ fontSize: '48px', marginBottom: '8px' }}>{currentTier.icon}</div>
           <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '4px' }}>
             {currentTier.name} {t('loyalty.member')}

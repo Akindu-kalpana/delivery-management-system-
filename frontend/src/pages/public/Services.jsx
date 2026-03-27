@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 import { Link } from 'react-router-dom';
 
 const Services = () => {
@@ -40,7 +41,8 @@ const Services = () => {
       <div style={{paddingTop: '80px'}}>
 
         {/* Hero */}
-        <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', padding: '96px 20px', textAlign: 'center', color: 'white'}}>
+        <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', padding: '60px 20px 80px', textAlign: 'center', color: 'white'}}>
+          <div style={{maxWidth: '1000px', margin: '0 auto', textAlign: 'left', marginBottom: '24px'}}><BackButton /></div>
           <h1 className="hero-h1-responsive" style={{fontSize: '42px', fontWeight: 'bold', marginBottom: '16px'}}>{t('services.title')}</h1>
           <p style={{fontSize: '18px', opacity: 0.8, maxWidth: '600px', margin: '0 auto'}}>
             {t('services.subtitle')}

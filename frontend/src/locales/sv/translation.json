@@ -428,6 +428,12 @@
     "bookFirst": "Boka din första leverans",
     "noHistory": "Ingen leveranshistorik ännu",
     "loading": "Laddar...",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "edit": "Redigera",
+    "driverInstructions": "Förarinstruktioner",
+    "driverInstructionsPlaceholder": "t.ex. Lämna vid dörren, ring innan leverans...",
+    "noInstructions": "Inga särskilda instruktioner",
     "table": {
       "id": "ID",
       "receiver": "Mottagare",
@@ -460,25 +466,102 @@
       "updating": "Uppdaterar..."
     },
     "admin": {
+      "title": "Adminpanel",
+      "subtitle": "Välkommen tillbaka, {{name}}. Fullständig kontrollpanel.",
       "manageDeliveries": "Hantera alla leveranser härifrån",
+      "tabs": {
+        "overview": "Översikt",
+        "deliveries": "Leveranser",
+        "users": "Användare",
+        "drivers": "Förare",
+        "complaints": "Klagomål",
+        "damage": "Skadeanspråk",
+        "analytics": "Analys"
+      },
       "stats": {
         "totalDeliveries": "Totala leveranser",
         "pending": "Väntar",
         "inTransit": "Under transport",
-        "delivered": "Levererade"
+        "delivered": "Levererade",
+        "totalUsers": "Totalt antal användare",
+        "drivers": "Förare",
+        "revenue": "Intäkter",
+        "openComplaints": "Öppna klagomål"
       },
+      "recentDeliveries": "Senaste leveranser",
       "table": {
         "id": "ID",
+        "sender": "Avsändare",
         "user": "Användare",
         "receiver": "Mottagare",
         "pickup": "Upphämtning",
         "delivery": "Leverans",
         "driver": "Förare",
         "status": "Status",
-        "action": "Åtgärd"
+        "action": "Åtgärd",
+        "actions": "Åtgärder",
+        "date": "Datum",
+        "name": "Namn",
+        "email": "E-post",
+        "role": "Roll",
+        "deliveries": "Leveranser",
+        "joined": "Registrerad"
       },
+      "allDeliveries": "Alla leveranser",
+      "allUsers": "Alla användare",
+      "driverPerformance": "Förarnas prestanda",
+      "allComplaints": "Alla klagomål",
+      "damageClaims": "Skadeanspråk",
+      "monthlyDeliveries": "Månatliga leveranser",
+      "search": "Sök...",
+      "allStatuses": "Alla statusar",
+      "unassigned": "Ej tilldelad",
+      "refresh": "Uppdatera",
+      "loading": "Laddar...",
+      "loadingDeliveries": "Laddar leveranser...",
+      "loadingUsers": "Laddar användare...",
+      "loadingDrivers": "Laddar förare...",
+      "loadingClaims": "Laddar anspråk...",
+      "loadingAnalytics": "Laddar analys...",
+      "loadingComplaints": "Laddar klagomål...",
       "noDeliveries": "Inga leveranser ännu",
-      "notAssigned": "Ej tilldelad"
+      "notAssigned": "Ej tilldelad",
+      "noUsers": "Inga användare hittades.",
+      "noDrivers": "Inga förare hittades.",
+      "noComplaints": "Inga klagomål hittades.",
+      "noClaims": "Inga skadeanspråk hittades.",
+      "statusOptions": {
+        "pending": "Väntar",
+        "pickedUp": "Hämtad",
+        "inTransit": "Under transport",
+        "delivered": "Levererad"
+      },
+      "complaintStatus": {
+        "open": "Öppen",
+        "inReview": "Under granskning",
+        "resolved": "Löst",
+        "closed": "Stängd"
+      },
+      "approve": "Godkänn",
+      "decline": "Avvisa",
+      "approveRefund": "Godkänn återbetalning",
+      "declineRefund": "Avvisa återbetalning",
+      "aiAssessment": "Claude AI-bedömning",
+      "aiAnalysis": "AI-analys",
+      "adminNote": "Adminanteckning:",
+      "evidencePhotos": "bevisfoton inskickade av kunden",
+      "refundInvoices": "Återbetalningsfakturor — Väntar på adminens godkännande",
+      "verdicts": {
+        "deliveryFault": "Leveransfel",
+        "productDefect": "Produktfel",
+        "unclear": "Oklart"
+      },
+      "decision": "Beslut:",
+      "assigned": "Tilldelad",
+      "rating": "Betyg",
+      "noAnalytics": "Ingen analysdata tillgänglig.",
+      "statusDistribution": "Leveransstatusfördelning",
+      "revenueOverview": "Intäktsöversikt"
     }
   }
 }

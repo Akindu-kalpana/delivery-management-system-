@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 
 const DeliveryHistory = () => {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ const DeliveryHistory = () => {
 
         {/* Header */}
         <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '24px', marginBottom: '24px', color: 'white'}}>
+          <BackButton />
           <h1 style={{fontSize: '24px', fontWeight: 'bold'}}>📋 {t('dashboard.myDeliveries')}</h1>
           <p style={{opacity: 0.8, fontSize: '14px', marginTop: '4px'}}>{t('dashboard.history.subtitle')}</p>
         </div>

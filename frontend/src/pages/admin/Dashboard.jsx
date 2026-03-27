@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 
 const API = 'http://localhost:5000/api';
 
@@ -23,7 +24,7 @@ const StatusBadge = ({ status }) => (
 );
 
 const AdminDashboard = () => {
-  useTranslation();
+  const { t } = useTranslation();
   const { user, token } = useAuth();
 
   const [activeTab, setActiveTab] = useState('overview');
@@ -225,13 +226,13 @@ const AdminDashboard = () => {
   const recentDeliveries = dashboardStats?.recent_deliveries || deliveries.slice(0, 5);
 
   const TABS = [
-    { key: 'overview', label: '📊 Overview' },
-    { key: 'deliveries', label: '📦 Deliveries' },
-    { key: 'users', label: '👥 Users' },
-    { key: 'drivers', label: '🚗 Drivers' },
-    { key: 'complaints', label: '📣 Complaints' },
-    { key: 'damage', label: '📸 Damage Claims' },
-    { key: 'analytics', label: '📈 Analytics' },
+    { key: 'overview',   label: `📊 ${t('dashboard.admin.tabs.overview')}` },
+    { key: 'deliveries', label: `📦 ${t('dashboard.admin.tabs.deliveries')}` },
+    { key: 'users',      label: `👥 ${t('dashboard.admin.tabs.users')}` },
+    { key: 'drivers',    label: `🚗 ${t('dashboard.admin.tabs.drivers')}` },
+    { key: 'complaints', label: `📣 ${t('dashboard.admin.tabs.complaints')}` },
+    { key: 'damage',     label: `📸 ${t('dashboard.admin.tabs.damage')}` },
+    { key: 'analytics',  label: `📈 ${t('dashboard.admin.tabs.analytics')}` },
   ];
 
   const cardStyle = { background: 'white', borderRadius: '14px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' };
@@ -246,10 +247,11 @@ const AdminDashboard = () => {
 
         {/* Header */}
         <div style={{ background: 'linear-gradient(135deg, #dc2626, #ef4444)', borderRadius: '16px', padding: '28px 32px', marginBottom: '28px', color: 'white' }}>
+          <BackButton />
           <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '6px' }}>
-            🛠 Admin Dashboard
+            🛠 {t('dashboard.admin.title')}
           </h1>
-          <p style={{ opacity: 0.85, fontSize: '14px' }}>Welcome back, {user?.name}. Full control panel.</p>
+          <p style={{ opacity: 0.85, fontSize: '14px' }}>{t('dashboard.admin.subtitle', { name: user?.name })}</p>
         </div>
 
         {/* Tabs */}
@@ -277,14 +279,14 @@ const AdminDashboard = () => {
             {/* Stats grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', marginBottom: '28px' }}>
               {[
-                { label: 'Total Deliveries', value: stats.total_deliveries ?? deliveries.length, color: '#dc2626', icon: '📦' },
-                { label: 'Pending', value: stats.pending ?? deliveries.filter(d => d.status === 'pending').length, color: '#f59e0b', icon: '⏳' },
-                { label: 'In Transit', value: stats.in_transit ?? deliveries.filter(d => d.status === 'in_transit').length, color: '#8b5cf6', icon: '🚚' },
-                { label: 'Delivered', value: stats.delivered ?? deliveries.filter(d => d.status === 'delivered').length, color: '#10b981', icon: '✅' },
-                { label: 'Total Users', value: stats.total_users ?? users.length, color: '#2563eb', icon: '👥' },
-                { label: 'Drivers', value: stats.total_drivers ?? drivers.length, color: '#0891b2', icon: '🚗' },
-                { label: 'Revenue', value: stats.total_revenue ? `€${Number(stats.total_revenue).toFixed(0)}` : '—', color: '#16a34a', icon: '💰' },
-                { label: 'Open Complaints', value: stats.open_complaints ?? complaints.filter(c => c.status === 'open').length, color: '#ef4444', icon: '📣' },
+                { label: t('dashboard.admin.stats.totalDeliveries'), value: stats.total_deliveries ?? deliveries.length, color: '#dc2626', icon: '📦' },
+                { label: t('dashboard.admin.stats.pending'), value: stats.pending ?? deliveries.filter(d => d.status === 'pending').length, color: '#f59e0b', icon: '⏳' },
+                { label: t('dashboard.admin.stats.inTransit'), value: stats.in_transit ?? deliveries.filter(d => d.status === 'in_transit').length, color: '#8b5cf6', icon: '🚚' },
+                { label: t('dashboard.admin.stats.delivered'), value: stats.delivered ?? deliveries.filter(d => d.status === 'delivered').length, color: '#10b981', icon: '✅' },
+                { label: t('dashboard.admin.stats.totalUsers'), value: stats.total_users ?? users.length, color: '#2563eb', icon: '👥' },
+                { label: t('dashboard.admin.stats.drivers'), value: stats.total_drivers ?? drivers.length, color: '#0891b2', icon: '🚗' },
+                { label: t('dashboard.admin.stats.revenue'), value: stats.total_revenue ? `€${Number(stats.total_revenue).toFixed(0)}` : '—', color: '#16a34a', icon: '💰' },
+                { label: t('dashboard.admin.stats.openComplaints'), value: stats.open_complaints ?? complaints.filter(c => c.status === 'open').length, color: '#ef4444', icon: '📣' },
               ].map((s, i) => (
                 <div key={i} style={{ ...cardStyle, textAlign: 'center' }}>
                   <div style={{ fontSize: '28px', marginBottom: '6px' }}>{s.icon}</div>
@@ -297,16 +299,16 @@ const AdminDashboard = () => {
             {/* Recent deliveries */}
             <div style={cardStyle}>
               <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', marginBottom: '16px' }}>
-                📋 Recent Deliveries
+                📋 {t('dashboard.admin.recentDeliveries')}
               </h2>
               {loadingDeliveries ? (
-                <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading...</div>
+                <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.loading')}</div>
               ) : (
                 <div style={{ overflowX: 'auto' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                       <tr>
-                        {['#', 'Sender', 'Receiver', 'Status', 'Date'].map(h => (
+                        {['#', t('dashboard.admin.table.sender'), t('dashboard.admin.table.receiver'), t('dashboard.admin.table.status'), t('dashboard.admin.table.date')].map(h => (
                           <th key={h} style={thStyle}>{h}</th>
                         ))}
                       </tr>
@@ -334,12 +336,12 @@ const AdminDashboard = () => {
           <div style={cardStyle}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
-                📦 All Deliveries ({filteredDeliveries.length})
+                📦 {t('dashboard.admin.allDeliveries')} ({filteredDeliveries.length})
               </h2>
               <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder={t('dashboard.admin.search')}
                   value={deliverySearch}
                   onChange={e => setDeliverySearch(e.target.value)}
                   style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '8px 14px', fontSize: '13px', outline: 'none', width: '200px' }}
@@ -349,29 +351,29 @@ const AdminDashboard = () => {
                   onChange={e => setDeliveryStatusFilter(e.target.value)}
                   style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '8px 12px', fontSize: '13px', outline: 'none' }}
                 >
-                  <option value="all">All Statuses</option>
-                  <option value="pending">Pending</option>
-                  <option value="picked_up">Picked Up</option>
-                  <option value="in_transit">In Transit</option>
-                  <option value="delivered">Delivered</option>
+                  <option value="all">{t('dashboard.admin.allStatuses')}</option>
+                  <option value="pending">{t('dashboard.admin.statusOptions.pending')}</option>
+                  <option value="picked_up">{t('dashboard.admin.statusOptions.pickedUp')}</option>
+                  <option value="in_transit">{t('dashboard.admin.statusOptions.inTransit')}</option>
+                  <option value="delivered">{t('dashboard.admin.statusOptions.delivered')}</option>
                 </select>
                 <button
                   onClick={fetchDeliveries}
                   style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}
                 >
-                  🔄 Refresh
+                  🔄 {t('dashboard.admin.refresh')}
                 </button>
               </div>
             </div>
 
             {loadingDeliveries ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading deliveries...</div>
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.loadingDeliveries')}</div>
             ) : (
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
                   <thead>
                     <tr>
-                      {['#', 'User', 'Receiver', 'Pickup', 'Delivery', 'Driver', 'Status', 'Actions'].map(h => (
+                      {['#', t('dashboard.admin.table.user'), t('dashboard.admin.table.receiver'), t('dashboard.admin.table.pickup'), t('dashboard.admin.table.delivery'), t('dashboard.admin.table.driver'), t('dashboard.admin.table.status'), t('dashboard.admin.table.actions')].map(h => (
                         <th key={h} style={thStyle}>{h}</th>
                       ))}
                     </tr>
@@ -391,7 +393,7 @@ const AdminDashboard = () => {
                             disabled={updating === d.id + '-status'}
                             style={{ border: '1px solid #e2e8f0', borderRadius: '6px', padding: '5px 8px', fontSize: '12px', cursor: 'pointer', minWidth: '120px' }}
                           >
-                            <option value="">Unassigned</option>
+                            <option value="">{t('dashboard.admin.unassigned')}</option>
                             {drivers.map(dr => (
                               <option key={dr.id} value={dr.id}>{dr.name}</option>
                             ))}
@@ -405,10 +407,10 @@ const AdminDashboard = () => {
                             disabled={updating === d.id + '-status'}
                             style={{ border: '1px solid #e2e8f0', borderRadius: '6px', padding: '5px 8px', fontSize: '12px', cursor: 'pointer' }}
                           >
-                            <option value="pending">Pending</option>
-                            <option value="picked_up">Picked Up</option>
-                            <option value="in_transit">In Transit</option>
-                            <option value="delivered">Delivered</option>
+                            <option value="pending">{t('dashboard.admin.statusOptions.pending')}</option>
+                            <option value="picked_up">{t('dashboard.admin.statusOptions.pickedUp')}</option>
+                            <option value="in_transit">{t('dashboard.admin.statusOptions.inTransit')}</option>
+                            <option value="delivered">{t('dashboard.admin.statusOptions.delivered')}</option>
                           </select>
                         </td>
                       </tr>
@@ -425,20 +427,20 @@ const AdminDashboard = () => {
           <div style={cardStyle}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
-                👥 All Users ({users.length})
+                👥 {t('dashboard.admin.allUsers')} ({users.length})
               </h2>
               <button onClick={fetchUsers} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
-                🔄 Refresh
+                🔄 {t('dashboard.admin.refresh')}
               </button>
             </div>
             {loadingUsers ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading users...</div>
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.loadingUsers')}</div>
             ) : (
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
                   <thead>
                     <tr>
-                      {['#', 'Name', 'Email', 'Role', 'Deliveries', 'Joined'].map(h => (
+                      {['#', t('dashboard.admin.table.name'), t('dashboard.admin.table.email'), t('dashboard.admin.table.role'), t('dashboard.admin.table.deliveries'), t('dashboard.admin.table.joined')].map(h => (
                         <th key={h} style={thStyle}>{h}</th>
                       ))}
                     </tr>
@@ -474,16 +476,16 @@ const AdminDashboard = () => {
           <div style={cardStyle}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
-                🚗 Driver Performance ({drivers.length})
+                🚗 {t('dashboard.admin.driverPerformance')} ({drivers.length})
               </h2>
               <button onClick={fetchDrivers} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
-                🔄 Refresh
+                🔄 {t('dashboard.admin.refresh')}
               </button>
             </div>
             {loadingDrivers ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading drivers...</div>
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.loadingDrivers')}</div>
             ) : drivers.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No drivers found.</div>
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.noDrivers')}</div>
             ) : (
               <div style={{ display: 'grid', gap: '16px' }}>
                 {drivers.map(d => (
@@ -494,10 +496,10 @@ const AdminDashboard = () => {
                     </div>
                     <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                       {[
-                        { label: 'Assigned', value: d.assigned_count ?? d.deliveries_assigned ?? '—', color: '#2563eb' },
-                        { label: 'Delivered', value: d.delivered_count ?? d.deliveries_delivered ?? '—', color: '#16a34a' },
-                        { label: 'In Transit', value: d.in_transit_count ?? '—', color: '#8b5cf6' },
-                        { label: 'Rating', value: d.rating ? `${d.rating}⭐` : '—', color: '#f59e0b' },
+                        { label: t('dashboard.admin.assigned'), value: d.assigned_count ?? d.deliveries_assigned ?? '—', color: '#2563eb' },
+                        { label: t('dashboard.admin.stats.delivered'), value: d.delivered_count ?? d.deliveries_delivered ?? '—', color: '#16a34a' },
+                        { label: t('dashboard.admin.stats.inTransit'), value: d.in_transit_count ?? '—', color: '#8b5cf6' },
+                        { label: t('dashboard.admin.rating'), value: d.rating ? `${d.rating}⭐` : '—', color: '#f59e0b' },
                       ].map((s, i) => (
                         <div key={i} style={{ textAlign: 'center' }}>
                           <div style={{ fontWeight: 'bold', color: s.color, fontSize: '20px' }}>{s.value}</div>
@@ -517,17 +519,17 @@ const AdminDashboard = () => {
           <div style={cardStyle}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
-                📣 All Complaints ({complaints.length})
+                📣 {t('dashboard.admin.allComplaints')} ({complaints.length})
               </h2>
               <button onClick={fetchComplaints} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
-                🔄 Refresh
+                🔄 {t('dashboard.admin.refresh')}
               </button>
             </div>
             {/* Refund Invoices from Claude AI */}
             {refundRequests.length > 0 && (
               <div style={{ marginBottom: '32px' }}>
                 <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '16px' }}>
-                  💰 Refund Invoices — Pending Admin Approval ({refundRequests.filter(r => r.status === 'pending').length})
+                  💰 {t('dashboard.admin.refundInvoices')} ({refundRequests.filter(r => r.status === 'pending').length})
                 </h3>
                 <div style={{ display: 'grid', gap: '14px' }}>
                   {refundRequests.map(rr => {
@@ -558,7 +560,7 @@ const AdminDashboard = () => {
 
                         {analysis?.summary && (
                           <div style={{ background: '#f0f9ff', borderRadius: '8px', padding: '12px', marginBottom: '12px' }}>
-                            <div style={{ fontWeight: '600', color: '#0369a1', fontSize: '12px', marginBottom: '4px' }}>🤖 Claude AI Assessment</div>
+                            <div style={{ fontWeight: '600', color: '#0369a1', fontSize: '12px', marginBottom: '4px' }}>🤖 {t('dashboard.admin.aiAssessment')}</div>
                             <p style={{ color: '#0c4a6e', fontSize: '13px', margin: 0, lineHeight: '1.5' }}>{analysis.summary}</p>
                             {analysis.reason && <p style={{ color: '#0369a1', fontSize: '12px', margin: '6px 0 0', lineHeight: '1.4', fontStyle: 'italic' }}>{analysis.reason}</p>}
                           </div>
@@ -566,7 +568,7 @@ const AdminDashboard = () => {
 
                         {rr.image_paths && (
                           <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '10px' }}>
-                            📷 {JSON.parse(rr.image_paths).length} evidence photo(s) submitted by customer
+                            📷 {JSON.parse(rr.image_paths).length} {t('dashboard.admin.evidencePhotos')}
                           </div>
                         )}
 
@@ -575,18 +577,18 @@ const AdminDashboard = () => {
                             <button
                               onClick={() => handleRefundDecision(rr.id, 'approved', 'Refund approved by admin')}
                               style={{ flex: 1, background: '#16a34a', color: 'white', border: 'none', borderRadius: '8px', padding: '10px', fontWeight: '600', fontSize: '14px', cursor: 'pointer' }}>
-                              ✅ Approve Refund €{parseFloat(rr.amount).toFixed(2)}
+                              ✅ {t('dashboard.admin.approveRefund')} €{parseFloat(rr.amount).toFixed(2)}
                             </button>
                             <button
                               onClick={() => handleRefundDecision(rr.id, 'declined', 'Refund declined by admin')}
                               style={{ flex: 1, background: '#dc2626', color: 'white', border: 'none', borderRadius: '8px', padding: '10px', fontWeight: '600', fontSize: '14px', cursor: 'pointer' }}>
-                              ❌ Decline Refund
+                              ❌ {t('dashboard.admin.declineRefund')}
                             </button>
                           </div>
                         )}
 
                         {rr.admin_notes && rr.status !== 'pending' && (
-                          <div style={{ fontSize: '13px', color: '#64748b', marginTop: '8px' }}>Admin note: {rr.admin_notes}</div>
+                          <div style={{ fontSize: '13px', color: '#64748b', marginTop: '8px' }}>{t('dashboard.admin.adminNote')} {rr.admin_notes}</div>
                         )}
                       </div>
                     );
@@ -596,9 +598,9 @@ const AdminDashboard = () => {
             )}
 
             {loadingComplaints ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading complaints...</div>
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.loadingComplaints')}</div>
             ) : complaints.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No complaints found.</div>
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.noComplaints')}</div>
             ) : (
               <div style={{ display: 'grid', gap: '16px' }}>
                 {complaints.map(c => (
@@ -619,10 +621,10 @@ const AdminDashboard = () => {
                           disabled={updating === 'complaint-' + c.id}
                           style={{ border: '1px solid #e2e8f0', borderRadius: '6px', padding: '6px 10px', fontSize: '12px', cursor: 'pointer' }}
                         >
-                          <option value="open">Open</option>
-                          <option value="in_review">In Review</option>
-                          <option value="resolved">Resolved</option>
-                          <option value="closed">Closed</option>
+                          <option value="open">{t('dashboard.admin.complaintStatus.open')}</option>
+                          <option value="in_review">{t('dashboard.admin.complaintStatus.inReview')}</option>
+                          <option value="resolved">{t('dashboard.admin.complaintStatus.resolved')}</option>
+                          <option value="closed">{t('dashboard.admin.complaintStatus.closed')}</option>
                         </select>
                       </div>
                     </div>
@@ -639,23 +641,23 @@ const AdminDashboard = () => {
           <div style={cardStyle}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', margin: 0 }}>
-                📸 Damage Claims ({damageClaims.length})
+                📸 {t('dashboard.admin.damageClaims')} ({damageClaims.length})
               </h2>
               <button onClick={fetchDamageClaims} style={{ background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', padding: '8px 16px', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
-                🔄 Refresh
+                🔄 {t('dashboard.admin.refresh')}
               </button>
             </div>
             {loadingClaims ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>Loading claims...</div>
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.loadingClaims')}</div>
             ) : damageClaims.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No damage claims found.</div>
+              <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.noClaims')}</div>
             ) : (
               <div style={{ display: 'grid', gap: '16px' }}>
                 {damageClaims.map(claim => {
                   const verdictStyles = {
-                    delivery_fault: { bg: '#fee2e2', color: '#dc2626', label: 'Delivery Fault' },
-                    product_defect: { bg: '#fef3c7', color: '#d97706', label: 'Product Defect' },
-                    unclear: { bg: '#f1f5f9', color: '#64748b', label: 'Unclear' },
+                    delivery_fault: { bg: '#fee2e2', color: '#dc2626', label: t('dashboard.admin.verdicts.deliveryFault') },
+                    product_defect: { bg: '#fef3c7', color: '#d97706', label: t('dashboard.admin.verdicts.productDefect') },
+                    unclear: { bg: '#f1f5f9', color: '#64748b', label: t('dashboard.admin.verdicts.unclear') },
                   };
                   const vs = verdictStyles[claim.ai_verdict] || verdictStyles.unclear;
                   return (
@@ -687,7 +689,7 @@ const AdminDashboard = () => {
 
                       {claim.ai_analysis && (
                         <div style={{ background: '#eff6ff', borderRadius: '8px', padding: '10px', marginBottom: '12px', fontSize: '13px', color: '#1d4ed8' }}>
-                          🤖 <strong>AI Analysis:</strong> {claim.ai_analysis}
+                          🤖 <strong>{t('dashboard.admin.aiAnalysis')}:</strong> {claim.ai_analysis}
                         </div>
                       )}
 
@@ -698,19 +700,19 @@ const AdminDashboard = () => {
                             disabled={updating === 'claim-' + claim.id}
                             style={{ background: '#16a34a', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 20px', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}
                           >
-                            ✅ Approve
+                            ✅ {t('dashboard.admin.approve')}
                           </button>
                           <button
                             onClick={() => handleClaimDecision(claim.id, 'declined')}
                             disabled={updating === 'claim-' + claim.id}
                             style={{ background: '#dc2626', color: 'white', border: 'none', borderRadius: '8px', padding: '8px 20px', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}
                           >
-                            ❌ Decline
+                            ❌ {t('dashboard.admin.decline')}
                           </button>
                         </div>
                       ) : (
                         <div style={{ fontSize: '13px', fontWeight: '600', color: claim.status === 'approved' ? '#16a34a' : '#dc2626' }}>
-                          Decision: {claim.status?.replace(/\b\w/g, c => c.toUpperCase())}
+                          {t('dashboard.admin.decision')} {claim.status?.replace(/\b\w/g, c => c.toUpperCase())}
                         </div>
                       )}
                     </div>
@@ -726,14 +728,14 @@ const AdminDashboard = () => {
           <div>
             {loadingAnalytics ? (
               <div style={{ ...cardStyle, textAlign: 'center', padding: '60px', color: '#94a3b8' }}>
-                Loading analytics...
+                {t('dashboard.admin.loadingAnalytics')}
               </div>
             ) : (
               <div style={{ display: 'grid', gap: '24px' }}>
                 {/* Monthly deliveries bar chart */}
                 <div style={cardStyle}>
                   <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', marginBottom: '20px' }}>
-                    📈 Monthly Deliveries
+                    📈 {t('dashboard.admin.monthlyDeliveries')}
                   </h2>
                   {analytics?.monthly_deliveries && analytics.monthly_deliveries.length > 0 ? (
                     <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', height: '200px', padding: '0 10px' }}>
@@ -752,7 +754,7 @@ const AdminDashboard = () => {
                       })}
                     </div>
                   ) : (
-                    <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No analytics data available.</div>
+                    <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>{t('dashboard.admin.noAnalytics')}</div>
                   )}
                 </div>
 
@@ -760,7 +762,7 @@ const AdminDashboard = () => {
                 {analytics?.status_distribution && (
                   <div style={cardStyle}>
                     <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', marginBottom: '16px' }}>
-                      📊 Delivery Status Distribution
+                      📊 {t('dashboard.admin.statusDistribution')}
                     </h2>
                     <div style={{ display: 'grid', gap: '12px' }}>
                       {analytics.status_distribution.map((item, i) => {
@@ -786,7 +788,7 @@ const AdminDashboard = () => {
                 {analytics?.revenue && (
                   <div style={cardStyle}>
                     <h2 style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '18px', marginBottom: '16px' }}>
-                      💰 Revenue Overview
+                      💰 {t('dashboard.admin.revenueOverview')}
                     </h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px' }}>
                       {Object.entries(analytics.revenue).map(([key, val], i) => (

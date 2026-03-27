@@ -428,6 +428,12 @@
     "bookFirst": "Оформить первую доставку",
     "noHistory": "Истории доставок пока нет",
     "loading": "Загрузка...",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "edit": "Изменить",
+    "driverInstructions": "Инструкции водителю",
+    "driverInstructionsPlaceholder": "напр. Оставить у двери, позвонить перед доставкой...",
+    "noInstructions": "Нет особых инструкций",
     "table": {
       "id": "ID",
       "receiver": "Получатель",
@@ -460,25 +466,102 @@
       "updating": "Обновление..."
     },
     "admin": {
+      "title": "Панель администратора",
+      "subtitle": "Добро пожаловать, {{name}}. Полная панель управления.",
       "manageDeliveries": "Управляйте всеми доставками отсюда",
+      "tabs": {
+        "overview": "Обзор",
+        "deliveries": "Доставки",
+        "users": "Пользователи",
+        "drivers": "Водители",
+        "complaints": "Жалобы",
+        "damage": "Повреждения",
+        "analytics": "Аналитика"
+      },
       "stats": {
         "totalDeliveries": "Всего доставок",
         "pending": "Ожидает",
         "inTransit": "В пути",
-        "delivered": "Доставлено"
+        "delivered": "Доставлено",
+        "totalUsers": "Всего пользователей",
+        "drivers": "Водители",
+        "revenue": "Доход",
+        "openComplaints": "Открытые жалобы"
       },
+      "recentDeliveries": "Последние доставки",
       "table": {
         "id": "ID",
+        "sender": "Отправитель",
         "user": "Пользователь",
         "receiver": "Получатель",
         "pickup": "Получение",
         "delivery": "Доставка",
         "driver": "Водитель",
         "status": "Статус",
-        "action": "Действие"
+        "action": "Действие",
+        "actions": "Действия",
+        "date": "Дата",
+        "name": "Имя",
+        "email": "Эл. почта",
+        "role": "Роль",
+        "deliveries": "Доставки",
+        "joined": "Зарегистрирован"
       },
+      "allDeliveries": "Все доставки",
+      "allUsers": "Все пользователи",
+      "driverPerformance": "Производительность водителей",
+      "allComplaints": "Все жалобы",
+      "damageClaims": "Претензии об ущербе",
+      "monthlyDeliveries": "Ежемесячные доставки",
+      "search": "Поиск...",
+      "allStatuses": "Все статусы",
+      "unassigned": "Не назначен",
+      "refresh": "Обновить",
+      "loading": "Загрузка...",
+      "loadingDeliveries": "Загрузка доставок...",
+      "loadingUsers": "Загрузка пользователей...",
+      "loadingDrivers": "Загрузка водителей...",
+      "loadingClaims": "Загрузка претензий...",
+      "loadingAnalytics": "Загрузка аналитики...",
+      "loadingComplaints": "Загрузка жалоб...",
       "noDeliveries": "Доставок пока нет",
-      "notAssigned": "Не назначен"
+      "notAssigned": "Не назначен",
+      "noUsers": "Пользователи не найдены.",
+      "noDrivers": "Водители не найдены.",
+      "noComplaints": "Жалобы не найдены.",
+      "noClaims": "Претензии об ущербе не найдены.",
+      "statusOptions": {
+        "pending": "Ожидает",
+        "pickedUp": "Забрано",
+        "inTransit": "В пути",
+        "delivered": "Доставлено"
+      },
+      "complaintStatus": {
+        "open": "Открыта",
+        "inReview": "На рассмотрении",
+        "resolved": "Решена",
+        "closed": "Закрыта"
+      },
+      "approve": "Одобрить",
+      "decline": "Отклонить",
+      "approveRefund": "Одобрить возврат",
+      "declineRefund": "Отклонить возврат",
+      "aiAssessment": "Оценка Claude AI",
+      "aiAnalysis": "AI-анализ",
+      "adminNote": "Примечание администратора:",
+      "evidencePhotos": "фото доказательств от клиента",
+      "refundInvoices": "Счета на возврат — Ожидает одобрения администратора",
+      "verdicts": {
+        "deliveryFault": "Вина доставки",
+        "productDefect": "Дефект продукта",
+        "unclear": "Неясно"
+      },
+      "decision": "Решение:",
+      "assigned": "Назначено",
+      "rating": "Рейтинг",
+      "noAnalytics": "Данные аналитики недоступны.",
+      "statusDistribution": "Распределение статусов доставок",
+      "revenueOverview": "Обзор доходов"
     }
   }
 }

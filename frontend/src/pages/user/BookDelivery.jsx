@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 
 const BookDelivery = () => {
   const { t, i18n } = useTranslation();
@@ -223,6 +224,7 @@ const BookDelivery = () => {
 
         {/* Header */}
         <div style={{background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '24px', marginBottom: '24px', color: 'white', textAlign: 'center'}}>
+          <div style={{textAlign: 'left'}}><BackButton to="/user/dashboard" /></div>
           <h1 style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '4px'}}>📦 {t('booking.title')}</h1>
           <p style={{opacity: 0.8, fontSize: '14px'}}>{t('booking.subtitle')}</p>
         </div>

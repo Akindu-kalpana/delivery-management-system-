@@ -2,9 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import Navbar from '../../components/Navbar';
+import { useAuth } from '../../context/AuthContext';
 
 const Landing = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [counts, setCounts] = useState({ deliveries: 0, clients: 0, languages: 0 });
   const statsRef = useRef(null);
   const [statsAnimated, setStatsAnimated] = useState(false);
@@ -343,8 +345,12 @@ const Landing = () => {
 
           {/* Buttons */}
           <div className="hero-buttons" style={{display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap'}}>
-            <Link to="/register" className="btn-hover" style={{background: 'white', color: '#1d4ed8', padding: '16px 36px', borderRadius: '50px', fontWeight: '700', fontSize: '16px', textDecoration: 'none', display: 'inline-block', boxShadow: '0 8px 30px rgba(0,0,0,0.2)'}}>
-              🚀 {t('hero.cta')}
+            <Link
+              to={user ? (user.role === 'admin' ? '/admin/dashboard' : user.role === 'driver' ? '/driver/dashboard' : '/user/book') : '/register'}
+              className="btn-hover"
+              style={{background: 'white', color: '#1d4ed8', padding: '16px 36px', borderRadius: '50px', fontWeight: '700', fontSize: '16px', textDecoration: 'none', display: 'inline-block', boxShadow: '0 8px 30px rgba(0,0,0,0.2)'}}
+            >
+              🚀 {user ? t('dashboard.bookDelivery') : t('hero.cta')}
             </Link>
             <Link to="/track" className="btn-hover" style={{background: 'rgba(255,255,255,0.15)', color: 'white', padding: '16px 36px', borderRadius: '50px', fontWeight: '700', fontSize: '16px', textDecoration: 'none', display: 'inline-block', border: '2px solid rgba(255,255,255,0.3)', backdropFilter: 'blur(10px)'}}>
               📍 {t('hero.track')}

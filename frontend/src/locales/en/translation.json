@@ -428,6 +428,12 @@
     "bookFirst": "Book Your First Delivery",
     "noHistory": "No delivery history yet",
     "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "driverInstructions": "Driver Instructions",
+    "driverInstructionsPlaceholder": "e.g. Leave at door, call before delivery...",
+    "noInstructions": "No special instructions",
     "table": {
       "id": "ID",
       "receiver": "Receiver",
@@ -460,25 +466,102 @@
       "updating": "Updating..."
     },
     "admin": {
+      "title": "Admin Dashboard",
+      "subtitle": "Welcome back, {{name}}. Full control panel.",
       "manageDeliveries": "Manage all deliveries from here",
+      "tabs": {
+        "overview": "Overview",
+        "deliveries": "Deliveries",
+        "users": "Users",
+        "drivers": "Drivers",
+        "complaints": "Complaints",
+        "damage": "Damage Claims",
+        "analytics": "Analytics"
+      },
       "stats": {
         "totalDeliveries": "Total Deliveries",
         "pending": "Pending",
         "inTransit": "In Transit",
-        "delivered": "Delivered"
+        "delivered": "Delivered",
+        "totalUsers": "Total Users",
+        "drivers": "Drivers",
+        "revenue": "Revenue",
+        "openComplaints": "Open Complaints"
       },
+      "recentDeliveries": "Recent Deliveries",
       "table": {
         "id": "ID",
+        "sender": "Sender",
         "user": "User",
         "receiver": "Receiver",
         "pickup": "Pickup",
         "delivery": "Delivery",
         "driver": "Driver",
         "status": "Status",
-        "action": "Action"
+        "action": "Action",
+        "actions": "Actions",
+        "date": "Date",
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "deliveries": "Deliveries",
+        "joined": "Joined"
       },
+      "allDeliveries": "All Deliveries",
+      "allUsers": "All Users",
+      "driverPerformance": "Driver Performance",
+      "allComplaints": "All Complaints",
+      "damageClaims": "Damage Claims",
+      "monthlyDeliveries": "Monthly Deliveries",
+      "search": "Search...",
+      "allStatuses": "All Statuses",
+      "unassigned": "Unassigned",
+      "refresh": "Refresh",
+      "loading": "Loading...",
+      "loadingDeliveries": "Loading deliveries...",
+      "loadingUsers": "Loading users...",
+      "loadingDrivers": "Loading drivers...",
+      "loadingClaims": "Loading claims...",
+      "loadingAnalytics": "Loading analytics...",
+      "loadingComplaints": "Loading complaints...",
       "noDeliveries": "No deliveries yet",
-      "notAssigned": "Not assigned"
+      "notAssigned": "Unassigned",
+      "noUsers": "No users found.",
+      "noDrivers": "No drivers found.",
+      "noComplaints": "No complaints found.",
+      "noClaims": "No damage claims found.",
+      "statusOptions": {
+        "pending": "Pending",
+        "pickedUp": "Picked Up",
+        "inTransit": "In Transit",
+        "delivered": "Delivered"
+      },
+      "complaintStatus": {
+        "open": "Open",
+        "inReview": "In Review",
+        "resolved": "Resolved",
+        "closed": "Closed"
+      },
+      "approve": "Approve",
+      "decline": "Decline",
+      "approveRefund": "Approve Refund",
+      "declineRefund": "Decline Refund",
+      "aiAssessment": "Claude AI Assessment",
+      "aiAnalysis": "AI Analysis",
+      "adminNote": "Admin note:",
+      "evidencePhotos": "evidence photo(s) submitted by customer",
+      "refundInvoices": "Refund Invoices — Pending Admin Approval",
+      "verdicts": {
+        "deliveryFault": "Delivery Fault",
+        "productDefect": "Product Defect",
+        "unclear": "Unclear"
+      },
+      "decision": "Decision:",
+      "assigned": "Assigned",
+      "rating": "Rating",
+      "noAnalytics": "No analytics data available.",
+      "statusDistribution": "Delivery Status Distribution",
+      "revenueOverview": "Revenue Overview"
     }
   }
 }

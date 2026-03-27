@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
+import BackButton from '../../components/BackButton';
 
 const EXAMPLE_CSV = `sender_name,sender_phone,pickup_address,receiver_name,receiver_phone,delivery_address,delivery_option,package_size
 John Doe,+358401234567,Kauppurienkatu 25 Oulu,Jane Smith,+358409876543,Mannerheimintie 1 Helsinki,standard,small
@@ -110,6 +111,7 @@ const BulkOrders = () => {
 
         {/* Header */}
         <div style={{ background: 'linear-gradient(135deg, #1d4ed8, #3b82f6)', borderRadius: '16px', padding: '28px', marginBottom: '28px', color: 'white', textAlign: 'center' }}>
+          <div style={{textAlign: 'left'}}><BackButton /></div>
           <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '6px' }}>
             📦 {t('bulkOrders.title')}
           </h1>
