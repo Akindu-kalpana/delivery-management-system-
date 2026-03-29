@@ -4,32 +4,51 @@ A web-based delivery booking and tracking system developed for **Nopeiden Kuljet
 
 ## About the Project
 
-This system allows users to book deliveries through an AI-powered chatbot instead of filling traditional forms. The chatbot supports English, Finnish, and Russian. The system includes separate views for users, drivers, and administrators.
+This system allows users to book deliveries through an AI-powered chatbot instead of filling traditional forms. The system includes separate dashboards for users, drivers, and administrators, with full multilingual support across four languages.
 
 ## Features
 
+**Public**
+- Animated landing page with company branding
+- About, Services, and Contact pages
+- Public delivery tracking without login
+
 **User Side**
 - Register and login
-- Book a delivery using AI chatbot conversation
-- Track delivery status
-- View delivery history
+- Book a delivery via AI chatbot conversation
+- Real-time delivery tracking
+- View full delivery history
+- Add driver instructions to active deliveries
+- Submit complaints with image upload and AI-powered review
+- File damage claims with evidence photos (admin approve/decline)
+- Loyalty points program
+- Price estimation tool
+- Saved addresses
+- Bulk order management
+- Invoice viewing and download
 
 **Driver Side**
 - View assigned deliveries
-- Update delivery status
+- Update delivery status (picked up, in transit, delivered)
+- Driver performance dashboard
 
 **Admin Side**
-- View all delivery requests
-- Manage delivery statuses
+- View and manage all deliveries and users
+- Assign drivers to deliveries
+- Handle complaints with AI analysis
+- Process damage claims with refund approval
+- Analytics dashboard (monthly deliveries, revenue, status distribution)
+- Manage driver accounts
 
 ## Tech Stack
 
-- **Frontend:** React.js, Tailwind CSS, Axios
+- **Frontend:** React.js, React Router v6, Tailwind CSS, Axios
 - **Backend:** Node.js, Express.js, REST API
-- **Database:** SQL
-- **AI Chatbot:** Claude API
+- **Database:** PostgreSQL
+- **AI:** Claude API (delivery chatbot + complaint/damage AI analysis)
 - **Authentication:** JWT
-- **Multilingual:** i18n (English, Finnish, Russian)
+- **Multilingual:** react-i18next (English, Finnish, Russian, Swedish)
+- **PWA:** Progressive Web App support with install prompt
 
 ## Project Status
 
@@ -38,4 +57,3 @@ This system allows users to book deliveries through an AI-powered chatbot instea
 ## Author
 
 Akindu Kalpana — Bachelor's Thesis, Oamk 2025
-
