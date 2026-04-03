@@ -3,113 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 
-/* ── Company Logo SVG — exact recreation of NKR logo ── */
+/* ── Company Logo Image ── */
 const NKRLogo = () => (
-  <svg viewBox="0 0 200 200" width="58" height="58" xmlns="http://www.w3.org/2000/svg" className="nkr-logo-svg" style={{ flexShrink: 0 }}>
-    <defs>
-      {/* Arc path for curved text along the top */}
-      <path id="arcTop" d="M 16,100 A 84,84 0 0,1 184,100" />
-      {/* Clip everything to the circle */}
-      <clipPath id="circleClip">
-        <circle cx="100" cy="100" r="95" />
-      </clipPath>
-    </defs>
-
-    {/* ── Navy background circle ── */}
-    <circle cx="100" cy="100" r="100" fill="#1E3A8A" />
-
-    {/* ── Outer white ring ── */}
-    <circle cx="100" cy="100" r="96" fill="none" stroke="white" strokeWidth="5" />
-
-    {/* ── Inner white ring ── */}
-    <circle cx="100" cy="100" r="83" fill="none" stroke="white" strokeWidth="2.5" />
-
-    {/* ── Curved company name between the two rings ── */}
-    <text fontSize="13" fill="white" fontFamily="Arial, sans-serif" fontWeight="800" letterSpacing="1.2">
-      <textPath href="#arcTop" startOffset="4%">Nopeiden Kuljetusten Ritarit AY</textPath>
-    </text>
-
-    {/* ── Horizontal divider line ── */}
-    <line x1="18" y1="106" x2="182" y2="106" stroke="white" strokeWidth="2.5" />
-
-    {/* ── All artwork clipped inside the circle ── */}
-    <g clipPath="url(#circleClip)">
-
-      {/* ════ TRUCK ════ */}
-
-      {/* Cargo body — horizontal speed lines forming the body, tapering right */}
-      <line x1="88"  y1="115" x2="194" y2="115" stroke="white" strokeWidth="6" strokeLinecap="round" />
-      <line x1="88"  y1="124" x2="192" y2="124" stroke="white" strokeWidth="6" strokeLinecap="round" />
-      <line x1="88"  y1="133" x2="188" y2="133" stroke="white" strokeWidth="6" strokeLinecap="round" />
-      <line x1="88"  y1="142" x2="183" y2="142" stroke="white" strokeWidth="6" strokeLinecap="round" />
-      <line x1="88"  y1="151" x2="176" y2="151" stroke="white" strokeWidth="6" strokeLinecap="round" />
-      {/* Speed-blur tail (shorter lines fading right beyond cargo box) */}
-      <line x1="148" y1="110" x2="200" y2="110" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
-      <line x1="155" y1="119" x2="200" y2="119" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
-      <line x1="160" y1="128" x2="200" y2="128" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
-      <line x1="164" y1="137" x2="200" y2="137" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
-      <line x1="168" y1="146" x2="200" y2="146" stroke="white" strokeWidth="3" strokeLinecap="round" />
-      <line x1="172" y1="155" x2="200" y2="155" stroke="white" strokeWidth="3" strokeLinecap="round" />
-
-      {/* Truck undercarriage / chassis line */}
-      <line x1="28" y1="158" x2="180" y2="158" stroke="white" strokeWidth="2" />
-
-      {/* Truck front bumper + headlights */}
-      <rect x="22" y="144" width="72" height="16" rx="2" fill="white" />
-      {/* Headlight left */}
-      <rect x="28" y="147" width="22" height="9" rx="1.5" fill="#1E3A8A" />
-      {/* Headlight right */}
-      <rect x="56" y="147" width="16" height="9" rx="1.5" fill="#1E3A8A" />
-      {/* Lower bumper bar */}
-      <rect x="20" y="157" width="76" height="5" rx="1" fill="white" />
-
-      {/* Front wheel */}
-      <circle cx="58"  cy="174" r="16" fill="white" />
-      <circle cx="58"  cy="174" r="8"  fill="#1E3A8A" />
-      <circle cx="58"  cy="174" r="3"  fill="white" />
-
-      {/* Rear wheel */}
-      <circle cx="152" cy="174" r="16" fill="white" />
-      <circle cx="152" cy="174" r="8"  fill="#1E3A8A" />
-      <circle cx="152" cy="174" r="3"  fill="white" />
-
-      {/* ════ KNIGHT HELMET — merges with truck cab ════ */}
-
-      {/* Main helmet dome shape */}
-      <path d="
-        M 74 42
-        C 58 40 42 54 36 70
-        C 30 86 30 106 36 124
-        C 40 138 48 150 54 158
-        L 54 166
-        L 96 166
-        L 96 158
-        C 104 148 108 134 108 118
-        C 110 100 106 80 98 64
-        C 92 50 84 42 74 42
-        Z
-      " fill="white" />
-
-      {/* Diagonal visor lines across helmet face (lower-left to upper-right) */}
-      <line x1="36"  y1="130" x2="100" y2="76"  stroke="#1E3A8A" strokeWidth="4" strokeLinecap="round" />
-      <line x1="36"  y1="144" x2="102" y2="90"  stroke="#1E3A8A" strokeWidth="4" strokeLinecap="round" />
-      <line x1="40"  y1="156" x2="104" y2="104" stroke="#1E3A8A" strokeWidth="4" strokeLinecap="round" />
-      <line x1="48"  y1="164" x2="106" y2="116" stroke="#1E3A8A" strokeWidth="4" strokeLinecap="round" />
-      <line x1="36"  y1="116" x2="96"  y2="62"  stroke="#1E3A8A" strokeWidth="4" strokeLinecap="round" />
-      <line x1="38"  y1="102" x2="90"  y2="50"  stroke="#1E3A8A" strokeWidth="4" strokeLinecap="round" />
-      <line x1="46"  y1="90"  x2="84"  y2="46"  stroke="#1E3A8A" strokeWidth="3.5" strokeLinecap="round" />
-
-      {/* Round scope / rivet on right of helmet — large circle with inner white ring */}
-      <circle cx="104" cy="88" r="12" fill="#1E3A8A" />
-      <circle cx="104" cy="88" r="6"  fill="white" />
-
-      {/* Plume / flag at top of helmet — gold flowing to the right */}
-      <path d="M 74 42 C 80 28 92 20 106 18 C 118 16 122 22 118 28 C 114 32 106 34 100 38 C 92 42 84 44 74 42 Z" fill="#F59E0B" />
-      {/* Plume inner highlight */}
-      <path d="M 78 42 C 84 32 94 26 106 24 C 112 22 114 26 110 30 C 106 33 100 35 94 38 Z" fill="white" opacity="0.25" />
-
-    </g>
-  </svg>
+  <img
+    src="/WhatsApp Image 2026-03-26 at 6.38.06 PM.png"
+    alt="NKR Delivery Logo"
+    width="58"
+    height="58"
+    style={{ flexShrink: 0, borderRadius: '50%', objectFit: 'cover' }}
+  />
 );
 
 const Navbar = () => {
