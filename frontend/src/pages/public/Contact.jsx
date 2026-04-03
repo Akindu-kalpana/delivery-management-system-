@@ -36,7 +36,11 @@ const Contact = () => {
               <h2 style={{fontSize: '28px', fontWeight: 'bold', color: '#1e293b', marginBottom: '32px'}}>{t('contact.getInTouch')}</h2>
               {[
                 { icon: '📍', key: 'address', value: 'Kajaaninkatu 1, 90100 Oulu, Finland' },
-                { icon: '📞', key: 'phone', value: '+358 40 123 4567' },
+                { icon: '📞', key: 'phone', value: '', subItems: [
+                  { label: 'Manager', number: '+358 40 111 2233' },
+                  { label: 'Company', number: '+358 40 444 5566' },
+                  { label: 'Supervisor', number: '+358 40 777 8899' },
+                ]},
                 { icon: '📧', key: 'email', value: 'info@nkrdelivery.fi' },
                 { icon: '🕐', key: 'workingHours', value: 'Mon - Fri: 8:00 - 18:00' },
               ].map((item, index) => (
@@ -44,7 +48,17 @@ const Contact = () => {
                   <div style={{fontSize: '32px'}}>{item.icon}</div>
                   <div>
                     <div style={{fontWeight: '600', color: '#1e293b', marginBottom: '4px'}}>{t(`contact.${item.key}`)}</div>
-                    <div style={{color: '#64748b'}}>{item.value}</div>
+                    {item.value && <div style={{color: '#64748b'}}>{item.value}</div>}
+                    {item.subItems && (
+                      <div style={{marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px'}}>
+                        {item.subItems.map((sub, i) => (
+                          <div key={i} style={{display: 'flex', gap: '8px', fontSize: '14px'}}>
+                            <span style={{color: '#94a3b8', minWidth: '80px'}}>{sub.label}:</span>
+                            <span style={{color: '#475569', fontWeight: '500'}}>{sub.number}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
