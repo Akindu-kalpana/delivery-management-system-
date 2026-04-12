@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -26,7 +27,7 @@ const SavedAddresses = () => {
   const fetchAddresses = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/addresses', {
+      const res = await axios.get(`${API_URL}/api/addresses`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAddresses(res.data.addresses || []);
@@ -45,14 +46,14 @@ const SavedAddresses = () => {
     try {
       if (editingId) {
         await axios.put(
-          `http://localhost:5000/api/addresses/${editingId}`,
+          `${API_URL}/api/addresses/${editingId}`,
           form,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setSuccess('Address updated successfully!');
       } else {
         await axios.post(
-          'http://localhost:5000/api/addresses',
+          `${API_URL}/api/addresses`,
           form,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -82,7 +83,7 @@ const SavedAddresses = () => {
     if (!window.confirm(t('addresses.deleteConfirm'))) return;
     setError('');
     try {
-      await axios.delete(`http://localhost:5000/api/addresses/${id}`, {
+      await axios.delete(`${API_URL}/api/addresses/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuccess('Address deleted.');

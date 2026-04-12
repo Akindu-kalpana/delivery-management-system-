@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -57,7 +58,7 @@ const BulkOrders = () => {
     setError('');
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/bulk/process',
+        `${API_URL}/api/bulk/process`,
         { raw_content: rawContent },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -89,7 +90,7 @@ const BulkOrders = () => {
     setError('');
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/bulk/confirm/${bulkOrderId}`,
+        `${API_URL}/api/bulk/confirm/${bulkOrderId}`,
         { deliveries: rows },
         { headers: { Authorization: `Bearer ${token}` } }
       );

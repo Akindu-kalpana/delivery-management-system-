@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +19,7 @@ const PublicTracking = () => {
     setDelivery(null);
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/deliveries/public/${deliveryId}`);
+      const res = await axios.get(`${API_URL}/api/deliveries/public/${deliveryId}`);
       setDelivery(res.data.delivery);
     } catch (err) {
       setError(t('publicTracking.notFound'));

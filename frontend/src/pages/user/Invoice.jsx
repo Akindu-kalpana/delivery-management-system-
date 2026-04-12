@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +26,7 @@ const Invoice = () => {
   const fetchInvoice = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5000/api/deliveries/${deliveryId}/invoice`, {
+      const res = await axios.get(`${API_URL}/api/deliveries/${deliveryId}/invoice`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setInvoice(res.data);

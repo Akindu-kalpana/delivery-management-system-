@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -32,7 +33,7 @@ const PriceEstimate = () => {
 
   const fetchSavedAddresses = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/addresses', {
+      const res = await axios.get(`${API_URL}/api/addresses`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSavedAddresses(res.data.addresses || []);
@@ -52,7 +53,7 @@ const PriceEstimate = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/price/estimate',
+        `${API_URL}/api/price/estimate`,
         form,
         { headers: { Authorization: `Bearer ${token}` } }
       );

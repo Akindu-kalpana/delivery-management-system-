@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +26,7 @@ const Register = () => {
     setError('');
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', formData);
+      await axios.post(`${API_URL}/api/auth/register`, formData);
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || t('auth.register') + ' failed');

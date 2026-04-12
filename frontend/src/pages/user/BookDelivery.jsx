@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -62,7 +63,7 @@ const BookDelivery = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/chatbot/chat',
+        `${API_URL}/api/chatbot/chat`,
         { messages: newMessages },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -76,7 +77,7 @@ const BookDelivery = () => {
       if (res.data.complaintData) {
         try {
           await axios.post(
-            'http://localhost:5000/api/complaints',
+            `${API_URL}/api/complaints`,
             res.data.complaintData,
             { headers: { Authorization: `Bearer ${token}` } }
           );
@@ -141,7 +142,7 @@ const BookDelivery = () => {
   const confirmBooking = async () => {
     try {
       await axios.post(
-        'http://localhost:5000/api/deliveries',
+        `${API_URL}/api/deliveries`,
         bookingData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -157,7 +158,7 @@ const BookDelivery = () => {
     setFormLoading(true);
     setFormError('');
     try {
-      await axios.post('http://localhost:5000/api/deliveries', form, {
+      await axios.post(`${API_URL}/api/deliveries`, form, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBookingConfirmed(true);

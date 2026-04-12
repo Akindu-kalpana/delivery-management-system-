@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -22,7 +23,7 @@ const DriverDashboard = () => {
     setLoading(true);
     setFetchError('');
     try {
-      const res = await axios.get('http://localhost:5000/api/deliveries/driver', {
+      const res = await axios.get(`${API_URL}/api/deliveries/driver`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDeliveries(res.data.deliveries || []);
@@ -39,7 +40,7 @@ const DriverDashboard = () => {
     setUpdating(id);
     try {
       await axios.put(
-        `http://localhost:5000/api/deliveries/${id}/status`,
+        `${API_URL}/api/deliveries/${id}/status`,
         { status, driver_id: user.id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

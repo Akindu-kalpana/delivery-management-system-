@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +26,7 @@ const Login = () => {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+      const res = await axios.post(`${API_URL}/api/auth/login`, formData);
       login(res.data.user, res.data.token);
 
       if (res.data.user.role === 'admin') navigate('/admin/dashboard');

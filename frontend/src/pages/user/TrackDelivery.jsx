@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -98,7 +99,7 @@ const TrackDelivery = () => {
     setTruckPos(null);
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/deliveries/track/${deliveryId}`, {
+      const res = await axios.get(`${API_URL}/api/deliveries/track/${deliveryId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const d = res.data.delivery;

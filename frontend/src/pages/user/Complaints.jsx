@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -29,7 +30,7 @@ const Complaints = () => {
   const fetchComplaints = async () => {
     setLoadingComplaints(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/complaints/my', {
+      const res = await axios.get(`${API_URL}/api/complaints/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setComplaints(res.data.complaints || []);
@@ -69,7 +70,7 @@ const Complaints = () => {
       if (form.delivery_id) formData.append('delivery_id', form.delivery_id);
       images.forEach(img => formData.append('images', img));
 
-      const res = await axios.post('http://localhost:5000/api/complaints', formData, {
+      const res = await axios.post(`${API_URL}/api/complaints`, formData, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
       });
 

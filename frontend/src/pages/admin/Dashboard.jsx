@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -5,7 +6,7 @@ import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import BackButton from '../../components/BackButton';
 
-const API = 'http://localhost:5000/api';
+const API = `${API_URL}/api`;
 
 const getStatusColor = (status) => {
   switch (status) {

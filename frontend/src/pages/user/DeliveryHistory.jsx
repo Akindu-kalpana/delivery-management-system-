@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -14,7 +15,7 @@ const DeliveryHistory = () => {
   useEffect(() => {
     const fetchDeliveries = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/deliveries/my', {
+        const res = await axios.get(`${API_URL}/api/deliveries/my`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setDeliveries(res.data.deliveries);

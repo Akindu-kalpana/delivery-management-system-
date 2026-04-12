@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ':*)",
+      "Read(//c/Users/akind/Desktop/**)",
+      "Bash(grep -rn \"'\\\\${API_URL}\" pages/ --include=\"*.jsx\" -l)",
+      "Bash(grep -rn \"'\\\\${API_URL}\" pages/ --include=\"*.jsx\")",
+      "Bash(grep -rn \"'\\\\${API_URL}\" pages/ components/ --include=\"*.jsx\")",
+      "Bash(grep -rn '\"\\\\${API_URL}' pages/ components/ --include=\"*.jsx\")",
+      "Bash(grep -v \"\\\\`\\\\${API_URL}\")",
+      "Bash(grep -v \"//.*axios\")"
+    ]
+  }
+}

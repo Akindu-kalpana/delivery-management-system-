@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -36,7 +37,7 @@ const DamageClaim = () => {
 
   const fetchDeliveries = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/deliveries/my', {
+      const res = await axios.get(`${API_URL}/api/deliveries/my`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDeliveries(res.data.deliveries || []);
@@ -48,7 +49,7 @@ const DamageClaim = () => {
   const fetchClaims = async () => {
     setLoadingClaims(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/damage-claims/my', {
+      const res = await axios.get(`${API_URL}/api/damage-claims/my`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setClaims(res.data.claims || []);
@@ -93,7 +94,7 @@ const DamageClaim = () => {
     if (invoiceImage) formData.append('invoice_image', invoiceImage);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/damage-claims', formData, {
+      const res = await axios.post(`${API_URL}/api/damage-claims`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

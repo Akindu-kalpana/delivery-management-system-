@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
@@ -39,7 +40,7 @@ const Loyalty = () => {
   const fetchLoyaltyInfo = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/loyalty/info', {
+      const res = await axios.get(`${API_URL}/api/loyalty/info`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // backend returns { loyalty: { points, total_earned, level }, transactions }
@@ -73,7 +74,7 @@ const Loyalty = () => {
     setRedeemSuccess('');
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/loyalty/redeem',
+        `${API_URL}/api/loyalty/redeem`,
         { points_to_redeem: points },
         { headers: { Authorization: `Bearer ${token}` } }
       );

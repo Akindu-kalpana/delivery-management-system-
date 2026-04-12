@@ -1,3 +1,4 @@
+import API_URL from '../../api.js';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +17,7 @@ const DriverInstructionsEditor = ({ delivery, token, onUpdated }) => {
     setSaving(true);
     try {
       await axios.put(
-        `http://localhost:5000/api/deliveries/${delivery.id}/instructions`,
+        `${API_URL}/api/deliveries/${delivery.id}/instructions`,
         { driver_instructions: value },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -76,7 +77,7 @@ const UserDashboard = () => {
 
   const fetchDeliveries = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/deliveries/my', {
+      const res = await axios.get(`${API_URL}/api/deliveries/my`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setDeliveries(res.data.deliveries);
