@@ -10,15 +10,15 @@ const Login = () => {
   const { t } = useTranslation();
   const { login, user } = useAuth();
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   if (user) {
     if (user.role === 'admin') return <Navigate to="/admin/dashboard" replace />;
     if (user.role === 'driver') return <Navigate to="/driver/dashboard" replace />;
     return <Navigate to="/user/dashboard" replace />;
   }
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

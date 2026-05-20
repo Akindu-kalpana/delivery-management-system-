@@ -203,7 +203,7 @@ const AdminDashboard = () => {
   const handleClaimDecision = async (id, decision) => {
     setUpdating('claim-' + id);
     try {
-      await axios.put(`${API}/damage-claims/${id}/decision`, { decision }, { headers: authHeader });
+      await axios.put(`${API}/damage-claims/${id}/decision`, { admin_decision: decision }, { headers: authHeader });
       fetchDamageClaims();
     } catch (err) {
       console.error(err);
@@ -678,9 +678,9 @@ const AdminDashboard = () => {
                               🤖 {vs.label}
                             </span>
                           )}
-                          {claim.estimated_refund_percent !== undefined && (
+                          {(claim.estimated_refund ?? claim.estimated_refund_percent) !== undefined && (
                             <span style={{ background: '#dcfce7', color: '#16a34a', padding: '4px 10px', borderRadius: '12px', fontSize: '12px', fontWeight: '600' }}>
-                              {claim.estimated_refund_percent}% refund
+                              {claim.estimated_refund ?? claim.estimated_refund_percent}% refund
                             </span>
                           )}
                         </div>

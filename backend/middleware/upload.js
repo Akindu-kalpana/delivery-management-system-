@@ -8,6 +8,6 @@ const upload = multer({
 });
 
 module.exports = {
-  uploadImages: upload.array('images', 5),
+  uploadImages: upload.any(),
   uploadSingle: upload.single('file')
 };

@@ -100,7 +100,8 @@ const DamageClaim = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setResult(res.data);
+      const claim = res.data.claim || res.data;
+      setResult({ ...claim, estimated_refund_percent: claim.estimated_refund });
       setStep(4);
       fetchClaims();
     } catch (err) {
